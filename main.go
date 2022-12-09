@@ -7,15 +7,33 @@ import (
 )
 
 var (
-	offsetFlag = flag.String("offset", "", "file and byte offset of identifier to be renamed, e.g. 'file.go:#123'.  For use by editors.")
-	fromFlag   = flag.String("from", "", "identifier to be renamed; see -help for formats")
-	toFlag     = flag.String("to", "", "new name for identifier")
-	helpFlag   = flag.Bool("help", false, "show usage message")
+	/** WordPress */
+	buildWPPluginFlag = flag.Bool("build-wp-plugin", false, "Build WP Plugin")
+
+	/** Function - Refactor */
+	RefactorPath     = flag.String("path", "", "working directory path")
+	RefactorFromFlag = flag.String("from", "", "identifier to be renamed; see -help for formats")
+	RefactorToFlag   = flag.String("to", "", "new name for identifier")
+
+	/** Help */
+	helpFlag = flag.Bool("help", false, "show usage message")
 )
 
 func main() {
-	fmt.Println("hello world")
+	flag.Parse()
+	fmt.Print(`(｡◕‿‿◕｡) ASPRI (Asisten Pribadi)
+Collection of scripts and library to speed up sotware development process 
+Learn More: https://github.com/artistudioxyz/aspri
+`)
 
-	library.RefactorPlugins("/Users/muhammadsundoro/Desktop/Iseng", "MANTAP", "ISENG")
-	//library.RefactorPlugins("/Users/muhammadsundoro/Desktop/Iseng", "ISENG", "MANTAP")
+	/** Help */
+	if *helpFlag {
+		fmt.Print(library.HelpText)
+		return
+	}
+
+	/** Build for WP Plugin */
+	if *buildWPPluginFlag && *RefactorPath != "" && *RefactorFromFlag != "" && *RefactorToFlag != "" {
+		library.RefactorPlugin(*RefactorPath, *RefactorFromFlag, *RefactorToFlag)
+	}
 }

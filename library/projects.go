@@ -5,8 +5,8 @@ import (
 	"strings"
 )
 
-/* Refactor Plugins */
-func RefactorPlugins(path string, fromName string, toName string) {
+/* Refactor Plugin */
+func RefactorPlugin(path string, fromName string, toName string) {
 	fmt.Println("Refactor Plugins")
 
 	regular := fmt.Sprintf(
