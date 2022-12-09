@@ -2,3 +2,4 @@
 
 # ASPRI (Asisten Pribadi)
 
+Collection of scripts and library to speed up sotware development process 
