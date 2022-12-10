@@ -1,0 +1,13 @@
+# IDE
+.idea/
+.vscode/
+
+# Dummy
+main
+app.env
+go.mod
+go.sum
+
+# OS
+*.DS_Store
+.DS_Store
