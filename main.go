@@ -21,8 +21,9 @@ func main() {
 	}
 
 	/** Initiate Library */
+	library.InitiateDockerFunction()
 	library.InitiateGitFunction()
-	library.InitiateProjectFunction()
-	library.InitiateQuoteFunction()
 	library.InitiateMiscellaneousFunction()
+	library.InitiateQuoteFunction()
+	library.InitiateWordPressFunction()
 }

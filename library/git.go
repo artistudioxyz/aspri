@@ -12,11 +12,14 @@ var (
 
 /** Initiate Git Function */
 func InitiateGitFunction() {
-	/** Commit and Push */
+	/**
+	 * Commit and Push
+	 * - Equivalent to : `git commit -am "{message}" && git push origin HEAD`
+	 */
 	if *GitCommitandPushFlag && *GitCommitMessageFlag != "" {
 		fmt.Println("Commit and Push")
-		find := fmt.Sprintf("git commit -am '%s'; git push origin HEAD", *GitCommitMessageFlag)
-		cmd := [...]string{"bash", "-c", find}
-		ExecCommand(cmd[:]...)
+		cnp := fmt.Sprintf("git commit -am '%s'; git push origin HEAD", *GitCommitMessageFlag)
+		cmd := [...]string{"bash", "-c", cnp}
+		fmt.Println(ExecCommand(cmd[:]...))
 	}
 }

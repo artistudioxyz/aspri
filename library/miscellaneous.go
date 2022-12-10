@@ -23,7 +23,10 @@ func InitiateMiscellaneousFunction() {
 	}
 }
 
-/** Search and Replace in Directory */
+/**
+* Search and Replace in Directory
+* - Equivalent to : `find {path} -type f -name '*' -exec sed -i '' s/{from}/{to}/g {} +;`
+ */
 func SearchandReplaceinDir(path string, from string, to string) {
 	find := fmt.Sprintf("find %s -type f -name '*' -exec sed -i '' s/%s/%s/g {} +;", path, from, to)
 	cmd := [...]string{"bash", "-c", find}

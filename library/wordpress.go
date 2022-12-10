@@ -11,8 +11,8 @@ var (
 	buildWPPluginFlag = flag.Bool("wp-plugin-build", false, "Build WP Plugin")
 )
 
-/** Initiate Projects Function */
-func InitiateProjectFunction() {
+/** Initiate WordPress Function */
+func InitiateWordPressFunction() {
 	/** Build WP Plugin */
 	if *buildWPPluginFlag && *RefactorPath != "" && *RefactorFromFlag != "" && *RefactorToFlag != "" {
 		ProjectRefactorPlugin(*RefactorPath, *RefactorFromFlag, *RefactorToFlag)
