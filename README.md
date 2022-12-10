@@ -2,7 +2,7 @@
 
 # ASPRI (Asisten Pribadi)
 
-Collection of scripts and library to speed up sotware development process 
+a Collection of scripts and libraries to speed up sotware development process
 
 ## 📝 Installation
 - Run : `go install`
