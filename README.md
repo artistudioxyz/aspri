@@ -23,11 +23,11 @@ Note :
 
 ## 📟 Commands
 [Docker](library/docker.go) :
-- Stop and Remove Container : `--docker-snr -id {identifier}` 
+- Stop and Remove Container : `--docker -prune -id {identifier}` 
 - Compose restart (down & up) : `--docker-compose-restart`
 
 [Git](library/git.go) :
-- Commit and Push : `--git-cnp -m {message}`
+- Commit and Push : `--git -push -m {message}`
 
 [Quotes](library/quotes.go) :
 - Quote of the day : `--quote-of-the-day`

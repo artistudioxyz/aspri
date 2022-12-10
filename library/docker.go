@@ -6,12 +6,13 @@ import (
 )
 
 var (
+	/** Command */
+	DockerStopandRemoveFlag  = flag.Bool("docker", false, "docker mode")
+	DockerPruneContainerFlag = flag.Bool("prune", false, "docker stop and remove container")
+	DockerComposeRestartFlag = flag.Bool("docker-compose-restart", false, "docker compose restart")
+
 	/** Identifier */
 	DockerContainerIDFlag = flag.String("id", "", "docker container identifier")
-
-	/** Command */
-	DockerStopandRemoveFlag  = flag.Bool("docker-snr", false, "docker stop and remove container")
-	DockerComposeRestartFlag = flag.Bool("docker-compose-restart", false, "docker compose restart")
 )
 
 /** Initiate Docker Function */
@@ -20,7 +21,7 @@ func InitiateDockerFunction() {
 	 * Stop and Remove Container
 	 * - Equivalent to : `docker stop {identifier} && docker rm {identifier}`
 	 */
-	if *DockerStopandRemoveFlag && *DockerContainerIDFlag != "" {
+	if *DockerStopandRemoveFlag && *DockerPruneContainerFlag && *DockerContainerIDFlag != "" {
 		fmt.Println("Stop and Remove Container")
 		snr := fmt.Sprintf("docker stop %s && docker rm %s", *DockerContainerIDFlag, *DockerContainerIDFlag)
 		cmd := [...]string{"bash", "-c", snr}
