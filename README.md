@@ -5,4 +5,11 @@
 Collection of scripts and library to speed up sotware development process 
 
 ## 📟 Flags
-- Build WP Plugin : `--build-wp-plugin -from {namespace} -to {namespace}`
+Motivation :
+- Quote of the day : `--quote-of-the-day`
+
+Miscellenaous :
+- Search and Replace in Directory : `--search-replace-directory --path {workdir} -from {text} -to {text}`
+
+- WordPress :
+- Build WP Plugin : `--wp-plugin-build --path {workdir} -from {namespace} -to {namespace}`

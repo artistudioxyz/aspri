@@ -1,12 +1,20 @@
 package library
 
 import (
+	"fmt"
+	"io"
 	"log"
+	"net/http"
+	"os"
 	"os/exec"
 )
 
 /** Documentation Help --help */
 const HelpText = `
+(｡◕‿‿◕｡) ASPRI (Asisten Pribadi)
+Collection of scripts and library to speed up sotware development process 
+Learn More: https://github.com/artistudioxyz/aspri
+
 Usage:
 
  gorename (-from <spec> | -offset <file>:#<byte-offset>) -to <name> [-force]
@@ -29,4 +37,21 @@ func ExecCommand(args ...string) string {
 		log.Printf("Runing failed: %v", err)
 	}
 	return string(b[:])
+}
+
+/** Call an API endpoint with Method GET */
+func getDataFromAPI(url string) []byte {
+	response, err := http.Get(url)
+
+	if err != nil {
+		fmt.Print(err.Error())
+		os.Exit(1)
+	}
+
+	responseData, err := io.ReadAll(response.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return responseData
 }
