@@ -1,8 +1,12 @@
 <p align="center"><img src="logo.png"></p>
 
+
+
 # ASPRI (Asisten Pribadi)
 
 a Collection of scripts and libraries to speed up sotware development process
+
+<p align="center"><img src="screenshot.png"></p>
 
 ## 📝 Installation
 - Run : `go install`
