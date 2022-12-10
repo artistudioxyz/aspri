@@ -1,4 +1,13 @@
-package library
+package main
+
+import (
+	"flag"
+	"fmt"
+)
+
+var (
+	helpFlag = flag.Bool("help", false, "show usage message")
+)
 
 /** Documentation Help */
 const HelpText = `
@@ -6,14 +15,14 @@ const HelpText = `
 Collection of scripts and library to speed up sotware development process 
 Learn More: https://github.com/artistudioxyz/aspri
 
-Flags:
+Usage:
 
 [Docker](library/docker.go) :
-- Stop and Remove Container : '--docker-snr -id {identifier}' 
+- Stop and Remove Container : '--docker -prune -id {identifier}' 
 - Compose restart (down & up) : '--docker-compose-restart'
 
 [Git](library/git.go) :
-- Commit and Push : '--git-cnp -m {message}'
+- Commit and Push : '--git -push -m {message}'
 
 [Quotes](library/quotes.go) :
 - Quote of the day : '--quote-of-the-day'
@@ -25,3 +34,11 @@ Flags:
 - Build WP Plugin : '--wp-plugin-build --path {workdir} -from {namespace} -to {namespace}'
 
 `
+
+/** Help Flag */
+func handleHelpFlag() {
+	if *helpFlag {
+		fmt.Print(HelpText)
+		return
+	}
+}

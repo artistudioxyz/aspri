@@ -14,6 +14,7 @@ func main() {
 
 	/** Information Flag */
 	handleInfoFlag()
+	handleHelpFlag()
 
 	/** Initiate Library */
 	library.InitiateDockerFunction()

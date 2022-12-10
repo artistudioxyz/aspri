@@ -1,4 +1,4 @@
-<p align="center"><img src="logo.png"></p>
+<p align="center"><img src="screenshot.png"></p>
 
 <p align="center">
     <img src="https://img.shields.io/github/last-commit/artistudioxyz/aspri" alt="Last Commit">
@@ -11,8 +11,6 @@
 # ASPRI (Asisten Pribadi)
 
 a Collection of scripts and libraries to speed up sotware development process
-
-<p align="center"><img src="screenshot.png"></p>
 
 ## 📝 Installation
 - Run : `go install`

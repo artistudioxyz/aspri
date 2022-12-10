@@ -6,9 +6,6 @@ import (
 )
 
 var (
-	/** Miscellaneous */
-	helpFlag = flag.Bool("help", false, "show usage message")
-
 	/** Refactor */
 	RefactorPath     = flag.String("path", "", "working directory path")
 	RefactorFromFlag = flag.String("from", "", "string to be replaced")
@@ -20,12 +17,6 @@ var (
 
 /** Initiate Miscellaneous Function */
 func InitiateMiscellaneousFunction() {
-	/** Help */
-	if *helpFlag {
-		fmt.Print(HelpText)
-		return
-	}
-
 	/** Build WP Plugin */
 	if *SearchandReplaceFlag && *RefactorPath != "" && *RefactorFromFlag != "" && *RefactorToFlag != "" {
 		SearchandReplaceinDir(*RefactorPath, *RefactorFromFlag, *RefactorToFlag)
