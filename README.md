@@ -1,6 +1,12 @@
 <p align="center"><img src="logo.png"></p>
 
-
+<p align="center">
+    <img src="https://img.shields.io/github/last-commit/artistudioxyz/aspri" alt="Last Commit">
+    <img src="https://img.shields.io/github/languages/code-size/artistudioxyz/aspri" alt="Code Size">
+    <img src="https://img.shields.io/github/go-mod/go-version/artistudioxyz/aspri" alt="Go Mod Version">
+    <img src="https://img.shields.io/github/v/tag/artistudioxyz/aspri" alt="Latest Tag">
+    <img src="https://img.shields.io/github/stars/artistudioxyz/aspri?style=social" alt="Stars">
+</p>
 
 # ASPRI (Asisten Pribadi)
 
