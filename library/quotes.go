@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	/** Extras */
+	/** Quote */
 	QuoteofTheDayFlag = flag.Bool("quote-of-the-day", false, "show quote of the day")
 )
 

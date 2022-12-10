@@ -21,7 +21,8 @@ func main() {
 	}
 
 	/** Initiate Library */
-	library.InitiateQuoteFunction()
+	library.InitiateGitFunction()
 	library.InitiateProjectFunction()
+	library.InitiateQuoteFunction()
 	library.InitiateMiscellaneousFunction()
 }

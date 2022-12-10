@@ -15,12 +15,12 @@ var (
 func InitiateProjectFunction() {
 	/** Build WP Plugin */
 	if *buildWPPluginFlag && *RefactorPath != "" && *RefactorFromFlag != "" && *RefactorToFlag != "" {
-		RefactorPlugin(*RefactorPath, *RefactorFromFlag, *RefactorToFlag)
+		ProjectRefactorPlugin(*RefactorPath, *RefactorFromFlag, *RefactorToFlag)
 	}
 }
 
 /* Refactor Plugin */
-func RefactorPlugin(path string, fromName string, toName string) {
+func ProjectRefactorPlugin(path string, fromName string, toName string) {
 	fmt.Print("Refactor Plugin: ", fromName, " to ", toName)
 	SearchandReplaceinDir(path, fromName, toName)
 	SearchandReplaceinDir(path, strings.ToUpper(fromName), strings.ToUpper(toName))

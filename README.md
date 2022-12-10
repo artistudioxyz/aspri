@@ -5,6 +5,9 @@
 Collection of scripts and library to speed up sotware development process 
 
 ## 📟 Flags
+Git :
+- Commit and Push : `--git-cnp -m {message}`
+
 Motivation :
 - Quote of the day : `--quote-of-the-day`
 
