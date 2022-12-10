@@ -3,22 +3,17 @@ package main
 import (
 	"aspri/library"
 	"flag"
-	"fmt"
 )
 
 var (
-	/** Extras */
-	helpFlag = flag.Bool("help", false, "show usage message")
+	Version = "1.0.0"
 )
 
 func main() {
 	flag.Parse()
 
-	/** Help */
-	if *helpFlag {
-		fmt.Print(library.HelpText)
-		return
-	}
+	/** Information Flag */
+	handleInfoFlag()
 
 	/** Initiate Library */
 	library.InitiateDockerFunction()
