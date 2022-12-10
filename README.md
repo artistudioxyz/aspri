@@ -6,8 +6,10 @@ Collection of scripts and library to speed up sotware development process
 
 ## 📝 Installation
 - Run : `go install`
-  - Please add your go install to system PATH : [Read More](https://go.dev/doc/tutorial/compile-install)
-- Run : `aspri --help`
+- Run : `aspri --version`
+
+Note :
+- Please add your go install to system PATH [Learn More](https://go.dev/doc/tutorial/compile-install)
 
 ## 📟 Commands
 [Docker](library/docker.go) :
