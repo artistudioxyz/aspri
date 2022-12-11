@@ -11,6 +11,10 @@ var (
 )
 
 /* WP Plugin Check */
-func WPPluginBuildCheck() {
+func WPPluginBuildCheck(path string) {
 	fmt.Println("Check Plugin")
+
+	fmt.Println(path)
+	path = "mantap"
+	fmt.Println(path)
 }

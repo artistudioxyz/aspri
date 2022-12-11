@@ -8,21 +8,26 @@ import (
 
 var (
 	Version = "1.0.0"
+
+	/** Flags */
+
 )
 
 func main() {
+	/** Grab The Flag */
+	flags := library.GetFlag()
 	flag.Parse()
 
 	/** Information Flag */
 	handleInfoFlag()
 	handleHelpFlag()
 
-	/** Initiate Library */
-	library.InitiateDockerFunction()
-	library.InitiateGitFunction()
-	library.InitiateMiscellaneousFunction()
-	library.InitiateQuoteFunction()
+	///** Initiate Library */
+	library.InitiateDockerFunction(flags)
+	//library.InitiateGitFunction()
+	//library.InitiateMiscellaneousFunction()
+	//library.InitiateQuoteFunction()
 
-	/** Initiate WordPress */
-	wordpress.InitiateWordPressFunction()
+	///** Initiate WordPress */
+	wordpress.InitiateWordPressFunction(flags)
 }

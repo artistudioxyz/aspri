@@ -2,25 +2,19 @@ package wordpress
 
 import (
 	"aspri/library"
-	"flag"
 	"fmt"
 	"strings"
 )
 
-var (
-	/** WordPress */
-	WPRefactorFlag = flag.Bool("wp-refactor", false, "Refactor Library")
-)
-
 /** Initiate WordPress Function */
-func InitiateWordPressFunction() {
+func InitiateWordPressFunction(flags library.Flag) {
 	/** Refactor Plugin */
-	if *WPRefactorFlag && *library.RefactorPath != "" && *library.RefactorFromFlag != "" && *library.RefactorToFlag != "" {
+	if *flags.WPRefactor && *library.RefactorPath != "" && *library.RefactorFromFlag != "" && *library.RefactorToFlag != "" {
 		WPRefactor(*library.RefactorPath, *library.RefactorFromFlag, *library.RefactorToFlag)
 	}
 	/** WP Plugin Build Check */
 	if *WPPluginBuildCheckFlag {
-		WPPluginBuildCheck()
+		//WPPluginBuildCheck(*WPProjectPathFlag)
 	}
 }
 
