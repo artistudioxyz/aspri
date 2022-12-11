@@ -26,7 +26,7 @@ func main() {
 	library.InitiateDockerFunction(flags)
 	library.InitiateGitFunction(flags)
 	library.InitiateMiscellaneousFunction(flags)
-	//library.InitiateQuoteFunction()
+	library.InitiateQuoteFunction(flags)
 
 	///** Initiate WordPress */
 	wordpress.InitiateWordPressFunction(flags)
