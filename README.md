@@ -34,4 +34,5 @@ Note :
 - Search and Replace in Directory : `--search-replace-directory --path {workdir} -from {text} -to {text}`
 
 [WordPress](library/wordpress.go) :
-- Build WP Plugin : `--wp-plugin-build --path {workdir} -from {namespace} -to {namespace}`
+- Refactor : `--wp-refactor --path {workdir} -from {namespace} -to {namespace}`
+- Build WP Plugin Check : `--wp-plugin-build-check`

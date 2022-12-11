@@ -2,6 +2,7 @@ package main
 
 import (
 	"aspri/library"
+	"aspri/wordpress"
 	"flag"
 )
 
@@ -21,5 +22,7 @@ func main() {
 	library.InitiateGitFunction()
 	library.InitiateMiscellaneousFunction()
 	library.InitiateQuoteFunction()
-	library.InitiateWordPressFunction()
+
+	/** Initiate WordPress */
+	wordpress.InitiateWordPressFunction()
 }
