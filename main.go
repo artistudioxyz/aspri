@@ -8,9 +8,6 @@ import (
 
 var (
 	Version = "1.0.0"
-
-	/** Flags */
-
 )
 
 func main() {
@@ -19,7 +16,7 @@ func main() {
 	flag.Parse()
 
 	/** Information Flag */
-	handleInfoFlag()
+	handleVersionFlag(*flags.Version)
 	handleHelpFlag()
 
 	///** Initiate Library */

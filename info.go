@@ -1,18 +1,10 @@
 package main
 
-import (
-	"flag"
-	"fmt"
-)
-
-var (
-	VersionFlag = flag.Bool("version", false, "show current version")
-)
+import "fmt"
 
 /** Handle Info Flag */
-func handleInfoFlag() {
-	/** Version */
-	if *VersionFlag {
+func handleVersionFlag(VersionFlag bool) {
+	if VersionFlag {
 		fmt.Print(Version)
 		return
 	}

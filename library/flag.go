@@ -16,6 +16,7 @@ type Flag struct {
 	/** Bool Parameters */
 	Production *bool
 	Prune      *bool
+	Version    *bool
 
 	/** String Parameters */
 	ID      *string
@@ -40,6 +41,7 @@ func GetFlag() Flag {
 		/** Bool Parameters */
 		Production: flag.Bool("production", false, "Production (WP Mode): Production Environment"),
 		Prune:      flag.Bool("prune", false, "Prune (Docker Mode): Container"),
+		Version:    flag.Bool("version", false, "show current version"),
 
 		/** String Parameters */
 		ID:      flag.String("id", "", "Identifier (Docker Mode): Container"),
