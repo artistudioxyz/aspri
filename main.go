@@ -24,8 +24,8 @@ func main() {
 
 	///** Initiate Library */
 	library.InitiateDockerFunction(flags)
-	//library.InitiateGitFunction()
-	//library.InitiateMiscellaneousFunction()
+	library.InitiateGitFunction(flags)
+	library.InitiateMiscellaneousFunction(flags)
 	//library.InitiateQuoteFunction()
 
 	///** Initiate WordPress */
