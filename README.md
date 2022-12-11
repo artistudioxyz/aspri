@@ -25,7 +25,7 @@ Note :
 - Compose restart (down & up) : `--docker-compose-restart`
 
 [Git](library/git.go) :
-- Commit and Push : `--git -push -m {message}`
+- Commit and Push : `--git -m {message}`
 
 [Quotes](library/quotes.go) :
 - Quote of the day : `--quote-of-the-day`
@@ -35,4 +35,4 @@ Note :
 
 [WordPress](library/wordpress.go) :
 - Refactor : `--wp-refactor --path {workdir} -from {namespace} -to {namespace}`
-- Build WP Plugin Check : `--wp-plugin-build-check --path {workdir}`
+- Build WP Plugin Check : `--wp-plugin-build-check --path {workdir} --production {true/false}`

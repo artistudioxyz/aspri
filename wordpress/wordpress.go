@@ -14,7 +14,7 @@ func InitiateWordPressFunction(flags library.Flag) {
 	}
 	/** WP Plugin Build Check */
 	if *flags.WPPluginBuildCheck && *flags.Path != "" {
-		WPPluginBuildCheck(*flags.Path)
+		WPPluginBuildCheck(*flags.Path, *flags.Production)
 	}
 }
 
