@@ -35,4 +35,4 @@ Note :
 
 [WordPress](library/wordpress.go) :
 - Refactor : `--wp-refactor --path {workdir} -from {namespace} -to {namespace}`
-- Build WP Plugin Check : `--wp-plugin-build-check`
+- Build WP Plugin Check : `--wp-plugin-build-check --path {workdir}`

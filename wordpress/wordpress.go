@@ -9,12 +9,12 @@ import (
 /** Initiate WordPress Function */
 func InitiateWordPressFunction(flags library.Flag) {
 	/** Refactor Plugin */
-	if *flags.WPRefactor && *library.RefactorPath != "" && *library.RefactorFromFlag != "" && *library.RefactorToFlag != "" {
-		WPRefactor(*library.RefactorPath, *library.RefactorFromFlag, *library.RefactorToFlag)
+	if *flags.WPRefactor && *flags.Path != "" && *flags.From != "" && *flags.To != "" {
+		WPRefactor(*flags.Path, *flags.From, *flags.To)
 	}
 	/** WP Plugin Build Check */
-	if *WPPluginBuildCheckFlag {
-		//WPPluginBuildCheck(*WPProjectPathFlag)
+	if *flags.WPPluginBuildCheck && *flags.Path != "" {
+		WPPluginBuildCheck(*flags.Path)
 	}
 }
 
