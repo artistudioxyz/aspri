@@ -1,0 +1,45 @@
+name: Create and publish to Registry
+
+on:
+  push:
+    branches:
+      - master
+      - feature/wordpress
+    tags:
+      - '*'
+
+env:
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Setup Go
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '^1.14.0' # The Go version to download (if necessary) and use.
+
+      # Install all the dependencies
+      - name: Install dependencies
+        run: |
+          go version
+          go get -u golang.org/x/lint/golint
+
+      # Run build of the application
+      - name: Run build
+        run: go build .
+
+      # Run vet & lint on the code
+      - name: Run vet & lint
+        run: |
+          go vet .
+          golint .
+
+      # Run testing on the code
+      - name: Run testing
+        run: cd test && go test -v
