@@ -2,6 +2,7 @@ package wordpress
 
 import (
 	"aspri/library"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"strings"
@@ -34,25 +35,61 @@ func WPRefactor(path string, fromName string, toName string) {
 
 /** CleanProjectFilesforProduction */
 func CleanProjectFilesforProduction(path string, buildType string) {
+	var remove bytes.Buffer
 	var Files = []string{
+		/** Git */
 		".git",
 		".gitignore",
+
+		/** Vendor */
+		"node_modules",
+
+		/** Tests */
+		"tests-selenium",
+
+		/** Assets */
+		"assets/css",
+		"assets/js",
+		"assets/ts",
+		"assets/components",
+		"assets/build/css/tailwind.min.css",
+		"assets/build/ts",
+		"assets/build/*.map",
+
+		/** Development Files */
+		"livereload.php",
+		"Gruntfile.js",
+		"composer.json",
+		"composer.lock",
+		"package-lock.json",
+		"package.json",
+		"tailwind-default.config.js",
+		"tailwind.config.js",
+		"tailwindcsssupport.js",
+		"tsconfig.json",
+		"webpack.config.js",
+		"CHANGELOG.md",
+		"DOCS.md",
+		"README.md",
+	}
+	var FilesforGithub = []string{ // Lists of files that is required for GitHub
+		".gitignore",
+		"README.md",
 	}
 
-	fmt.Println(Files)
-
-	//var buffer bytes.Buffer
-	/** Git */
-	//buffer.WriteString(fmt.Sprintf("rm -rf %s/.git;", path))
-	//if buildType != "github" {
-	//	buffer.WriteString(fmt.Sprintf("rm -rf %s/.git;", path))
-	//}
-	//
-	///** Vendor */
-	//buffer.WriteString(fmt.Sprintf("rm -rf %s/.git;", path))
-	//
-	//cmd := [...]string{"bash", "-c", buffer.String()}
-	//library.ExecCommand(cmd[:]...)
+	/** Filter & Generate Command */
+	for _, f := range Files {
+		if buildType == "github" {
+			ForGithub := library.SliceContainsString(FilesforGithub, f)
+			if !ForGithub {
+				remove.WriteString(library.GetShellRemoveFunction(path + "/" + f))
+			}
+		} else {
+			remove.WriteString(library.GetShellRemoveFunction(path + "/" + f))
+		}
+	}
+	cmd := [...]string{"bash", "-c", remove.String()}
+	library.ExecCommand(cmd[:]...)
 }
 
 /** SetConfigProduction */
