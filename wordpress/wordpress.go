@@ -28,9 +28,9 @@ func InitiateWordPressFunction(flags library.Flag) {
 /* Refactor Plugin */
 func WPRefactor(path string, fromName string, toName string) {
 	fmt.Print("Refactor Plugin: ", fromName, " to ", toName)
-	library.SearchandReplaceinDir(path, fromName, toName)
-	library.SearchandReplaceinDir(path, strings.ToUpper(fromName), strings.ToUpper(toName))
-	library.SearchandReplaceinDir(path, strings.ToLower(fromName), strings.ToLower(toName))
+	library.SearchandReplace(path, fromName, toName)
+	library.SearchandReplace(path, strings.ToUpper(fromName), strings.ToUpper(toName))
+	library.SearchandReplace(path, strings.ToLower(fromName), strings.ToLower(toName))
 }
 
 /** CleanProjectFilesforProduction */

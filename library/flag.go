@@ -5,14 +5,14 @@ import "flag"
 /** Flag Struct */
 type Flag struct {
 	/** Mode */
-	Docker                    *bool
-	Git                       *bool
-	DockerComposeRestart      *bool
-	QuoteofTheDay             *bool
-	SearchandReplaceDirectory *bool
-	WPPluginBuild             *bool
-	WPPluginBuildCheck        *bool
-	WPRefactor                *bool
+	Docker               *bool
+	Git                  *bool
+	DockerComposeRestart *bool
+	QuoteofTheDay        *bool
+	SearchandReplace     *bool
+	WPPluginBuild        *bool
+	WPPluginBuildCheck   *bool
+	WPRefactor           *bool
 
 	/** Bool Parameters */
 	Production *bool
@@ -32,14 +32,14 @@ type Flag struct {
 func GetFlag() Flag {
 	flags := Flag{
 		/** Mode */
-		Docker:                    flag.Bool("docker", false, "Docker Mode"),
-		DockerComposeRestart:      flag.Bool("docker-compose-restart", false, "Docker Compose Restart"),
-		Git:                       flag.Bool("git", false, "Git Mode"),
-		WPPluginBuild:             flag.Bool("wp-plugin-build", false, "WP Build Plugin Comply"),
-		WPPluginBuildCheck:        flag.Bool("wp-plugin-build-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
-		WPRefactor:                flag.Bool("wp-refactor", false, "Refactor Library"),
-		QuoteofTheDay:             flag.Bool("quote-of-the-day", false, "show quote of the day"),
-		SearchandReplaceDirectory: flag.Bool("search-replace-directory", false, "do search and replace"),
+		Docker:               flag.Bool("docker", false, "Docker Mode"),
+		DockerComposeRestart: flag.Bool("docker-compose-restart", false, "Docker Compose Restart"),
+		Git:                  flag.Bool("git", false, "Git Mode"),
+		WPPluginBuild:        flag.Bool("wp-plugin-build", false, "WP Build Plugin Comply"),
+		WPPluginBuildCheck:   flag.Bool("wp-plugin-build-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
+		WPRefactor:           flag.Bool("wp-refactor", false, "Refactor Library"),
+		QuoteofTheDay:        flag.Bool("quote-of-the-day", false, "show quote of the day"),
+		SearchandReplace:     flag.Bool("search-replace", false, "do search and replace"),
 
 		/** Bool Parameters */
 		Production: flag.Bool("production", false, "Production (WP Mode): Production Environment"),
