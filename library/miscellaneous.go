@@ -1,34 +1,14 @@
 package library
 
 import (
-	"flag"
 	"fmt"
 )
 
-var (
-	/** Miscellaneous */
-	helpFlag = flag.Bool("help", false, "show usage message")
-
-	/** Refactor */
-	RefactorPath     = flag.String("path", "", "working directory path")
-	RefactorFromFlag = flag.String("from", "", "string to be replaced")
-	RefactorToFlag   = flag.String("to", "", "string replacement")
-
-	/** Search and Replace */
-	SearchandReplaceFlag = flag.Bool("search-replace-directory", false, "do search and replace")
-)
-
 /** Initiate Miscellaneous Function */
-func InitiateMiscellaneousFunction() {
-	/** Help */
-	if *helpFlag {
-		fmt.Print(HelpText)
-		return
-	}
-
+func InitiateMiscellaneousFunction(flags Flag) {
 	/** Build WP Plugin */
-	if *SearchandReplaceFlag && *RefactorPath != "" && *RefactorFromFlag != "" && *RefactorToFlag != "" {
-		SearchandReplaceinDir(*RefactorPath, *RefactorFromFlag, *RefactorToFlag)
+	if *flags.SearchandReplaceDirectory && *flags.Path != "" && *flags.From != "" && *flags.To != "" {
+		SearchandReplaceinDir(*flags.Path, *flags.From, *flags.To)
 	}
 }
 

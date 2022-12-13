@@ -5,7 +5,6 @@
 # Dummy
 main
 app.env
-go.mod
 go.sum
 
 # OS
