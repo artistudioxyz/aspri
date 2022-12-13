@@ -22,9 +22,8 @@ type WPPlugin struct {
 	Content string
 }
 
-/* WP Plugin Check */
-func WPPluginBuildCheck(path string) {
-	fmt.Println("Check Plugin")
+/** GetPluginInformation */
+func GetPluginInformation(path string) WPPlugin {
 	plugin := WPPlugin{}
 	if path == "" {
 		CurrentDirectory, _ := os.Getwd()
@@ -32,17 +31,22 @@ func WPPluginBuildCheck(path string) {
 	}
 	plugin.Path.Directory = path
 
-	/** Get Plugin Information */
 	PathArray := strings.Split(path, "/")
 	plugin.Name = PathArray[len(PathArray)-1]
 	FileName := fmt.Sprintf("%s.php", PathArray[len(PathArray)-1])
 	PathArray = append(PathArray, FileName)
 	plugin.Path.File = strings.Join(PathArray, "/")
 
-	/** Read File */
-	content := library.ReadFile(plugin.Path.File)
+	return plugin
+}
+
+/* WP Plugin Check */
+func WPPluginBuildCheck(path string) {
+	fmt.Println("Check Plugin")
+	plugin := GetPluginInformation(path)
 
 	/** Read Comment Block */
+	content := library.ReadFile(plugin.Path.File)
 	regexcommentblock := regexp.MustCompile("(?s)//.*?\n|/\\*.*?\\*/")
 	comments := strings.Split(regexcommentblock.FindString(string(content)), "\n")
 	for _, s := range comments {
@@ -58,7 +62,7 @@ func WPPluginBuildCheck(path string) {
 	}
 
 	/** Check occurrence (readme.txt) */
-	FileName = "readme.txt"
+	FileName := "readme.txt"
 	content = library.ReadFile(plugin.Path.Directory + "/" + FileName)
 	regexversion := regexp.MustCompile(plugin.Version)
 	matches := regexversion.FindAllStringIndex(string(content), 2)
@@ -85,5 +89,5 @@ func WPPluginBuildCheck(path string) {
 
 /* WP Plugin Check */
 func WPPluginBuild(path string, production bool) {
-	// TODO: Set production in config.json
+	SetConfigProduction(path, production)
 }

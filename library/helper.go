@@ -19,6 +19,20 @@ func ReadFile(path string) []byte {
 	return content
 }
 
+/** Write File */
+func WriteFile(FilePath string, content string) {
+	f, err := os.Create(FilePath)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	_, err2 := f.WriteString(content)
+	if err2 != nil {
+		log.Fatal(err2)
+	}
+}
+
 /* Run custom bin command */
 func ExecCommand(args ...string) string {
 	cmd := exec.Command(args[0], args[1:]...)
