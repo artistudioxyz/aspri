@@ -1,4 +1,4 @@
-name: Create and publish to Registry
+name: Golang Build∂
 
 on:
   push:

@@ -85,6 +85,5 @@ func WPPluginBuildCheck(path string) {
 
 /* WP Plugin Check */
 func WPPluginBuild(path string, production bool) {
-
 	// TODO: Set production in config.json
 }
