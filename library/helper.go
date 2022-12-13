@@ -3,11 +3,21 @@ package library
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"os/exec"
 )
+
+/** Read File */
+func ReadFile(path string) []byte {
+	content, err := ioutil.ReadFile(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return content
+}
 
 /* Run custom bin command */
 func ExecCommand(args ...string) string {
