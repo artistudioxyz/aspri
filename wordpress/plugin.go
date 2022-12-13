@@ -25,10 +25,6 @@ type WPPlugin struct {
 /** GetPluginInformation */
 func GetPluginInformation(path string) WPPlugin {
 	plugin := WPPlugin{}
-	if path == "" {
-		CurrentDirectory, _ := os.Getwd()
-		path = CurrentDirectory
-	}
 	plugin.Path.Directory = path
 
 	PathArray := strings.Split(path, "/")
@@ -43,6 +39,10 @@ func GetPluginInformation(path string) WPPlugin {
 /* WP Plugin Check */
 func WPPluginBuildCheck(path string) {
 	fmt.Println("Check Plugin")
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
 	plugin := GetPluginInformation(path)
 
 	/** Read Comment Block */
@@ -84,10 +84,4 @@ func WPPluginBuildCheck(path string) {
 			panic(err)
 		}
 	}
-
-}
-
-/* WP Plugin Check */
-func WPPluginBuild(path string, production bool) {
-	SetConfigProduction(path, production)
 }

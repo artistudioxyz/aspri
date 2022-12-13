@@ -13,13 +13,14 @@ func InitiateWordPressFunction(flags library.Flag) {
 	if *flags.WPRefactor && *flags.Path != "" && *flags.From != "" && *flags.To != "" {
 		WPRefactor(*flags.Path, *flags.From, *flags.To)
 	}
+	/** WP Plugin Build */
+	if *flags.WPPluginBuild && *flags.Path != "" && *flags.Type != "" {
+		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
+		SetConfigProduction(*flags.Path, true)
+	}
 	/** WP Plugin Build Check */
 	if *flags.WPPluginBuildCheck {
 		WPPluginBuildCheck(*flags.Path)
-	}
-	/** WP Plugin Build */
-	if *flags.WPPluginBuild {
-		WPPluginBuild(*flags.Path, *flags.Production)
 	}
 }
 
@@ -29,6 +30,11 @@ func WPRefactor(path string, fromName string, toName string) {
 	library.SearchandReplaceinDir(path, fromName, toName)
 	library.SearchandReplaceinDir(path, strings.ToUpper(fromName), strings.ToUpper(toName))
 	library.SearchandReplaceinDir(path, strings.ToLower(fromName), strings.ToLower(toName))
+}
+
+/** CleanProjectFilesforProduction */
+func CleanProjectFilesforProduction(path string, buildType string) {
+
 }
 
 /** SetConfigProduction */

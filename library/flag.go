@@ -25,6 +25,7 @@ type Flag struct {
 	Message *string
 	Path    *string
 	To      *string
+	Type    *string
 }
 
 /** Get Flag */
@@ -51,6 +52,7 @@ func GetFlag() Flag {
 		From:    flag.String("from", "", "Refactor Text From"),
 		Message: flag.String("m", "", "Message (Git Mode): Commit Message"),
 		To:      flag.String("to", "", "Refactor Text To"),
+		Type:    flag.String("type", "", "Build type (WordPress)"),
 	}
 
 	return flags
