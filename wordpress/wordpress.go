@@ -16,7 +16,7 @@ func InitiateWordPressFunction(flags library.Flag) {
 	/** WP Plugin Build */
 	if *flags.WPPluginBuild && *flags.Path != "" && *flags.Type != "" {
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
-		SetConfigProduction(*flags.Path, true)
+		//SetConfigProduction(*flags.Path, true)
 	}
 	/** WP Plugin Build Check */
 	if *flags.WPPluginBuildCheck {
@@ -34,7 +34,25 @@ func WPRefactor(path string, fromName string, toName string) {
 
 /** CleanProjectFilesforProduction */
 func CleanProjectFilesforProduction(path string, buildType string) {
+	var Files = []string{
+		".git",
+		".gitignore",
+	}
 
+	fmt.Println(Files)
+
+	//var buffer bytes.Buffer
+	/** Git */
+	//buffer.WriteString(fmt.Sprintf("rm -rf %s/.git;", path))
+	//if buildType != "github" {
+	//	buffer.WriteString(fmt.Sprintf("rm -rf %s/.git;", path))
+	//}
+	//
+	///** Vendor */
+	//buffer.WriteString(fmt.Sprintf("rm -rf %s/.git;", path))
+	//
+	//cmd := [...]string{"bash", "-c", buffer.String()}
+	//library.ExecCommand(cmd[:]...)
 }
 
 /** SetConfigProduction */

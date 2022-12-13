@@ -34,7 +34,7 @@ Note :
 [Miscellaneous](library/miscellaneous.go) :
 - Search and Replace in Directory : `--search-replace-directory --path {workdir} -from {text} -to {text}`
 
-[WordPress](library/wordpress.go) :
+[WordPress](wordpress/wordpress.go) :
 - Refactor : `--wp-refactor --path {workdir} -from {namespace} -to {namespace}`
 - Build WP Plugin Check : `--wp-plugin-build-check --path {workdir}`
   - Build WP Plugin (Require Path) : `--wp-plugin-build --path {workdir} --type {wordpress|github}`
