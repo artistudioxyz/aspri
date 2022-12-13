@@ -19,7 +19,7 @@ Learn More: https://github.com/artistudioxyz/aspri
 /** Help Flag */
 func handleHelpFlag() {
 	if *helpFlag {
-		fmt.Println(HelpText)
+		fmt.Print(HelpText)
 		flag.Usage()
 		return
 	}
