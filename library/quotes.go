@@ -2,18 +2,12 @@ package library
 
 import (
 	"encoding/json"
-	"flag"
 	"fmt"
 )
 
-var (
-	/** Quote */
-	QuoteofTheDayFlag = flag.Bool("quote-of-the-day", false, "show quote of the day")
-)
-
 /** Initiate Quote Function */
-func InitiateQuoteFunction() {
-	if *QuoteofTheDayFlag {
+func InitiateQuoteFunction(flags Flag) {
+	if *flags.QuoteofTheDay {
 		QuoteofTheDay()
 		return
 	}
