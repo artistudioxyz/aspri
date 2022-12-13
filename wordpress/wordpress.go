@@ -17,7 +17,7 @@ func InitiateWordPressFunction(flags library.Flag) {
 	/** WP Plugin Build */
 	if *flags.WPPluginBuild && *flags.Path != "" && *flags.Type != "" {
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
-		//SetConfigProduction(*flags.Path, true)
+		SetConfigProduction(*flags.Path, true)
 	}
 	/** WP Plugin Build Check */
 	if *flags.WPPluginBuildCheck {
@@ -90,6 +90,8 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 	}
 	cmd := [...]string{"bash", "-c", remove.String()}
 	library.ExecCommand(cmd[:]...)
+
+	fmt.Println("✅ Success Cleanup Project Files")
 }
 
 /** SetConfigProduction */

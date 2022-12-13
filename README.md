@@ -32,7 +32,7 @@ Note :
 - Quote of the day : `--quote-of-the-day`
 
 [Miscellaneous](library/miscellaneous.go) :
-- Search and Replace in Directory : `--search-replace-directory --path {workdir} -from {text} -to {text}`
+- Search and Replace in Directory or File : `--search-replace --path {dir or file} -from {text} -to {text}`
 
 [WordPress](wordpress/wordpress.go) :
 - Refactor : `--wp-refactor --path {workdir} -from {namespace} -to {namespace}`
