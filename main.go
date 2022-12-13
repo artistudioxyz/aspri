@@ -6,17 +6,12 @@ import (
 	"flag"
 )
 
-var (
-	Version = "1.0.0"
-)
-
 func main() {
 	/** Grab The Flag */
 	flags := library.GetFlag()
 	flag.Parse()
 
 	/** Information Flag */
-	handleVersionFlag(*flags.Version)
 	handleHelpFlag()
 
 	///** Initiate Library */
