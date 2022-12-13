@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"regexp"
 	"strings"
 )
 
@@ -11,6 +12,7 @@ import (
 type Plugin struct {
 	Name     string
 	FilePath string
+	Version  string
 	Content  string
 }
 
@@ -26,12 +28,22 @@ func WPPluginBuildCheck(path string, production bool) {
 	PathArray = append(PathArray, fmt.Sprintf("%s.php", PathArray[len(PathArray)-1]))
 	plugin.FilePath = strings.Join(PathArray, "/")
 
-	fmt.Println(plugin)
-
 	/** Read File */
 	content, err := ioutil.ReadFile(plugin.FilePath)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(string(content))
+
+	/** Read Comment Block */
+	musComp := regexp.MustCompile("(?s)//.*?\n|/\\*.*?\\*/")
+	comments := strings.Split(musComp.FindString(string(content)), "\n")
+	for _, s := range comments {
+		if strings.Contains(s, "Version:") {
+			plugin.Version = strings.Replace(s, "Version:", "", -1)
+			plugin.Version = strings.Replace(plugin.Version, "*", "", -1)
+			plugin.Version = strings.Replace(plugin.Version, " ", "", -1)
+		}
+	}
+
+	fmt.Println(plugin)
 }
