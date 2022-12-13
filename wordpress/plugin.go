@@ -23,9 +23,13 @@ type WPPlugin struct {
 }
 
 /* WP Plugin Check */
-func WPPluginBuildCheck(path string, production bool) {
+func WPPluginBuildCheck(path string) {
 	fmt.Println("Check Plugin")
 	plugin := WPPlugin{}
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
 	plugin.Path.Directory = path
 
 	/** Get Plugin Information */
@@ -53,14 +57,15 @@ func WPPluginBuildCheck(path string, production bool) {
 		}
 	}
 
-	/** Check occurrence (Plugin File) */
-	content = library.ReadFile(plugin.Path.File)
-	res, err := regexp.Match(plugin.Version, content)
-	if res {
-		fmt.Println("✅  Plugin Version Match", FileName)
+	/** Check occurrence (readme.txt) */
+	FileName = "readme.txt"
+	content = library.ReadFile(plugin.Path.Directory + "/" + FileName)
+	regexversion := regexp.MustCompile(plugin.Version)
+	matches := regexversion.FindAllStringIndex(string(content), 2)
+	if len(matches) == 2 {
+		fmt.Println("✅ Plugin Version Match", FileName)
 	} else {
-		fmt.Println("❌  Plugin Version Do Not Match " + FileName)
-		panic(err)
+		panic("❌ Plugin Version Do Not Match " + FileName)
 	}
 
 	/** Check occurrence (config.json) */
@@ -69,11 +74,17 @@ func WPPluginBuildCheck(path string, production bool) {
 		content = library.ReadFile(plugin.Path.Directory + "/" + FileName)
 		res, err := regexp.Match(plugin.Version, content)
 		if res {
-			fmt.Println("✅  Plugin Version Match", FileName)
+			fmt.Println("✅ Plugin Version Match", FileName)
 		} else {
-			fmt.Println("❌  Plugin Version Do Not Match " + FileName)
+			fmt.Println("❌ Plugin Version Do Not Match " + FileName)
 			panic(err)
 		}
 	}
 
+}
+
+/* WP Plugin Check */
+func WPPluginBuild(path string, production bool) {
+
+	// TODO: Set production in config.json
 }

@@ -13,8 +13,12 @@ func InitiateWordPressFunction(flags library.Flag) {
 		WPRefactor(*flags.Path, *flags.From, *flags.To)
 	}
 	/** WP Plugin Build Check */
-	if *flags.WPPluginBuildCheck && *flags.Path != "" {
-		WPPluginBuildCheck(*flags.Path, *flags.Production)
+	if *flags.WPPluginBuildCheck {
+		WPPluginBuildCheck(*flags.Path)
+	}
+	/** WP Plugin Build */
+	if *flags.WPPluginBuild {
+		WPPluginBuild(*flags.Path, *flags.Production)
 	}
 }
 

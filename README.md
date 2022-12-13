@@ -35,4 +35,5 @@ Note :
 
 [WordPress](library/wordpress.go) :
 - Refactor : `--wp-refactor --path {workdir} -from {namespace} -to {namespace}`
-- Build WP Plugin Check : `--wp-plugin-build-check --path {workdir} --production {true/false}`
+- Build WP Plugin Check : `--wp-plugin-build-check --path {workdir}`
+- Build WP Plugin : `--wp-plugin-build --production {true/false}`

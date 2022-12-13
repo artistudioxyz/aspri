@@ -10,6 +10,7 @@ type Flag struct {
 	DockerComposeRestart      *bool
 	QuoteofTheDay             *bool
 	SearchandReplaceDirectory *bool
+	WPPluginBuild             *bool
 	WPPluginBuildCheck        *bool
 	WPRefactor                *bool
 
@@ -33,7 +34,8 @@ func GetFlag() Flag {
 		Docker:                    flag.Bool("docker", false, "Docker Mode"),
 		DockerComposeRestart:      flag.Bool("docker-compose-restart", false, "Docker Compose Restart"),
 		Git:                       flag.Bool("git", false, "Git Mode"),
-		WPPluginBuildCheck:        flag.Bool("wp-plugin-build-check", false, "WP Check Plugin Comply with Directory"),
+		WPPluginBuild:             flag.Bool("wp-plugin-build", false, "WP Build Plugin Comply"),
+		WPPluginBuildCheck:        flag.Bool("wp-plugin-build-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
 		WPRefactor:                flag.Bool("wp-refactor", false, "Refactor Library"),
 		QuoteofTheDay:             flag.Bool("quote-of-the-day", false, "show quote of the day"),
 		SearchandReplaceDirectory: flag.Bool("search-replace-directory", false, "do search and replace"),
