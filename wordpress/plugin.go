@@ -3,6 +3,7 @@ package wordpress
 import (
 	"aspri/library"
 	"fmt"
+	"os"
 	"regexp"
 	"strings"
 )
@@ -52,9 +53,27 @@ func WPPluginBuildCheck(path string, production bool) {
 		}
 	}
 
-	/** Check occurance (config.json) */
-	FileName = "config.json"
-	content = library.ReadFile(plugin.Path.Directory + "/" + FileName)
+	/** Check occurrence (Plugin File) */
+	content = library.ReadFile(plugin.Path.File)
 	res, err := regexp.Match(plugin.Version, content)
-	fmt.Println("Plugin Version Match", FileName, ":", res, "with Error :", err)
+	if res {
+		fmt.Println("✅  Plugin Version Match", FileName)
+	} else {
+		fmt.Println("❌  Plugin Version Do Not Match " + FileName)
+		panic(err)
+	}
+
+	/** Check occurrence (config.json) */
+	FileName = "config.json"
+	if _, err := os.Stat(plugin.Path.Directory + "/" + FileName); err == nil {
+		content = library.ReadFile(plugin.Path.Directory + "/" + FileName)
+		res, err := regexp.Match(plugin.Version, content)
+		if res {
+			fmt.Println("✅  Plugin Version Match", FileName)
+		} else {
+			fmt.Println("❌  Plugin Version Do Not Match " + FileName)
+			panic(err)
+		}
+	}
+
 }
