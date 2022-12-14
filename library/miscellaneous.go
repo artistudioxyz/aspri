@@ -15,6 +15,7 @@ func InitiateMiscellaneousFunction(flags Flag) {
 	}
 	/** Self Update */
 	if *flags.SelfUpdate {
+		fmt.Println("✅ Doing self update")
 		cmd := [...]string{"bash", "-c", "go get github.com/artistudioxyz/aspri"}
 		ExecCommand(cmd[:]...)
 	}
