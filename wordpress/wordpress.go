@@ -91,6 +91,13 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 	cmd := [...]string{"bash", "-c", remove.String()}
 	library.ExecCommand(cmd[:]...)
 
+	/** Exclude File From .gitignore for BuildType (GitHub) */
+	if buildType == "github" {
+		library.SearchandReplace(path+"/.gitignore", "vendor/", " ")
+		library.SearchandReplace(path+"/.gitignore", "assets/build/", "")
+		library.SearchandReplace(path+"/.gitignore", "!assets/vendor", "")
+	}
+
 	fmt.Println("✅ Success Cleanup Project Files")
 }
 

@@ -3,6 +3,7 @@ package library
 import (
 	"fmt"
 	"os"
+	"runtime"
 	"strings"
 )
 
@@ -16,7 +17,7 @@ func InitiateMiscellaneousFunction(flags Flag) {
 
 /**
 * Search and Replace in Directory or File
-* - Equivalent to : `find {path} -type f -name '*' -exec sed -i '' s/{from}/{to}/g {} +;`
+* - Equivalent to : `LC_ALL=C find {path} -type f -name '*' -exec sed -i '' s/{from}/{to}/g {} +;`
 * - Equivalent to : `sed -i 's#{from}#{to}#g' {path}`
  */
 func SearchandReplace(path string, from string, to string) {
@@ -35,9 +36,17 @@ func SearchandReplace(path string, from string, to string) {
 		panic(err)
 	}
 	if fileInfo.IsDir() {
-		find = fmt.Sprintf("find %s -type f -name '*' -exec sed -i '' %s {} +;", path, find)
+		os := runtime.GOOS
+		switch os {
+		case "darwin": /** MAC operating system */
+			find = fmt.Sprintf(`LC_ALL=C find %s -type f -name '*' -exec sed -i '' "%s" {} +;`, path, find)
+		case "linux": /** Linux */
+			find = fmt.Sprintf(`LC_ALL=C find %s -type f -name '*' -exec sed -i "%s" {} +;`, path, find)
+		default:
+			find = fmt.Sprintf(`LC_ALL=C find %s -type f -name '*' -exec sed -i "%s" {} +;`, path, find)
+		}
 	} else {
-		find = fmt.Sprintf("sed -i '%s' %s", find, path)
+		find = fmt.Sprintf("sed -i '' -e '%s' %s", find, path)
 	}
 	cmd := [...]string{"bash", "-c", find}
 	ExecCommand(cmd[:]...)
