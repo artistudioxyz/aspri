@@ -35,6 +35,6 @@ func QuoteofTheDay() {
 	/** Print The Quote */
 	fmt.Println("----------------------------------------")
 	fmt.Println(quotes[0].Text)
-	fmt.Println(quotes[0].Author)
+	fmt.Println("✍️", quotes[0].Author)
 	fmt.Println("----------------------------------------")
 }

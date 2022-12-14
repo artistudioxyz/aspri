@@ -5,6 +5,7 @@
     <img src="https://img.shields.io/github/languages/code-size/artistudioxyz/aspri" alt="Code Size">
     <img src="https://img.shields.io/github/go-mod/go-version/artistudioxyz/aspri" alt="Go Mod Version">
     <img src="https://img.shields.io/github/v/tag/artistudioxyz/aspri" alt="Latest Tag">
+    <img src="https://github.com/artistudioxyz/aspri/actions/workflows/workflow.yml/badge.svg" alt="Build Status">
     <img src="https://img.shields.io/github/stars/artistudioxyz/aspri?style=social" alt="Stars">
 </p>
 
@@ -31,8 +32,11 @@ Note :
 - Quote of the day : `--quote-of-the-day`
 
 [Miscellaneous](library/miscellaneous.go) :
-- Search and Replace in Directory : `--search-replace-directory --path {workdir} -from {text} -to {text}`
+- Search and Replace in Directory or File : `--search-replace --path {dir or file} -from {text} -to {text}`
 
-[WordPress](library/wordpress.go) :
+[WordPress](wordpress/wordpress.go) :
 - Refactor : `--wp-refactor --path {workdir} -from {namespace} -to {namespace}`
-- Build WP Plugin Check : `--wp-plugin-build-check --path {workdir} --production {true/false}`
+- WP Plugin Build Check : `--wp-plugin-build-check --path {workdir}`
+  - Build WP Plugin (Require Path) : `--wp-plugin-build --path {workdir} --type {wordpress|github}`
+- WP Theme Build Check : `--wp-theme-build-check --path {workdir}`
+  - Build WP Plugin (Require Path) : `--wp-theme-build --path {workdir} --type {wordpress|github}`

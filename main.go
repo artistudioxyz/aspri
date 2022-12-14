@@ -1,13 +1,9 @@
 package main
 
 import (
-	"aspri/library"
-	"aspri/wordpress"
 	"flag"
-)
-
-var (
-	Version = "1.0.0"
+	"github.com/artistudioxyz/aspri/library"
+	"github.com/artistudioxyz/aspri/wordpress"
 )
 
 func main() {
@@ -16,7 +12,6 @@ func main() {
 	flag.Parse()
 
 	/** Information Flag */
-	handleVersionFlag(*flags.Version)
 	handleHelpFlag()
 
 	///** Initiate Library */
