@@ -9,9 +9,14 @@ import (
 
 /** Initiate Miscellaneous Function */
 func InitiateMiscellaneousFunction(flags Flag) {
-	/** Build WP Plugin */
+	/** Search and Replace */
 	if *flags.SearchandReplace && *flags.Path != "" && *flags.From != "" && *flags.To != "" {
 		SearchandReplace(*flags.Path, *flags.From, *flags.To)
+	}
+	/** Self Update */
+	if *flags.SelfUpdate {
+		cmd := [...]string{"bash", "-c", "go get github.com/artistudioxyz/aspri"}
+		ExecCommand(cmd[:]...)
 	}
 }
 

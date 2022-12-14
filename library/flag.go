@@ -15,6 +15,7 @@ type Flag struct {
 	WPThemeBuild         *bool
 	WPThemeBuildCheck    *bool
 	WPRefactor           *bool
+	SelfUpdate           *bool
 
 	/** Bool Parameters */
 	Production *bool
@@ -44,6 +45,7 @@ func GetFlag() Flag {
 		WPRefactor:           flag.Bool("wp-refactor", false, "Refactor Library"),
 		QuoteofTheDay:        flag.Bool("quote-of-the-day", false, "show quote of the day"),
 		SearchandReplace:     flag.Bool("search-replace", false, "do search and replace"),
+		SelfUpdate:           flag.Bool("self-update", false, "self update"),
 
 		/** Bool Parameters */
 		Production: flag.Bool("production", false, "Production (WP Mode): Production Environment"),
