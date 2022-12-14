@@ -10,8 +10,7 @@ var (
 )
 
 /** Documentation Help */
-const HelpText = `
-(｡◕‿‿◕｡) ASPRI (Asisten Pribadi)
+const HelpText = `(｡◕‿‿◕｡) ASPRI (Asisten Pribadi)
 Collection of scripts and library to speed up sotware development process 
 Learn More: https://github.com/artistudioxyz/aspri
 `
@@ -19,7 +18,7 @@ Learn More: https://github.com/artistudioxyz/aspri
 /** Help Flag */
 func handleHelpFlag() {
 	if *helpFlag {
-		fmt.Print(HelpText)
+		fmt.Println(HelpText)
 		flag.Usage()
 		return
 	}
