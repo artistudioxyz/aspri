@@ -1,9 +1,9 @@
 package main
 
 import (
-	"aspri/library"
-	"aspri/wordpress"
 	"flag"
+	"github.com/artistudioxyz/aspri/library"
+	"github.com/artistudioxyz/aspri/wordpress"
 )
 
 func main() {

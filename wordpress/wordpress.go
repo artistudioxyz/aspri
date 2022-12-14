@@ -1,10 +1,10 @@
 package wordpress
 
 import (
-	"aspri/library"
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/artistudioxyz/aspri/library"
 	"os"
 	"regexp"
 	"strings"
