@@ -36,5 +36,7 @@ Note :
 
 [WordPress](wordpress/wordpress.go) :
 - Refactor : `--wp-refactor --path {workdir} -from {namespace} -to {namespace}`
-- Build WP Plugin Check : `--wp-plugin-build-check --path {workdir}`
+- WP Plugin Build Check : `--wp-plugin-build-check --path {workdir}`
   - Build WP Plugin (Require Path) : `--wp-plugin-build --path {workdir} --type {wordpress|github}`
+- WP Theme Build Check : `--wp-theme-build-check --path {workdir}`
+  - Build WP Plugin (Require Path) : `--wp-theme-build --path {workdir} --type {wordpress|github}`

@@ -12,6 +12,8 @@ type Flag struct {
 	SearchandReplace     *bool
 	WPPluginBuild        *bool
 	WPPluginBuildCheck   *bool
+	WPThemeBuild         *bool
+	WPThemeBuildCheck    *bool
 	WPRefactor           *bool
 
 	/** Bool Parameters */
@@ -37,6 +39,8 @@ func GetFlag() Flag {
 		Git:                  flag.Bool("git", false, "Git Mode"),
 		WPPluginBuild:        flag.Bool("wp-plugin-build", false, "WP Build Plugin Comply"),
 		WPPluginBuildCheck:   flag.Bool("wp-plugin-build-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
+		WPThemeBuild:         flag.Bool("wp-theme-build", false, "WP Theme Plugin Comply"),
+		WPThemeBuildCheck:    flag.Bool("wp-theme-build-check", false, "WP Check Theme Comply with WordPress.org (Version Check)"),
 		WPRefactor:           flag.Bool("wp-refactor", false, "Refactor Library"),
 		QuoteofTheDay:        flag.Bool("quote-of-the-day", false, "show quote of the day"),
 		SearchandReplace:     flag.Bool("search-replace", false, "do search and replace"),

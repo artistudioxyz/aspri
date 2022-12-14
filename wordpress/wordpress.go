@@ -23,6 +23,10 @@ func InitiateWordPressFunction(flags library.Flag) {
 	if *flags.WPPluginBuildCheck {
 		WPPluginBuildCheck(*flags.Path)
 	}
+	/** WP Theme Build Check */
+	if *flags.WPPluginBuildCheck {
+		WPThemeBuildCheck(*flags.Path)
+	}
 }
 
 /* Refactor Plugin */
@@ -93,7 +97,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 
 	/** Exclude File From .gitignore for BuildType (GitHub) */
 	if buildType == "github" {
-		library.SearchandReplace(path+"/.gitignore", "vendor/", " ")
+		library.SearchandReplace(path+"/.gitignore", "vendor/", "")
 		library.SearchandReplace(path+"/.gitignore", "assets/build/", "")
 		library.SearchandReplace(path+"/.gitignore", "!assets/vendor", "")
 	}
