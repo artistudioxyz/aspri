@@ -27,8 +27,8 @@ type WPProject struct {
 /** Initiate WordPress Function */
 func InitiateWordPressFunction(flags library.Flag) {
 	/** Refactor Plugin */
-	if *flags.WPRefactor && *flags.Path != "" && *flags.From != "" && *flags.To != "" {
-		WPRefactor(*flags.Path, *flags.From, *flags.To)
+	if *flags.WPRefactor && *flags.Path != "" && *flags.From != "" && *flags.To != "" && *flags.Type != "" {
+		WPRefactor(*flags.Path, *flags.From, *flags.To, *flags.Type)
 	}
 	/** WP Plugin Build Check */
 	if *flags.WPPluginBuildCheck {
@@ -53,11 +53,16 @@ func InitiateWordPressFunction(flags library.Flag) {
 }
 
 /* Refactor Plugin */
-func WPRefactor(path string, fromName string, toName string) {
+func WPRefactor(path string, fromName string, toName string, BuildType string) {
 	fmt.Print("Refactor Plugin: ", fromName, " to ", toName)
 	library.SearchandReplace(path, fromName, toName)
 	library.SearchandReplace(path, strings.ToUpper(fromName), strings.ToUpper(toName))
 	library.SearchandReplace(path, strings.ToLower(fromName), strings.ToLower(toName))
+	if BuildType == "theme" {
+		library.SearchandReplace(path, fmt.Sprintf("%s_PLUGIN", strings.ToUpper(toName)), fmt.Sprintf("%s_THEME", strings.ToUpper(toName)))
+		library.SearchandReplace(path, fmt.Sprintf("%s Plugins", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)))
+		library.SearchandReplace(path, fmt.Sprintf("%s Plugin", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)))
+	}
 }
 
 /** CleanProjectFilesforProduction */

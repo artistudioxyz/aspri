@@ -35,7 +35,7 @@ Note :
 - Search and Replace in Directory or File : `--search-replace --path {dir or file} -from {text} -to {text}`
 
 [WordPress](wordpress/wordpress.go) :
-- Refactor : `--wp-refactor --path {workdir} -from {namespace} -to {namespace}`
+- Refactor : `--wp-refactor --path {workdir} -from {namespace} -to {namespace} -type {plugin|theme}`
 - WP Plugin Build Check : `--wp-plugin-build-check --path {workdir}`
   - Build WP Plugin (Require Path) : `--wp-plugin-build --path {workdir} --type {wordpress|github}`
 - WP Theme Build Check : `--wp-theme-build-check --path {workdir}`
