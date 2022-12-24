@@ -39,13 +39,13 @@ func InitiateWordPressFunction(flags library.Flag) {
 		WPThemeBuildCheck(*flags.Path)
 	}
 	/** WP Plugin Build */
-	if *flags.WPPluginBuild && *flags.Path != "" && *flags.Type != "" {
+	if *flags.WPPluginBuild && *flags.Type != "" {
 		WPPluginBuildCheck(*flags.Path)
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
 		SetConfigProduction(*flags.Path, true)
 	}
 	/** WP Theme Build */
-	if *flags.WPThemeBuild && *flags.Path != "" && *flags.Type != "" {
+	if *flags.WPThemeBuild && *flags.Type != "" {
 		WPThemeBuildCheck(*flags.Path)
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
 		SetConfigProduction(*flags.Path, true)
@@ -78,6 +78,11 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 
 /** CleanProjectFilesforProduction */
 func CleanProjectFilesforProduction(path string, buildType string) {
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
 	var remove bytes.Buffer
 	var Files = []string{
 		/** Git */
@@ -146,6 +151,11 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 
 /** SetConfigProduction */
 func SetConfigProduction(path string, production bool) {
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
 	plugin := GetPluginInformation(path)
 	FileName := "config.json"
 	content := library.ReadFile(plugin.Path.Directory + "/" + FileName)
