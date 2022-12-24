@@ -52,17 +52,28 @@ func InitiateWordPressFunction(flags library.Flag) {
 	}
 }
 
-/* Refactor Plugin */
+/* Refactor Dot Framework */
 func WPRefactor(path string, fromName string, toName string, BuildType string) {
+	var remove bytes.Buffer
 	fmt.Print("Refactor Plugin: ", fromName, " to ", toName)
 	library.SearchandReplace(path, fromName, toName)
 	library.SearchandReplace(path, strings.ToUpper(fromName), strings.ToUpper(toName))
 	library.SearchandReplace(path, strings.ToLower(fromName), strings.ToLower(toName))
-	if BuildType == "theme" {
+	if BuildType == "plugin" {
+		remove.WriteString(library.GetShellRemoveFunction(path + "/src/Framework/Theme.php"))
+	} else if BuildType == "theme" {
+		remove.WriteString(library.GetShellRemoveFunction(path + "/src/Framework/Plugin.php"))
 		library.SearchandReplace(path, fmt.Sprintf("%s_PLUGIN", strings.ToUpper(toName)), fmt.Sprintf("%s_THEME", strings.ToUpper(toName)))
 		library.SearchandReplace(path, fmt.Sprintf("%s Plugins", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)))
 		library.SearchandReplace(path, fmt.Sprintf("%s Plugin", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)))
+
+		/** Remove Model */
+		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Model"))
+		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Helper/Model"))
+		library.SearchandReplace(path, "use Helper\\Page;", "")
 	}
+	cmd := [...]string{"bash", "-c", remove.String()}
+	library.ExecCommand(cmd[:]...)
 }
 
 /** CleanProjectFilesforProduction */
