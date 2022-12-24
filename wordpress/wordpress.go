@@ -81,7 +81,6 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 	var remove bytes.Buffer
 	var Files = []string{
 		/** Git */
-		".git",
 		".gitignore",
 
 		/** Vendor */
@@ -116,6 +115,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"README.md",
 	}
 	var FilesforGithub = []string{ // Lists of files that is required for GitHub
+		".git",
 		".gitignore",
 		"README.md",
 	}
