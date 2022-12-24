@@ -70,6 +70,8 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 		/** Remove Model */
 		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Model"))
 		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Helper/Model"))
+		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Page/MenuPage.php"))
+		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Page/SubmenuPage.php"))
 		library.SearchandReplace(path, "use Helper\\Page;", "")
 	}
 	cmd := [...]string{"bash", "-c", remove.String()}
