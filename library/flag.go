@@ -7,9 +7,11 @@ type Flag struct {
 	/** Mode */
 	Docker               *bool
 	Git                  *bool
-	Restage              *bool
 	DockerComposeRestart *bool
+	Markdown             *bool
 	QuoteofTheDay        *bool
+	Restage              *bool
+	RemoveLink           *bool
 	SearchandReplace     *bool
 	WPPluginBuild        *bool
 	WPPluginBuildCheck   *bool
@@ -39,15 +41,17 @@ func GetFlag() Flag {
 		Docker:               flag.Bool("docker", false, "Docker Mode"),
 		DockerComposeRestart: flag.Bool("docker-compose-restart", false, "Docker Compose Restart"),
 		Git:                  flag.Bool("git", false, "Git Mode"),
+		Markdown:             flag.Bool("md", false, "Markdown Mode"),
 		Restage:              flag.Bool("restage", false, "Git Restage"),
+		RemoveLink:           flag.Bool("remove-link", false, "Remove Link from File"),
+		QuoteofTheDay:        flag.Bool("quote-of-the-day", false, "show quote of the day"),
+		SearchandReplace:     flag.Bool("search-replace", false, "do search and replace"),
+		SelfUpdate:           flag.Bool("self-update", false, "self update"),
 		WPPluginBuild:        flag.Bool("wp-plugin-build", false, "WP Build Plugin Comply"),
 		WPPluginBuildCheck:   flag.Bool("wp-plugin-build-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
 		WPThemeBuild:         flag.Bool("wp-theme-build", false, "WP Theme Plugin Comply"),
 		WPThemeBuildCheck:    flag.Bool("wp-theme-build-check", false, "WP Check Theme Comply with WordPress.org (Version Check)"),
 		WPRefactor:           flag.Bool("wp-refactor", false, "Refactor Library"),
-		QuoteofTheDay:        flag.Bool("quote-of-the-day", false, "show quote of the day"),
-		SearchandReplace:     flag.Bool("search-replace", false, "do search and replace"),
-		SelfUpdate:           flag.Bool("self-update", false, "self update"),
 
 		/** Bool Parameters */
 		Production: flag.Bool("production", false, "Production (WP Mode): Production Environment"),

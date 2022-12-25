@@ -28,11 +28,14 @@ Note :
 [Git](library/git.go) :
 - Commit and Push : `--git -m {message}`
 
-[Quotes](library/quotes.go) :
-- Quote of the day : `--quote-of-the-day`
+[Markdown](library/markdown.go) :
+- Remove Link from Markdown File : `--md -remove-link --path {workdir}`
 
 [Miscellaneous](library/miscellaneous.go) :
 - Search and Replace in Directory or File : `--search-replace --path {dir or file} -from {text} -to {text}`
+
+[Quotes](library/quotes.go) :
+- Quote of the day : `--quote-of-the-day`
 
 [WordPress](wordpress/wordpress.go) :
 - Refactor Dot Framework : `--wp-refactor --path {workdir} -from {namespace} -to {namespace} -type {plugin|theme}`
