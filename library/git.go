@@ -22,7 +22,7 @@ func InitiateGitFunction(flags Flag) {
 	 */
 	if *flags.Git && *flags.Restage {
 		fmt.Println("🏓 Re-staged")
-		cmd := [...]string{"bash", "-c", "git rm -rf cached . && git add ."}
+		cmd := [...]string{"bash", "-c", "git rm -rf --cached . && git add ."}
 		fmt.Println(ExecCommand(cmd[:]...))
 	}
 }
