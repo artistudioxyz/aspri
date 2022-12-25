@@ -90,6 +90,14 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		/** Git */
 		".gitignore",
 
+		/** Hooks */
+		".husky",
+		".eslintignore",
+		".eslintrc.json",
+		".prettierrc.json",
+		".release-it.json",
+		"commitlint.config.js",
+
 		/** Vendor */
 		"node_modules",
 
@@ -117,7 +125,6 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"tailwindcsssupport.js",
 		"tsconfig.json",
 		"webpack.config.js",
-		"CHANGELOG.md",
 		"DOCS.md",
 		"README.md",
 	}
@@ -197,7 +204,7 @@ func CheckProjectVersion(project WPProject) {
 	content = library.ReadFile(project.Path.Directory + "/" + FileName)
 	regexversion := regexp.MustCompile(project.Version)
 	matches := regexversion.FindAllStringIndex(string(content), 2)
-	if len(matches) == 2 {
+	if len(matches) >= 1 {
 		fmt.Println("✅ Plugin Version Match", FileName)
 	} else {
 		panic("❌ Plugin Version Do Not Match " + FileName)
