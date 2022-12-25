@@ -7,6 +7,7 @@ type Flag struct {
 	/** Mode */
 	Docker               *bool
 	Git                  *bool
+	Restage              *bool
 	DockerComposeRestart *bool
 	QuoteofTheDay        *bool
 	SearchandReplace     *bool
@@ -38,6 +39,7 @@ func GetFlag() Flag {
 		Docker:               flag.Bool("docker", false, "Docker Mode"),
 		DockerComposeRestart: flag.Bool("docker-compose-restart", false, "Docker Compose Restart"),
 		Git:                  flag.Bool("git", false, "Git Mode"),
+		Restage:              flag.Bool("restage", false, "Git Restage"),
 		WPPluginBuild:        flag.Bool("wp-plugin-build", false, "WP Build Plugin Comply"),
 		WPPluginBuildCheck:   flag.Bool("wp-plugin-build-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
 		WPThemeBuild:         flag.Bool("wp-theme-build", false, "WP Theme Plugin Comply"),

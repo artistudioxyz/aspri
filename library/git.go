@@ -16,4 +16,13 @@ func InitiateGitFunction(flags Flag) {
 		cmd := [...]string{"bash", "-c", cnp}
 		fmt.Println(ExecCommand(cmd[:]...))
 	}
+	/**
+	* Restage
+	* - Equivalent to : `git rm -rf cached . && git add .`
+	 */
+	if *flags.Git && *flags.Message != "" {
+		fmt.Println("🏓 Re-staged")
+		cmd := [...]string{"bash", "-c", "git rm -rf cached . && git add ."}
+		fmt.Println(ExecCommand(cmd[:]...))
+	}
 }
