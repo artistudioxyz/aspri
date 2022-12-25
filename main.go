@@ -17,6 +17,7 @@ func main() {
 	///** Initiate Library */
 	library.InitiateDockerFunction(flags)
 	library.InitiateGitFunction(flags)
+	library.InitiateMarkdownFunction(flags)
 	library.InitiateMiscellaneousFunction(flags)
 	library.InitiateQuoteFunction(flags)
 

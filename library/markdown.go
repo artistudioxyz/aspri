@@ -1,6 +1,7 @@
 package library
 
 import (
+	"fmt"
 	"os"
 	"regexp"
 	"strings"
@@ -10,12 +11,13 @@ import (
 func InitiateMarkdownFunction(flags Flag) {
 	/** Remove Link */
 	if *flags.Markdown && *flags.RemoveLink {
+		fmt.Println("❌ Removing link")
 		if *flags.Path == "" {
 			CurrentDirectory, _ := os.Getwd()
 			*flags.Path = CurrentDirectory
 		}
 		content := ReadFile(*flags.Path)
-		MarkdownRemoveLink(string(content))
+		WriteFile(*flags.Path, MarkdownRemoveLink(string(content)))
 	}
 }
 
