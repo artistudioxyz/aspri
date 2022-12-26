@@ -94,6 +94,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		".husky",
 		".eslintignore",
 		".eslintrc.json",
+		".prettierignore",
 		".prettierrc.json",
 		".release-it.json",
 		"commitlint.config.js",
