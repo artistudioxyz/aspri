@@ -92,6 +92,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 
 		/** Hooks */
 		".husky",
+		".editorconfig",
 		".eslintignore",
 		".eslintrc.json",
 		".prettierignore",
