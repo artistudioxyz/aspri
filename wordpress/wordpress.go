@@ -120,6 +120,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"Gruntfile.js",
 		"composer.json",
 		"composer.lock",
+		"originalassets.js",
 		"package-lock.json",
 		"package.json",
 		"tailwind-default.config.js",
