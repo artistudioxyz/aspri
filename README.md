@@ -22,11 +22,12 @@ Note :
 
 ## 📟 Commands
 [Docker](library/docker.go) :
-- Stop and Remove Container : `--docker -prune -id {identifier}` 
+- Stop and Remove Container : `--docker -prune -id {identifier}`
 - Compose restart (down & up) : `--docker-compose-restart`
 
 [Git](library/git.go) :
 - Commit and Push : `--git -m {message}`
+  - Remove Cache : `--git-reset-cache`
 
 [Markdown](library/markdown.go) :
 - Remove Link from Markdown File : `--md -remove-link --path {workdir}`
@@ -44,3 +45,16 @@ Note :
 - WP Theme Build Check : `--wp-theme-build-check --path {workdir}`
   - Build WP Plugin (Require Path) : `--wp-theme-build --path {workdir} --type {wordpress|github}`
 
+## ⚒️ Built with
+- [Commitlint](https://commitlint.js.org)
+- [Husky](https://typicode.github.io/husky)
+- [Release-It](https://www.npmjs.com/package/release-it)
+	- [Conventional Changelog](https://github.com/release-it/conventional-changelog)
+
+## 🔥 Development Notes
+Development notes
+- Install from source
+	- Re-initiate go.mod : `rm go.mod && go mod init aspri`
+	- Go Install : `go install`
+	- Run : `aspri --help`
+- Deployment to registry : `GOPROXY=proxy.golang.org go list -m github.com/artistudioxyz/aspri@{version}`
