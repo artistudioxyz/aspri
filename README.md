@@ -11,7 +11,7 @@
 
 # ASPRI (Asisten Pribadi)
 
-a Collection of scripts and libraries to speed up sotware development process
+💃 a Collection of scripts and libraries to speed up sotware development process
 
 ## 📝 Installation
 - Run : `go get github.com/artistudioxyz/aspri`
