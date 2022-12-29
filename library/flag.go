@@ -7,10 +7,10 @@ type Flag struct {
 	/** Mode */
 	Docker               *bool
 	Git                  *bool
+	GitResetCache        *bool
 	DockerComposeRestart *bool
 	Markdown             *bool
 	QuoteofTheDay        *bool
-	Restage              *bool
 	RemoveLink           *bool
 	SearchandReplace     *bool
 	WPPluginBuild        *bool
@@ -41,8 +41,8 @@ func GetFlag() Flag {
 		Docker:               flag.Bool("docker", false, "Docker Mode"),
 		DockerComposeRestart: flag.Bool("docker-compose-restart", false, "Docker Compose Restart"),
 		Git:                  flag.Bool("git", false, "Git Mode"),
+		GitResetCache:        flag.Bool("git-reset-cache", false, "Git Reset Cache"),
 		Markdown:             flag.Bool("md", false, "Markdown Mode"),
-		Restage:              flag.Bool("restage", false, "Git Restage"),
 		RemoveLink:           flag.Bool("remove-link", false, "Remove Link from File"),
 		QuoteofTheDay:        flag.Bool("quote-of-the-day", false, "show quote of the day"),
 		SearchandReplace:     flag.Bool("search-replace", false, "do search and replace"),

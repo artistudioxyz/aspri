@@ -27,7 +27,7 @@ Note :
 
 [Git](library/git.go) :
 - Commit and Push : `--git -m {message}`
-  - Remove Cache : `--git-reset-cache`
+  - Reset Cache : `--git-reset-cache`
 
 [Markdown](library/markdown.go) :
 - Remove Link from Markdown File : `--md -remove-link --path {workdir}`
