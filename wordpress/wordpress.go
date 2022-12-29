@@ -27,8 +27,8 @@ type WPProject struct {
 /** Initiate WordPress Function */
 func InitiateWordPressFunction(flags library.Flag) {
 	/** Refactor Plugin */
-	if *flags.WPRefactor && *flags.Path != "" && *flags.From != "" && *flags.To != "" {
-		WPRefactor(*flags.Path, *flags.From, *flags.To)
+	if *flags.WPRefactor && *flags.Path != "" && *flags.From != "" && *flags.To != "" && *flags.Type != "" {
+		WPRefactor(*flags.Path, *flags.From, *flags.To, *flags.Type)
 	}
 	/** WP Plugin Build Check */
 	if *flags.WPPluginBuildCheck {
@@ -39,34 +39,65 @@ func InitiateWordPressFunction(flags library.Flag) {
 		WPThemeBuildCheck(*flags.Path)
 	}
 	/** WP Plugin Build */
-	if *flags.WPPluginBuild && *flags.Path != "" && *flags.Type != "" {
+	if *flags.WPPluginBuild && *flags.Type != "" {
 		WPPluginBuildCheck(*flags.Path)
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
 		SetConfigProduction(*flags.Path, true)
 	}
 	/** WP Theme Build */
-	if *flags.WPThemeBuild && *flags.Path != "" && *flags.Type != "" {
+	if *flags.WPThemeBuild && *flags.Type != "" {
 		WPThemeBuildCheck(*flags.Path)
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
 		SetConfigProduction(*flags.Path, true)
 	}
 }
 
-/* Refactor Plugin */
-func WPRefactor(path string, fromName string, toName string) {
+/* Refactor Dot Framework */
+func WPRefactor(path string, fromName string, toName string, BuildType string) {
+	var remove bytes.Buffer
 	fmt.Print("Refactor Plugin: ", fromName, " to ", toName)
 	library.SearchandReplace(path, fromName, toName)
 	library.SearchandReplace(path, strings.ToUpper(fromName), strings.ToUpper(toName))
 	library.SearchandReplace(path, strings.ToLower(fromName), strings.ToLower(toName))
+	if BuildType == "plugin" {
+		remove.WriteString(library.GetShellRemoveFunction(path + "/src/Framework/Theme.php"))
+	} else if BuildType == "theme" {
+		remove.WriteString(library.GetShellRemoveFunction(path + "/src/Framework/Plugin.php"))
+		library.SearchandReplace(path, fmt.Sprintf("%s_PLUGIN", strings.ToUpper(toName)), fmt.Sprintf("%s_THEME", strings.ToUpper(toName)))
+		library.SearchandReplace(path, fmt.Sprintf("%s Plugins", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)))
+		library.SearchandReplace(path, fmt.Sprintf("%s Plugin", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)))
+
+		/** Remove Model */
+		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Model"))
+		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Helper/Model"))
+		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Page/MenuPage.php"))
+		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Page/SubmenuPage.php"))
+	}
+	cmd := [...]string{"bash", "-c", remove.String()}
+	library.ExecCommand(cmd[:]...)
 }
 
 /** CleanProjectFilesforProduction */
 func CleanProjectFilesforProduction(path string, buildType string) {
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
 	var remove bytes.Buffer
 	var Files = []string{
 		/** Git */
-		".git",
 		".gitignore",
+
+		/** Hooks */
+		".husky",
+		".editorconfig",
+		".eslintignore",
+		".eslintrc.json",
+		".prettierignore",
+		".prettierrc.json",
+		".release-it.json",
+		"commitlint.config.js",
 
 		/** Vendor */
 		"node_modules",
@@ -79,6 +110,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"assets/js",
 		"assets/ts",
 		"assets/components",
+		"assets/build/css/tailwind.css",
 		"assets/build/css/tailwind.min.css",
 		"assets/build/ts",
 		"assets/build/*.map",
@@ -88,6 +120,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"Gruntfile.js",
 		"composer.json",
 		"composer.lock",
+		"originalassets.js",
 		"package-lock.json",
 		"package.json",
 		"tailwind-default.config.js",
@@ -95,11 +128,11 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"tailwindcsssupport.js",
 		"tsconfig.json",
 		"webpack.config.js",
-		"CHANGELOG.md",
 		"DOCS.md",
 		"README.md",
 	}
 	var FilesforGithub = []string{ // Lists of files that is required for GitHub
+		".git",
 		".gitignore",
 		"README.md",
 	}
@@ -120,9 +153,11 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 
 	/** Exclude File From .gitignore for BuildType (GitHub) */
 	if buildType == "github" {
-		library.SearchandReplace(path+"/.gitignore", "vendor/", "")
-		library.SearchandReplace(path+"/.gitignore", "assets/build/", "")
-		library.SearchandReplace(path+"/.gitignore", "!assets/vendor", "")
+		library.SearchandReplace(path+"/.gitignore", "/assets/build/", "")
+		library.SearchandReplace(path+"/.gitignore", "/assets/vendor/**/*.js", "")
+		library.SearchandReplace(path+"/.gitignore", "/assets/vendor/**/*.css", "")
+		library.SearchandReplace(path+"/.gitignore", "!/assets/vendor/**/*.min.*", "")
+		library.SearchandReplace(path+"/.gitignore", "/vendor/", "")
 	}
 
 	fmt.Println("✅ Success Cleanup Project Files")
@@ -130,6 +165,11 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 
 /** SetConfigProduction */
 func SetConfigProduction(path string, production bool) {
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
 	plugin := GetPluginInformation(path)
 	FileName := "config.json"
 	content := library.ReadFile(plugin.Path.Directory + "/" + FileName)
@@ -169,7 +209,7 @@ func CheckProjectVersion(project WPProject) {
 	content = library.ReadFile(project.Path.Directory + "/" + FileName)
 	regexversion := regexp.MustCompile(project.Version)
 	matches := regexversion.FindAllStringIndex(string(content), 2)
-	if len(matches) == 2 {
+	if len(matches) >= 1 {
 		fmt.Println("✅ Plugin Version Match", FileName)
 	} else {
 		panic("❌ Plugin Version Do Not Match " + FileName)
