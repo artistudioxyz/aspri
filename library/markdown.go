@@ -11,13 +11,13 @@ import (
 func InitiateMarkdownFunction(flags Flag) {
 	/** Remove Link */
 	if *flags.Markdown && *flags.RemoveLink {
-		fmt.Println("❌ Removing link")
 		if *flags.Path == "" {
 			CurrentDirectory, _ := os.Getwd()
 			*flags.Path = CurrentDirectory
 		}
 		content := ReadFile(*flags.Path)
 		WriteFile(*flags.Path, MarkdownRemoveLink(string(content)))
+		fmt.Println("✅ Link removed")
 	}
 }
 
