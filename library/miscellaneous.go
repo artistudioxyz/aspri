@@ -13,8 +13,7 @@ import (
 func InitiateMiscellaneousFunction(flags Flag) {
 	/** removeFilesExceptExtensions */
 	if *flags.File && *flags.Remove && len(*flags.Ext) > 0 {
-		removeFilesExceptExtensions(*flags.Path, *flags.Ext)
-		fmt.Println("✅ Successfully remove files except extensions", *flags.Ext, "in", *flags.Path)
+		RemoveFilesExceptExtensions(*flags.Path, *flags.Ext)
 	}
 	/** Delete Directory by Regex */
 	if *flags.Dir && *flags.Remove && *flags.Regex != "" {
@@ -22,7 +21,6 @@ func InitiateMiscellaneousFunction(flags Flag) {
 		if err != nil {
 			fmt.Println("❌ ", err)
 		}
-		fmt.Println("✅ Successfully remove directory by regex", *flags.Regex, "in", *flags.Path)
 	}
 	/** Search and Replace */
 	if *flags.SearchandReplace && *flags.From != "" && *flags.To != "" {
@@ -56,12 +54,14 @@ func DeleteDirectoryByRegex(path string, regexString string) error {
 		if info.IsDir() && regex.MatchString(info.Name()) {
 			return os.RemoveAll(path)
 		}
+
+		fmt.Println("✅ Successfully remove directory by regex", path, "in", regexString)
 		return nil
 	})
 }
 
 /** Remove Files Except Specified Extensions */
-func removeFilesExceptExtensions(root string, allowedExtensions []string) error {
+func RemoveFilesExceptExtensions(root string, allowedExtensions []string) error {
 	if root == "" {
 		CurrentDirectory, _ := os.Getwd()
 		root = CurrentDirectory
@@ -80,6 +80,7 @@ func removeFilesExceptExtensions(root string, allowedExtensions []string) error 
 				}
 			}
 		}
+		fmt.Println("✅ Successfully remove files except extensions", root, "in", allowedExtensions)
 		return nil
 	})
 }

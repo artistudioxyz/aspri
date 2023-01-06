@@ -42,12 +42,14 @@ func InitiateWordPressFunction(flags library.Flag) {
 	if *flags.WPPluginBuild && *flags.Type != "" {
 		WPPluginBuildCheck(*flags.Path)
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
+		CleanVendorDirandFilesforProduction(*flags.Path)
 		SetConfigProduction(*flags.Path, true)
 	}
 	/** WP Theme Build */
 	if *flags.WPThemeBuild && *flags.Type != "" {
 		WPThemeBuildCheck(*flags.Path)
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
+		CleanVendorDirandFilesforProduction(*flags.Path)
 		SetConfigProduction(*flags.Path, true)
 	}
 }
@@ -78,7 +80,7 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 }
 
 /** CleanVendorDirandFilesforProduction */
-func CleanVendorDirandFilesforProduction(path string, buildType string) {
+func CleanVendorDirandFilesforProduction(path string) {
 	if path == "" {
 		CurrentDirectory, _ := os.Getwd()
 		path = CurrentDirectory
@@ -94,6 +96,7 @@ func CleanVendorDirandFilesforProduction(path string, buildType string) {
 	for _, d := range Dirs {
 		library.DeleteDirectoryByRegex(path+"/vendor/", d)
 	}
+	library.RemoveFilesExceptExtensions(path+"/vendor/", []string{".php", ".json"})
 
 	fmt.Println("✅ Success Cleanup Vendor Directories and Files for Production")
 }
