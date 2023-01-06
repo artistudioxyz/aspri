@@ -14,9 +14,12 @@ func InitiateMiscellaneousFunction(flags Flag) {
 	if *flags.File && *flags.Remove && len(*flags.Ext) > 0 {
 		RemoveFilesExceptExtensions(*flags.Path, *flags.Ext, *flags.Except)
 	}
-	/** Delete Directory by Regex */
+	/** Delete Directory or Files in Path Matching Filename */
 	if *flags.Dir && *flags.Remove && len(*flags.Filename) > 0 {
-		DeleteDirectories(*flags.Path, *flags.Filename)
+		DeleteDirectoriesorFilesinPath(true, *flags.Path, *flags.Filename)
+	}
+	if *flags.File && *flags.Remove && len(*flags.Filename) > 0 {
+		DeleteDirectoriesorFilesinPath(false, *flags.Path, *flags.Filename)
 	}
 	/** Search and Replace */
 	if *flags.SearchandReplace && *flags.From != "" && *flags.To != "" {
@@ -55,8 +58,8 @@ func RemoveFilesExceptExtensions(root string, allowedExtensions []string, except
 	})
 }
 
-/** Delete Directory and Subdirector Matching Filename */
-func DeleteDirectories(root string, filenames []string) error {
+/** Delete Directory or Files in Path Matching Filename */
+func DeleteDirectoriesorFilesinPath(isdir bool, root string, filenames []string) error {
 	if root == "" {
 		CurrentDirectory, _ := os.Getwd()
 		root = CurrentDirectory
@@ -69,12 +72,18 @@ func DeleteDirectories(root string, filenames []string) error {
 		}
 
 		// If the path is a directory and it has the correct name, delete it
-		if info.IsDir() && !SliceContainsString(filenames, info.Name()) {
+		if isdir && info.IsDir() && SliceContainsString(filenames, info.Name()) {
 			err = os.RemoveAll(path)
 			if err != nil {
 				return err
 			}
 			fmt.Println("✅ Successfully remove directories nested by filename", info.Name(), "in", root)
+		} else if !isdir && !info.IsDir() && SliceContainsString(filenames, info.Name()) {
+			err = os.RemoveAll(path)
+			if err != nil {
+				return err
+			}
+			fmt.Println("✅ Successfully remove files nested by filename", info.Name(), "in", root)
 		}
 
 		return nil
