@@ -86,17 +86,16 @@ func CleanVendorDirandFilesforProduction(path string) {
 		path = CurrentDirectory
 	}
 
-	var Dirs = []string{
+	/** Delete Directories */
+	library.DeleteDirectories(path+"/vendor/", []string{
 		".github",
 		".husky",
 		"languages",
 		"plugins",
-	}
-
-	for _, d := range Dirs {
-		library.DeleteDirectoryByRegex(path+"/vendor/", d)
-	}
-	library.RemoveFilesExceptExtensions(path+"/vendor/", []string{".php", ".json"})
+	})
+	library.RemoveFilesExceptExtensions(path+"/vendor/", []string{".php"}, []string{
+		"composer.json",
+	})
 
 	fmt.Println("✅ Success Cleanup Vendor Directories and Files for Production")
 }

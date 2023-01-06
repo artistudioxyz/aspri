@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"regexp"
 	"strings"
 )
 
@@ -13,14 +12,11 @@ import (
 func InitiateMiscellaneousFunction(flags Flag) {
 	/** removeFilesExceptExtensions */
 	if *flags.File && *flags.Remove && len(*flags.Ext) > 0 {
-		RemoveFilesExceptExtensions(*flags.Path, *flags.Ext)
+		RemoveFilesExceptExtensions(*flags.Path, *flags.Ext, *flags.Except)
 	}
 	/** Delete Directory by Regex */
-	if *flags.Dir && *flags.Remove && *flags.Regex != "" {
-		err := DeleteDirectoryByRegex(*flags.Path, *flags.Regex)
-		if err != nil {
-			fmt.Println("❌ ", err)
-		}
+	if *flags.Dir && *flags.Remove && len(*flags.Filename) > 0 {
+		DeleteDirectories(*flags.Path, *flags.Filename)
 	}
 	/** Search and Replace */
 	if *flags.SearchandReplace && *flags.From != "" && *flags.To != "" {
@@ -34,34 +30,8 @@ func InitiateMiscellaneousFunction(flags Flag) {
 	}
 }
 
-/** Delete Directory by Regex */
-func DeleteDirectoryByRegex(path string, regexString string) error {
-	if path == "" {
-		CurrentDirectory, _ := os.Getwd()
-		path = CurrentDirectory
-	}
-
-	regex, err := regexp.Compile(regexString)
-	if err != nil {
-		panic(err)
-	}
-
-	// Walk the directory tree and remove all directories that match the pattern
-	return filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		if info.IsDir() && regex.MatchString(info.Name()) {
-			return os.RemoveAll(path)
-		}
-
-		fmt.Println("✅ Successfully remove directory by regex", path, "in", regexString)
-		return nil
-	})
-}
-
 /** Remove Files Except Specified Extensions */
-func RemoveFilesExceptExtensions(root string, allowedExtensions []string) error {
+func RemoveFilesExceptExtensions(root string, allowedExtensions []string, exception []string) error {
 	if root == "" {
 		CurrentDirectory, _ := os.Getwd()
 		root = CurrentDirectory
@@ -69,18 +39,44 @@ func RemoveFilesExceptExtensions(root string, allowedExtensions []string) error 
 
 	return filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
-			return err
+			fmt.Println("❌ ", err)
 		}
 		if !info.IsDir() {
 			ext := filepath.Ext(info.Name())
-			if !SliceContainsString(allowedExtensions, ext) {
+			if !SliceContainsString(allowedExtensions, ext) && !SliceContainsString(exception, info.Name()) {
 				err := os.Remove(path)
 				if err != nil {
 					return err
 				}
+				fmt.Println("✅ Successfully remove files except extensions", root, "in", allowedExtensions)
 			}
 		}
-		fmt.Println("✅ Successfully remove files except extensions", root, "in", allowedExtensions)
+		return nil
+	})
+}
+
+/** Delete Directory and Subdirector Matching Filename */
+func DeleteDirectories(root string, filenames []string) error {
+	if root == "" {
+		CurrentDirectory, _ := os.Getwd()
+		root = CurrentDirectory
+	}
+
+	// Walk through the directory tree
+	return filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		// If the path is a directory and it has the correct name, delete it
+		if info.IsDir() && !SliceContainsString(filenames, info.Name()) {
+			err = os.RemoveAll(path)
+			if err != nil {
+				return err
+			}
+			fmt.Println("✅ Successfully remove directories nested by filename", info.Name(), "in", root)
+		}
+
 		return nil
 	})
 }

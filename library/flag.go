@@ -33,6 +33,8 @@ type Flag struct {
 	/** String Parameters */
 	ID       *string
 	Ext      *[]string
+	Except   *[]string
+	Filename *[]string
 	From     *string
 	Message  *string
 	Message2 *string
@@ -70,14 +72,16 @@ func GetFlag() Flag {
 		Version:    flag.Bool("version", false, "show current version"),
 
 		/** String Parameters */
-		ID:      flag.String("id", "", "Identifier (Docker Mode): Container"),
-		Ext:     flag.StringArray("ext", []string{}, "File extensions to include"),
-		From:    flag.String("from", "", "Refactor Text From"),
-		Message: flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),
-		Path:    flag.String("path", "", "Refactor : Path to Directory"),
-		Regex:   flag.String("regex", "", "Regex"),
-		To:      flag.String("to", "", "Refactor Text To"),
-		Type:    flag.String("type", "", "Build type (WordPress)"),
+		ID:       flag.String("id", "", "Identifier (Docker Mode): Container"),
+		Ext:      flag.StringArray("ext", []string{}, "File extensions to include"),
+		Except:   flag.StringArray("except", []string{}, "File to exclude"),
+		Filename: flag.StringArray("filename", []string{}, "Filenames"),
+		From:     flag.String("from", "", "Refactor Text From"),
+		Message:  flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),
+		Path:     flag.String("path", "", "Refactor : Path to Directory"),
+		Regex:    flag.String("regex", "", "Regex"),
+		To:       flag.String("to", "", "Refactor Text To"),
+		Type:     flag.String("type", "", "Build type (WordPress)"),
 	}
 	flag.Parse()
 

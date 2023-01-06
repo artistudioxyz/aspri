@@ -33,8 +33,8 @@ Note :
 - Remove Link from Markdown File : `--md --remove-link --path {workdir}`
 
 [Miscellaneous](library/miscellaneous.go) :
-- Delete Files Nested Except Extensions : `--file --remove --ext {.php,.json} --path {workdir}`
-- Delete Directory Nested by Regex : `--dir --remove --regex {regex} --path {workdir}`
+- Remove Files Nested Except Extensions : `--file --remove --ext {.php} --except {composer.json} --path {workdir}`
+- Remove Directory Nested by Filenames : `--dir --remove --filename {filename} --path {workdir}`
 - Search and Replace in Directory or File : `--search-replace --path {dir or file} --from {text} --to {text}`
 
 [Quotes](library/quotes.go) :
