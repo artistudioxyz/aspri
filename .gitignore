@@ -8,7 +8,6 @@
 # Dummy
 main
 app.env
-go.sum
 
 # OS
 *.DS_Store
