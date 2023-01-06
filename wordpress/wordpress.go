@@ -42,14 +42,14 @@ func InitiateWordPressFunction(flags library.Flag) {
 	if *flags.WPPluginBuild && *flags.Type != "" {
 		WPPluginBuildCheck(*flags.Path)
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
-		CleanVendorDirandFilesforProduction(*flags.Path)
+		CleanVendorDirandFilesforProduction(*flags.Path, *flags.Type)
 		SetConfigProduction(*flags.Path, true)
 	}
 	/** WP Theme Build */
 	if *flags.WPThemeBuild && *flags.Type != "" {
 		WPThemeBuildCheck(*flags.Path)
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
-		CleanVendorDirandFilesforProduction(*flags.Path)
+		CleanVendorDirandFilesforProduction(*flags.Path, *flags.Type)
 		SetConfigProduction(*flags.Path, true)
 	}
 }
@@ -80,7 +80,7 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 }
 
 /** CleanVendorDirandFilesforProduction */
-func CleanVendorDirandFilesforProduction(path string) {
+func CleanVendorDirandFilesforProduction(path string, buildType string) {
 	if path == "" {
 		CurrentDirectory, _ := os.Getwd()
 		path = CurrentDirectory
@@ -99,6 +99,12 @@ func CleanVendorDirandFilesforProduction(path string) {
 			"example.php",
 			"index.php",
 		})
+
+	if buildType == "theme" {
+		library.DeleteDirectoriesorFilesinPath(path+"/vendor/",
+			[]string{},
+			[]string{"Email.php"})
+	}
 
 	fmt.Println("✅ Success Cleanup Vendor Directories and Files for Production")
 }
