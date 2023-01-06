@@ -93,7 +93,9 @@ func CleanVendorDirandFilesforProduction(path string) {
 		"languages",
 		"plugins",
 	})
+	/** Delete Files */
 	library.DeleteDirectoriesorFilesinPath(false, path+"/vendor/", []string{
+		"example.php",
 		"index.php",
 	})
 	library.RemoveFilesExceptExtensions(path+"/vendor/", []string{".php"}, []string{})

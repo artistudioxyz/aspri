@@ -51,7 +51,7 @@ func RemoveFilesExceptExtensions(root string, allowedExtensions []string, except
 				if err != nil {
 					return err
 				}
-				fmt.Println("✅ Successfully remove files except extensions", root, "in", allowedExtensions)
+				fmt.Println("✅ Successfully remove files except extensions", allowedExtensions, "in", info.Name())
 			}
 		}
 		return nil
