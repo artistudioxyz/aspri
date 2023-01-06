@@ -68,6 +68,7 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 		library.SearchandReplace(path, fmt.Sprintf("%s_PLUGIN", strings.ToUpper(toName)), fmt.Sprintf("%s_THEME", strings.ToUpper(toName)))
 		library.SearchandReplace(path, fmt.Sprintf("%s Plugins", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)))
 		library.SearchandReplace(path, fmt.Sprintf("%s Plugin", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)))
+		library.SearchandReplace(path, "use Helper\\Model;", "")
 
 		/** Remove Model */
 		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Model"))
@@ -103,7 +104,10 @@ func CleanVendorDirandFilesforProduction(path string, buildType string) {
 	if buildType == "theme" {
 		library.DeleteDirectoriesorFilesinPath(path+"/vendor/",
 			[]string{},
-			[]string{"Email.php"})
+			[]string{
+				"Email.php",
+				"Model.php",
+			})
 	}
 
 	fmt.Println("✅ Success Cleanup Vendor Directories and Files for Production")
