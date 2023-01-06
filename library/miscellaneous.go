@@ -2,6 +2,7 @@ package library
 
 import (
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -83,6 +84,19 @@ func DeleteDirectoriesorFilesinPath(root string, dirnames []string, filenames []
 				fmt.Println("✅ Successfully remove directories nested by name", info.Name(), "in", root)
 			} else {
 				fmt.Println("✅ Successfully remove files nested by filename", info.Name(), "in", root)
+			}
+		} else if info.IsDir() {
+			// Check if the directory is empty
+			f, err := os.Open(path)
+			if err != nil {
+				fmt.Println("❌ ", err)
+				return nil
+			}
+			defer f.Close()
+			_, err = f.Readdirnames(1)
+			if err == io.EOF {
+				// Directory is empty, so delete it
+				os.Remove(path)
 			}
 		}
 
