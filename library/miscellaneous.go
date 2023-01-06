@@ -5,11 +5,25 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
 /** Initiate Miscellaneous Function */
 func InitiateMiscellaneousFunction(flags Flag) {
+	/** removeFilesExceptExtensions */
+	if *flags.File && *flags.Remove && len(*flags.Ext) > 0 {
+		removeFilesExceptExtensions(*flags.Path, *flags.Ext)
+		fmt.Println("✅ Successfully remove files except extensions", *flags.Ext, "in", *flags.Path)
+	}
+	/** Delete Directory by Regex */
+	if *flags.Dir && *flags.Remove && *flags.Regex != "" {
+		err := DeleteDirectoryByRegex(*flags.Path, *flags.Regex)
+		if err != nil {
+			fmt.Println("❌ ", err)
+		}
+		fmt.Println("✅ Successfully remove directory by regex", *flags.Regex, "in", *flags.Path)
+	}
 	/** Search and Replace */
 	if *flags.SearchandReplace && *flags.From != "" && *flags.To != "" {
 		SearchandReplace(*flags.Path, *flags.From, *flags.To)
@@ -22,9 +36,55 @@ func InitiateMiscellaneousFunction(flags Flag) {
 	}
 }
 
-/**
-* Search and Replace in Directory or File
- */
+/** Delete Directory by Regex */
+func DeleteDirectoryByRegex(path string, regexString string) error {
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
+	regex, err := regexp.Compile(regexString)
+	if err != nil {
+		panic(err)
+	}
+
+	// Walk the directory tree and remove all directories that match the pattern
+	return filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if info.IsDir() && regex.MatchString(info.Name()) {
+			return os.RemoveAll(path)
+		}
+		return nil
+	})
+}
+
+/** Remove Files Except Specified Extensions */
+func removeFilesExceptExtensions(root string, allowedExtensions []string) error {
+	if root == "" {
+		CurrentDirectory, _ := os.Getwd()
+		root = CurrentDirectory
+	}
+
+	return filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() {
+			ext := filepath.Ext(info.Name())
+			if !SliceContainsString(allowedExtensions, ext) {
+				err := os.Remove(path)
+				if err != nil {
+					return err
+				}
+			}
+		}
+		return nil
+	})
+}
+
+/** Search and Replace in Directory or File */
 func SearchandReplace(path string, from string, to string) {
 	if path == "" {
 		CurrentDirectory, _ := os.Getwd()

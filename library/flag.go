@@ -1,16 +1,21 @@
 package library
 
-import "flag"
+import (
+	flag "github.com/spf13/pflag"
+)
 
 /** Flag Struct */
 type Flag struct {
 	/** Mode */
+	Dir                  *bool
 	Docker               *bool
+	File                 *bool
 	Git                  *bool
 	GitResetCache        *bool
 	DockerComposeRestart *bool
 	Markdown             *bool
 	QuoteofTheDay        *bool
+	Remove               *bool
 	RemoveLink           *bool
 	SearchandReplace     *bool
 	WPPluginBuild        *bool
@@ -26,23 +31,29 @@ type Flag struct {
 	Version    *bool
 
 	/** String Parameters */
-	ID      *string
-	From    *string
-	Message *string
-	Path    *string
-	To      *string
-	Type    *string
+	ID       *string
+	Ext      *[]string
+	From     *string
+	Message  *string
+	Message2 *string
+	Regex    *string
+	Path     *string
+	To       *string
+	Type     *string
 }
 
 /** Get Flag */
 func GetFlag() Flag {
 	flags := Flag{
 		/** Mode */
+		Dir:                  flag.Bool("dir", false, "Directory Mode"),
 		Docker:               flag.Bool("docker", false, "Docker Mode"),
 		DockerComposeRestart: flag.Bool("docker-compose-restart", false, "Docker Compose Restart"),
+		File:                 flag.Bool("file", false, "File Mode"),
 		Git:                  flag.Bool("git", false, "Git Mode"),
 		GitResetCache:        flag.Bool("git-reset-cache", false, "Git Reset Cache"),
 		Markdown:             flag.Bool("md", false, "Markdown Mode"),
+		Remove:               flag.Bool("remove", false, "Remove Mode for Dir and File"),
 		RemoveLink:           flag.Bool("remove-link", false, "Remove Link from File"),
 		QuoteofTheDay:        flag.Bool("quote-of-the-day", false, "show quote of the day"),
 		SearchandReplace:     flag.Bool("search-replace", false, "do search and replace"),
@@ -60,12 +71,15 @@ func GetFlag() Flag {
 
 		/** String Parameters */
 		ID:      flag.String("id", "", "Identifier (Docker Mode): Container"),
-		Path:    flag.String("path", "", "Refactor : Path to Directory"),
+		Ext:     flag.StringArray("ext", []string{}, "File extensions to include"),
 		From:    flag.String("from", "", "Refactor Text From"),
-		Message: flag.String("m", "", "Message (Git Mode): Commit Message"),
+		Message: flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),
+		Path:    flag.String("path", "", "Refactor : Path to Directory"),
+		Regex:   flag.String("regex", "", "Regex"),
 		To:      flag.String("to", "", "Refactor Text To"),
 		Type:    flag.String("type", "", "Build type (WordPress)"),
 	}
+	flag.Parse()
 
 	return flags
 }

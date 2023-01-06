@@ -77,6 +77,27 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 	library.ExecCommand(cmd[:]...)
 }
 
+/** CleanVendorDirandFilesforProduction */
+func CleanVendorDirandFilesforProduction(path string, buildType string) {
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
+	var Dirs = []string{
+		".github",
+		".husky",
+		"languages",
+		"plugins",
+	}
+
+	for _, d := range Dirs {
+		library.DeleteDirectoryByRegex(path+"/vendor/", d)
+	}
+
+	fmt.Println("✅ Success Cleanup Vendor Directories and Files for Production")
+}
+
 /** CleanProjectFilesforProduction */
 func CleanProjectFilesforProduction(path string, buildType string) {
 	if path == "" {
