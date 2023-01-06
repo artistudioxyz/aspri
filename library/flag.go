@@ -32,12 +32,12 @@ type Flag struct {
 
 	/** String Parameters */
 	ID       *string
+	Dirname  *[]string
 	Ext      *[]string
 	Except   *[]string
 	Filename *[]string
 	From     *string
 	Message  *string
-	Message2 *string
 	Regex    *string
 	Path     *string
 	To       *string
@@ -73,6 +73,7 @@ func GetFlag() Flag {
 
 		/** String Parameters */
 		ID:       flag.String("id", "", "Identifier (Docker Mode): Container"),
+		Dirname:  flag.StringArray("dirname", []string{}, "Directory Name (Dir Mode): Directory Name"),
 		Ext:      flag.StringArray("ext", []string{}, "File extensions to include"),
 		Except:   flag.StringArray("except", []string{}, "File to exclude"),
 		Filename: flag.StringArray("filename", []string{}, "Filenames"),

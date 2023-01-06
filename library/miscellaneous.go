@@ -15,11 +15,11 @@ func InitiateMiscellaneousFunction(flags Flag) {
 		RemoveFilesExceptExtensions(*flags.Path, *flags.Ext, *flags.Except)
 	}
 	/** Delete Directory or Files in Path Matching Filename */
-	if *flags.Dir && *flags.Remove && len(*flags.Filename) > 0 {
-		DeleteDirectoriesorFilesinPath(true, *flags.Path, *flags.Filename)
+	if *flags.Dir && *flags.Remove && len(*flags.Dirname) > 0 {
+		DeleteDirectoriesorFilesinPath(*flags.Path, *flags.Dirname, *flags.Filename)
 	}
 	if *flags.File && *flags.Remove && len(*flags.Filename) > 0 {
-		DeleteDirectoriesorFilesinPath(false, *flags.Path, *flags.Filename)
+		DeleteDirectoriesorFilesinPath(*flags.Path, *flags.Dirname, *flags.Filename)
 	}
 	/** Search and Replace */
 	if *flags.SearchandReplace && *flags.From != "" && *flags.To != "" {
@@ -59,7 +59,7 @@ func RemoveFilesExceptExtensions(root string, allowedExtensions []string, except
 }
 
 /** Delete Directory or Files in Path Matching Filename */
-func DeleteDirectoriesorFilesinPath(isdir bool, root string, filenames []string) error {
+func DeleteDirectoriesorFilesinPath(root string, dirnames []string, filenames []string) error {
 	if root == "" {
 		CurrentDirectory, _ := os.Getwd()
 		root = CurrentDirectory
@@ -68,22 +68,22 @@ func DeleteDirectoriesorFilesinPath(isdir bool, root string, filenames []string)
 	// Walk through the directory tree
 	return filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
-			return err
+			fmt.Println("❌ ", err)
+			return nil
 		}
 
 		// If the path is a directory and it has the correct name, delete it
-		if isdir && info.IsDir() && SliceContainsString(filenames, info.Name()) {
+		if SliceContainsString(dirnames, info.Name()) || SliceContainsString(filenames, info.Name()) {
 			err = os.RemoveAll(path)
 			if err != nil {
-				return err
+				fmt.Println("❌ ", err)
+				return nil
 			}
-			fmt.Println("✅ Successfully remove directories nested by filename", info.Name(), "in", root)
-		} else if !isdir && !info.IsDir() && SliceContainsString(filenames, info.Name()) {
-			err = os.RemoveAll(path)
-			if err != nil {
-				return err
+			if info.IsDir() {
+				fmt.Println("✅ Successfully remove directories nested by name", info.Name(), "in", root)
+			} else {
+				fmt.Println("✅ Successfully remove files nested by filename", info.Name(), "in", root)
 			}
-			fmt.Println("✅ Successfully remove files nested by filename", info.Name(), "in", root)
 		}
 
 		return nil

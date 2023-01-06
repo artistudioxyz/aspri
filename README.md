@@ -34,7 +34,7 @@ Note :
 
 [Miscellaneous](library/miscellaneous.go) :
 - Remove Directories or Files Nested by Filenames :
-  - Remove Directories `--dir --remove --filename {filename} --path {workdir}`
+  - Remove Directories `--dir --remove --dirname {filename} --path {workdir}`
   - Remove Files `--file --remove --filename {filename} --path {workdir}`
 - Remove Files Nested Except Extensions : `--file --remove --ext {.php} --except {composer.json} --path {workdir}`
 - Search and Replace in Directory or File : `--search-replace --path {dir or file} --from {text} --to {text}`
