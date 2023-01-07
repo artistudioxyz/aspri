@@ -24,6 +24,12 @@ Note :
 
 ## 📟 Commands
 
+[ChatGPT](library/chatgpt.go) :
+
+- Start Chat : `--chatgpt --api-key {API_KEY}`
+  - The chat support multiple line, don't forget to end it with `~` to get an answer.
+  - Get the api key from [here](https://beta.openai.com/account/api-keys)
+
 [Docker](library/docker.go) :
 
 - Stop and Remove Container : `--docker --prune -id {identifier}`
@@ -43,7 +49,7 @@ Note :
 - Lists all class in directory nested : `--php --list-class --path {workdir}`
 - Lists all function in directory nested : `--php --list-function --path {workdir}`
 - Remove PHP function in path by name : `--php --remove-function --functionname {FunctionName} --path {PathToClassorFunction}`
-- 📝 Support Multiple Params
+- **Support Multiple Params**
 	- FunctionName : `--functionname {FunctionName}`
 
 [Miscellaneous](library/miscellaneous.go) :
@@ -53,7 +59,7 @@ Note :
 	- Remove Files `--file --remove --filename {filename} --path {workdir}`
 - Remove Files Nested Except Extensions : `--file --remove --ext {.php} --except {composer.json} --path {workdir}`
 - Search and Replace in Directory or File : `--search-replace --path {dir or file} --from {text} --to {text}`
-- 📝 Support Multiple Params
+- **Support Multiple Params**
   - Dirname : `--dirname {dirname}`
   - Filename : `--filename {filename}`
   - Except : `--except {except}`

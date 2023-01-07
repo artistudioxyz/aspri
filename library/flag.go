@@ -7,6 +7,7 @@ import (
 /** Flag Struct */
 type Flag struct {
 	/** Mode */
+	ChatGPT              *bool
 	Dir                  *bool
 	Docker               *bool
 	File                 *bool
@@ -35,6 +36,7 @@ type Flag struct {
 	Version    *bool
 
 	/** String Parameters */
+	API_KEY      *string
 	ID           *string
 	Dirname      *[]string
 	Ext          *[]string
@@ -53,6 +55,7 @@ type Flag struct {
 func GetFlag() Flag {
 	flags := Flag{
 		/** Mode */
+		ChatGPT:              flag.Bool("chatgpt", false, "Chat with GPT-3"),
 		Dir:                  flag.Bool("dir", false, "Directory Mode"),
 		Docker:               flag.Bool("docker", false, "Docker Mode"),
 		DockerComposeRestart: flag.Bool("docker-compose-restart", false, "Docker Compose Restart"),
@@ -81,6 +84,7 @@ func GetFlag() Flag {
 		Version:    flag.Bool("version", false, "show current version"),
 
 		/** String Parameters */
+		API_KEY:      flag.String("api-key", "", "API Key"),
 		ID:           flag.String("id", "", "Identifier (Docker Mode): Container"),
 		Dirname:      flag.StringArray("dirname", []string{}, "Directory Name (Dir Mode): Directory Name"),
 		Ext:          flag.StringArray("ext", []string{}, "File extensions to include"),

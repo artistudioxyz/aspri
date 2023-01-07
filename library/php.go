@@ -40,6 +40,8 @@ func InitiatePHPFunction(flags Flag) {
 	}
 	/** Remove PHP Function */
 	if *flags.PHP && *flags.RemoveFunction && *flags.Path != "" && len(*flags.FunctionName) > 0 {
+		// TODO: Fix this function
+		
 		//Name := *flags.FunctionName
 		//RemovePHPDocComment(*flags.Path, "send")
 		//RemovePHPFunctionsByName(*flags.Path, "send")
