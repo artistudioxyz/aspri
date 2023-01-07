@@ -1,5 +1,26 @@
 # 📟 Changelog
 
+## [1.4.0](https://github.com/artistudioxyz/aspri/compare/v1.3.0...v1.4.0) (2023-01-07)
+
+
+### Features
+
+* add chatgpt library ([a523053](https://github.com/artistudioxyz/aspri/commit/a523053237219c1716a6fe4a1b01a19a7e8d648d))
+* add php features ([c45b284](https://github.com/artistudioxyz/aspri/commit/c45b284a9e39c6f88a94602d41e86d9b1d05d9bd))
+* add remove files except extension to wp build ([7cd84b4](https://github.com/artistudioxyz/aspri/commit/7cd84b4e6624b9f55aed02f68b012360f72e68e1))
+* delete files nested except extensions ([7340878](https://github.com/artistudioxyz/aspri/commit/7340878645ed078e25c2232e8828aef23f68e30a))
+
+
+### Bug Fixes
+
+* combine delete directories and files into single function ([3d1bdfc](https://github.com/artistudioxyz/aspri/commit/3d1bdfc265b41898b21af6a9314eefa3f1fc5a6f))
+* deletedirectoriesandfiles remove empty directory ([227dea7](https://github.com/artistudioxyz/aspri/commit/227dea76cac169319260d690c21d53d6b1575661))
+* filepath walk if directories or files is not found ([221e629](https://github.com/artistudioxyz/aspri/commit/221e6295ebed14310266f7cb4a1fa60de2326b10))
+* github action build go.sum missing entry ([a8f9074](https://github.com/artistudioxyz/aspri/commit/a8f9074dad9d32961f5ebcfc273e81e89540d96e))
+* remove build from develop branch github action limit ([0793ead](https://github.com/artistudioxyz/aspri/commit/0793ead7563031f18e95b7c34441ffb7e9557056))
+* remove regex function replace it by filenames instead ([09966ac](https://github.com/artistudioxyz/aspri/commit/09966ac7d767ee0e4d9a97599b2d149233bee188))
+* wrong build type parameter for CleanVendorDirandFilesforProduction ([23c2088](https://github.com/artistudioxyz/aspri/commit/23c208877101d187c528d34472ba36eda0881947))
+
 ## [1.3.0](https://github.com/artistudioxyz/aspri/compare/v1.2.0...v1.3.0) (2022-12-29)
 
 
