@@ -13,10 +13,14 @@ type Flag struct {
 	Git                  *bool
 	GitResetCache        *bool
 	DockerComposeRestart *bool
+	ListClass            *bool
+	ListFunction         *bool
 	Markdown             *bool
+	PHP                  *bool
 	QuoteofTheDay        *bool
 	Remove               *bool
 	RemoveLink           *bool
+	RemoveFunction       *bool
 	SearchandReplace     *bool
 	WPPluginBuild        *bool
 	WPPluginBuildCheck   *bool
@@ -31,17 +35,18 @@ type Flag struct {
 	Version    *bool
 
 	/** String Parameters */
-	ID       *string
-	Dirname  *[]string
-	Ext      *[]string
-	Except   *[]string
-	Filename *[]string
-	From     *string
-	Message  *string
-	Regex    *string
-	Path     *string
-	To       *string
-	Type     *string
+	ID           *string
+	Dirname      *[]string
+	Ext          *[]string
+	Except       *[]string
+	Filename     *[]string
+	FunctionName *[]string
+	From         *string
+	Message      *string
+	Regex        *string
+	Path         *string
+	To           *string
+	Type         *string
 }
 
 /** Get Flag */
@@ -54,9 +59,13 @@ func GetFlag() Flag {
 		File:                 flag.Bool("file", false, "File Mode"),
 		Git:                  flag.Bool("git", false, "Git Mode"),
 		GitResetCache:        flag.Bool("git-reset-cache", false, "Git Reset Cache"),
+		ListClass:            flag.Bool("list-class", false, "List Class"),
+		ListFunction:         flag.Bool("list-function", false, "List Function"),
 		Markdown:             flag.Bool("md", false, "Markdown Mode"),
+		PHP:                  flag.Bool("php", false, "PHP Mode"),
 		Remove:               flag.Bool("remove", false, "Remove Mode for Dir and File"),
 		RemoveLink:           flag.Bool("remove-link", false, "Remove Link from File"),
+		RemoveFunction:       flag.Bool("remove-function", false, "Remove Link from File"),
 		QuoteofTheDay:        flag.Bool("quote-of-the-day", false, "show quote of the day"),
 		SearchandReplace:     flag.Bool("search-replace", false, "do search and replace"),
 		SelfUpdate:           flag.Bool("self-update", false, "self update"),
@@ -72,17 +81,18 @@ func GetFlag() Flag {
 		Version:    flag.Bool("version", false, "show current version"),
 
 		/** String Parameters */
-		ID:       flag.String("id", "", "Identifier (Docker Mode): Container"),
-		Dirname:  flag.StringArray("dirname", []string{}, "Directory Name (Dir Mode): Directory Name"),
-		Ext:      flag.StringArray("ext", []string{}, "File extensions to include"),
-		Except:   flag.StringArray("except", []string{}, "File to exclude"),
-		Filename: flag.StringArray("filename", []string{}, "Filenames"),
-		From:     flag.String("from", "", "Refactor Text From"),
-		Message:  flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),
-		Path:     flag.String("path", "", "Refactor : Path to Directory"),
-		Regex:    flag.String("regex", "", "Regex"),
-		To:       flag.String("to", "", "Refactor Text To"),
-		Type:     flag.String("type", "", "Build type (WordPress)"),
+		ID:           flag.String("id", "", "Identifier (Docker Mode): Container"),
+		Dirname:      flag.StringArray("dirname", []string{}, "Directory Name (Dir Mode): Directory Name"),
+		Ext:          flag.StringArray("ext", []string{}, "File extensions to include"),
+		Except:       flag.StringArray("except", []string{}, "File to exclude"),
+		Filename:     flag.StringArray("filename", []string{}, "Filenames"),
+		FunctionName: flag.StringArray("functionname", []string{}, "Function Name"),
+		From:         flag.String("from", "", "Refactor Text From"),
+		Message:      flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),
+		Path:         flag.String("path", "", "Refactor : Path to Directory"),
+		Regex:        flag.String("regex", "", "Regex"),
+		To:           flag.String("to", "", "Refactor Text To"),
+		Type:         flag.String("type", "", "Build type (WordPress)"),
 	}
 	flag.Parse()
 
