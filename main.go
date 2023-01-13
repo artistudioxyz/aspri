@@ -18,6 +18,7 @@ func main() {
 	library.InitiateGitFunction(flags)
 	library.InitiateMarkdownFunction(flags)
 	library.InitiateMiscellaneousFunction(flags)
+	library.InitiateNoIPFunction(flags)
 	library.InitiatePHPFunction(flags)
 	library.InitiateQuoteFunction(flags)
 

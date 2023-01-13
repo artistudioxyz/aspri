@@ -17,6 +17,7 @@ type Flag struct {
 	ListClass            *bool
 	ListFunction         *bool
 	Markdown             *bool
+	NoIP                 *bool
 	PHP                  *bool
 	QuoteofTheDay        *bool
 	Remove               *bool
@@ -29,6 +30,7 @@ type Flag struct {
 	WPThemeBuildCheck    *bool
 	WPRefactor           *bool
 	SelfUpdate           *bool
+	Update               *bool
 
 	/** Bool Parameters */
 	Production *bool
@@ -44,11 +46,14 @@ type Flag struct {
 	Filename     *[]string
 	FunctionName *[]string
 	From         *string
+	Hostname     *string
 	Message      *string
 	Regex        *string
 	Path         *string
 	To           *string
 	Type         *string
+	Username     *string
+	Password     *string
 }
 
 /** Get Flag */
@@ -65,6 +70,7 @@ func GetFlag() Flag {
 		ListClass:            flag.Bool("list-class", false, "List Class"),
 		ListFunction:         flag.Bool("list-function", false, "List Function"),
 		Markdown:             flag.Bool("md", false, "Markdown Mode"),
+		NoIP:                 flag.Bool("noip", false, "No-IP Mode"),
 		PHP:                  flag.Bool("php", false, "PHP Mode"),
 		Remove:               flag.Bool("remove", false, "Remove Mode for Dir and File"),
 		RemoveLink:           flag.Bool("remove-link", false, "Remove Link from File"),
@@ -72,6 +78,7 @@ func GetFlag() Flag {
 		QuoteofTheDay:        flag.Bool("quote-of-the-day", false, "show quote of the day"),
 		SearchandReplace:     flag.Bool("search-replace", false, "do search and replace"),
 		SelfUpdate:           flag.Bool("self-update", false, "self update"),
+		Update:               flag.Bool("update", false, "update"),
 		WPPluginBuild:        flag.Bool("wp-plugin-build", false, "WP Build Plugin Comply"),
 		WPPluginBuildCheck:   flag.Bool("wp-plugin-build-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
 		WPThemeBuild:         flag.Bool("wp-theme-build", false, "WP Theme Plugin Comply"),
@@ -92,11 +99,14 @@ func GetFlag() Flag {
 		Filename:     flag.StringArray("filename", []string{}, "Filenames"),
 		FunctionName: flag.StringArray("functionname", []string{}, "Function Name"),
 		From:         flag.String("from", "", "Refactor Text From"),
+		Hostname:     flag.String("hostname", "", "Hostname"),
 		Message:      flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),
 		Path:         flag.String("path", "", "Refactor : Path to Directory"),
 		Regex:        flag.String("regex", "", "Regex"),
 		To:           flag.String("to", "", "Refactor Text To"),
 		Type:         flag.String("type", "", "Build type (WordPress)"),
+		Username:     flag.StringP("username", "u", "", "Username"),
+		Password:     flag.StringP("password", "p", "", "Password"),
 	}
 	flag.Parse()
 

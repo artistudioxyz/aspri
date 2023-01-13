@@ -44,6 +44,10 @@ Note :
 
 - Remove Link from Markdown File : `--md --remove-link --path {workdir}`
 
+[NoIP](library/noip.go) :
+
+- Update Hostname IP : `--noip --update -u {username} -p {password} --hostname {hostname}`
+
 [PHP](library/php.go) :
 
 - Lists all class in directory nested : `--php --list-class --path {workdir}`
