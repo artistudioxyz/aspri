@@ -48,7 +48,6 @@ Note :
 
 - Lists all class in directory nested : `--php --list-class --path {workdir}`
 - Lists all function in directory nested : `--php --list-function --path {workdir}`
-- Remove PHP function in path by name : `--php --remove-function --functionname {FunctionName} --path {PathToClassorFunction}`
 - **Support Multiple Params**
 	- FunctionName : `--functionname {FunctionName}`
 
