@@ -96,7 +96,7 @@ func GetFlag() Flag {
 		Dirname:      flag.StringArray("dirname", []string{}, "Directory Name (Dir Mode): Directory Name"),
 		Ext:          flag.StringArray("ext", []string{}, "File extensions to include"),
 		Except:       flag.StringArray("except", []string{}, "File to exclude"),
-		Filename:     flag.StringArray("filename", []string{}, "Filenames"),
+		Filename:     flag.StringArrayP("filename", "f", []string{}, "Filenames"),
 		FunctionName: flag.StringArray("functionname", []string{}, "Function Name"),
 		From:         flag.String("from", "", "Refactor Text From"),
 		Hostname:     flag.String("hostname", "", "Hostname"),

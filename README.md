@@ -33,7 +33,7 @@ Note :
 [Docker](library/docker.go) :
 
 - Stop and Remove Container : `--docker --prune -id {identifier}`
-- Compose restart (down & up) : `--docker-compose-restart`
+- Compose restart (down & up) : `--docker-compose-restart -f {filename}`
 
 [Git](library/git.go) :
 
@@ -59,12 +59,12 @@ Note :
 
 - Remove Directories or Files Nested by Filenames :
 	- Remove Directories `--dir --remove --dirname {filename} --path {workdir}`
-	- Remove Files `--file --remove --filename {filename} --path {workdir}`
+	- Remove Files `--file --remove --f {filename} --path {workdir}`
 - Remove Files Nested Except Extensions : `--file --remove --ext {.php} --except {composer.json} --path {workdir}`
 - Search and Replace in Directory or File : `--search-replace --path {dir or file} --from {text} --to {text}`
 - **Support Multiple Params**
   - Dirname : `--dirname {dirname}`
-  - Filename : `--filename {filename}`
+  - Filename : `-f {filename}`
   - Except : `--except {except}`
   - Extension : `--ext {ext}`
 
