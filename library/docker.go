@@ -27,7 +27,7 @@ func InitiateDockerFunction(flags Flag) {
 		if len(*flags.Filename) > 0 {
 			dockercmd = fmt.Sprintf("docker-compose -f %s down && docker-compose -f %s up -d;", filename[0], filename[0])
 		} else {
-			dockercmd = "docker-compose -f down && docker-compose -f up -d;"
+			dockercmd = "docker-compose down && docker-compose up -d;"
 		}
 		cmd := [...]string{"bash", "-c", dockercmd}
 		fmt.Println(ExecCommand(cmd[:]...))
