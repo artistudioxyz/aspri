@@ -46,7 +46,7 @@ Note :
 
 [NoIP](library/noip.go) :
 
-- Update Hostname IP : `--noip --update -u {username} -p {password} --hostname {hostname}`
+- Update Hostname : `--noip --update -u {username} -p {password} --hostname {hostname}`
 
 [PHP](library/php.go) :
 
