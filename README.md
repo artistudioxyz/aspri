@@ -75,6 +75,7 @@ Note :
 [WordPress](wordpress/wordpress.go) :
 
 - Refactor Dot Framework : `--wp-refactor --path {workdir} --from {namespace} --to {namespace} --type {plugin|theme}`
+- WP Clean Project Files for Production : `--wp-clean --path {workdir} --type {wordpress|github}`
 - WP Plugin Build Check : `--wp-plugin-build-check --path {workdir}`
 	- Build WP Plugin (Require Path) : `--wp-plugin-build --path {workdir} --type {wordpress|github}`
 - WP Theme Build Check : `--wp-theme-build-check --path {workdir}`

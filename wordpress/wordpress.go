@@ -30,13 +30,13 @@ func InitiateWordPressFunction(flags library.Flag) {
 	if *flags.WPRefactor && *flags.Path != "" && *flags.From != "" && *flags.To != "" && *flags.Type != "" {
 		WPRefactor(*flags.Path, *flags.From, *flags.To, *flags.Type)
 	}
-	/** WP Plugin Build Check */
-	if *flags.WPPluginBuildCheck {
-		WPPluginBuildCheck(*flags.Path)
+	/** WP Clean Project Files for Production */
+	if *flags.WPClean && *flags.Type != "" {
+		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
 	}
-	/** WP Theme Build Check */
-	if *flags.WPThemeBuildCheck {
-		WPThemeBuildCheck(*flags.Path)
+	/** WP Plugin or Theme Build Check */
+	if *flags.WPPluginBuildCheck || *flags.WPThemeBuildCheck {
+		WPPluginBuildCheck(*flags.Path)
 	}
 	/** WP Plugin Build */
 	if *flags.WPPluginBuild && *flags.Type != "" {

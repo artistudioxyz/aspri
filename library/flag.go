@@ -24,6 +24,7 @@ type Flag struct {
 	RemoveLink           *bool
 	RemoveFunction       *bool
 	SearchandReplace     *bool
+	WPClean              *bool
 	WPPluginBuild        *bool
 	WPPluginBuildCheck   *bool
 	WPThemeBuild         *bool
@@ -79,6 +80,7 @@ func GetFlag() Flag {
 		SearchandReplace:     flag.Bool("search-replace", false, "do search and replace"),
 		SelfUpdate:           flag.Bool("self-update", false, "self update"),
 		Update:               flag.Bool("update", false, "update"),
+		WPClean:              flag.Bool("wp-clean", false, "WP Clean Project Files for Production"),
 		WPPluginBuild:        flag.Bool("wp-plugin-build", false, "WP Build Plugin Comply"),
 		WPPluginBuildCheck:   flag.Bool("wp-plugin-build-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
 		WPThemeBuild:         flag.Bool("wp-theme-build", false, "WP Theme Plugin Comply"),
