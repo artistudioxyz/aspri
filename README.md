@@ -17,6 +17,12 @@
 
 You can install aspri by using one of these method
 
+### Install from binary
+
+- Download the latest binary from [release branch](https://github.com/artistudioxyz/aspri/tree/release/dist)
+- Extract the binary to your `$PATH` directory
+- Make sure the binary is executable
+
 ### Install using `go get`
 
 - Run : `go get github.com/artistudioxyz/aspri`
