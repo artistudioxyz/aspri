@@ -20,11 +20,11 @@ jobs:
         with:
           go-version: '^1.14.0'
 
-      - name: 📟 Build
-        run: chmod +x build.sh && ./build.sh
-
       - name: 🙏 Create Release Branch
         run: git checkout -b release
+
+      - name: 📟 Build
+        run: chmod +x build.sh && ./build.sh
 
       - name: 🚀 Push to release branch
         run: git push origin +release --force
