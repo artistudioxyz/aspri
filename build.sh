@@ -14,9 +14,4 @@ do
     fi
 
     env GOOS=$GOOS GOARCH=$GOARCH go dist -o $output_name
-
-    if [ $? -ne 0 ]; then
-        echo '❌ An error has occurred! Aborting the script execution...'
-        exit 1
-    fi
 done
