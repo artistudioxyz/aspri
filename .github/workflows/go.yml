@@ -20,6 +20,6 @@ jobs:
         with:
           go-version: '^1.14.0' # The Go version to download (if necessary) and use.
 
-      # Run build of the application
-      - name: 🚀 Run build
-        run: go build .
+      # Run dist of the application
+      - name: 🚀 Run dist
+        run: go dist .

@@ -81,10 +81,10 @@ func GetFlag() Flag {
 		SelfUpdate:           flag.Bool("self-update", false, "self update"),
 		Update:               flag.Bool("update", false, "update"),
 		WPClean:              flag.Bool("wp-clean", false, "WP Clean Project Files for Production"),
-		WPPluginBuild:        flag.Bool("wp-plugin-build", false, "WP Build Plugin Comply"),
-		WPPluginBuildCheck:   flag.Bool("wp-plugin-build-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
-		WPThemeBuild:         flag.Bool("wp-theme-build", false, "WP Theme Plugin Comply"),
-		WPThemeBuildCheck:    flag.Bool("wp-theme-build-check", false, "WP Check Theme Comply with WordPress.org (Version Check)"),
+		WPPluginBuild:        flag.Bool("wp-plugin-dist", false, "WP Build Plugin Comply"),
+		WPPluginBuildCheck:   flag.Bool("wp-plugin-dist-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
+		WPThemeBuild:         flag.Bool("wp-theme-dist", false, "WP Theme Plugin Comply"),
+		WPThemeBuildCheck:    flag.Bool("wp-theme-dist-check", false, "WP Check Theme Comply with WordPress.org (Version Check)"),
 		WPRefactor:           flag.Bool("wp-refactor", false, "Refactor Library"),
 
 		/** Bool Parameters */

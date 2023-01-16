@@ -15,10 +15,19 @@
 
 ## 📝 Installation
 
-- Run : `go get github.com/artistudioxyz/aspri`
-- Run : `aspri --help`
+You can install aspri by using one of these method
 
-Note :
+### Install using `go get`
+
+- Run : `go get github.com/artistudioxyz/aspri`
+
+### Install from source
+
+- Re-initiate go.mod : `rm go.mod && go mod init aspri`
+- Go Install : `go install`
+  - to Generate binary for other OS : `./build.sh`
+
+### Note
 
 - Please add your go install to system PATH [Learn More](https://go.dev/doc/tutorial/compile-install)
 
@@ -88,13 +97,3 @@ Note :
 - [Husky](https://typicode.github.io/husky)
 - [Release-It](https://www.npmjs.com/package/release-it)
 	- [Conventional Changelog](https://github.com/release-it/conventional-changelog)
-
-## 🔥 Development Notes
-
-Development notes
-
-- Install from source
-	- Re-initiate go.mod : `rm go.mod && go mod init aspri`
-	- Go Install : `go install`
-	- Run : `aspri --help`
-- Deployment to registry : `GOPROXY=proxy.golang.org go list -m github.com/artistudioxyz/aspri@{version}`
