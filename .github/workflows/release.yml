@@ -27,6 +27,6 @@ jobs:
         run: git checkout -b release
 
       - name: 🚀 Push to release branch
-        run: git push origin release
+        run: git push origin +release --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
