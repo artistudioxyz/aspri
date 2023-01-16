@@ -26,7 +26,10 @@ jobs:
       - name: 📟 Build
         run: chmod +x build.sh && ./build.sh
 
+      - name: ✅ Commit changes
+        run: git add . && git commit -m "Release"
+
       - name: 🚀 Push to release branch
-        run: git push origin +release --force
+        run: git push origin release --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
