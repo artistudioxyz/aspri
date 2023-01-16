@@ -1,4 +1,4 @@
-name: Golang Build and Release
+name: Golang Release
 
 on:
   push:
@@ -21,8 +21,7 @@ jobs:
           go-version: '^1.14.0'
 
       - name: 📟 Build
-        run: |
-          build.sh
+        run: chmod +x script.sh && ./build.sh
 
       - name: 🙏 Create Release Branch
         run: git checkout -b release
