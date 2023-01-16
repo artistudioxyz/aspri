@@ -1,5 +1,27 @@
 # 📟 Changelog
 
+## [1.5.0](https://github.com/artistudioxyz/aspri/compare/v1.4.0...v1.5.0) (2023-01-16)
+
+
+### Features
+
+* add noip updater function ([f224af1](https://github.com/artistudioxyz/aspri/commit/f224af120c03e7799eff9dbdbdac4cd2891d3ba8))
+
+
+### Bug Fixes
+
+* add rebuild flag to docker-compose-restart ([3def120](https://github.com/artistudioxyz/aspri/commit/3def120a6122f467553fc025f2cdf081b3f83ced))
+* dist dir not pushed ([c637255](https://github.com/artistudioxyz/aspri/commit/c637255d6ce912b9ee6b518d63e525796b63db24))
+* docker-compose-restart no filename not working ([b2e65f2](https://github.com/artistudioxyz/aspri/commit/b2e65f28e198c49a5e009acf39188de342cd8bf8))
+* force push release branch ([024e0ef](https://github.com/artistudioxyz/aspri/commit/024e0efc67a5479ab12a28e3503e47d4f3ca9992))
+* golang release ([57d7860](https://github.com/artistudioxyz/aspri/commit/57d7860425e414a998f7b5a08cf8d352a305ff02))
+* newly build not committed ([3d92a3c](https://github.com/artistudioxyz/aspri/commit/3d92a3cc91b6ced36b293da82c3d1ad000f58834))
+* push directory in release.yml ([6772982](https://github.com/artistudioxyz/aspri/commit/6772982ae725e2eb92dc4fddcc3d069ad27fb9bd))
+* use force to push the commit ([fd53d1f](https://github.com/artistudioxyz/aspri/commit/fd53d1f11cdbf1c44d2c18e70eb2a1beca9ab4b1))
+* use go build instead of go dist ([2216f75](https://github.com/artistudioxyz/aspri/commit/2216f75bcf08169c801da84d76a565aa0b8b3ad2))
+* wrong script github action ([a889cf0](https://github.com/artistudioxyz/aspri/commit/a889cf09a6a0f482377b30fdf832312f649ab0f5))
+* wrong step order not pushing generated build directory ([8258556](https://github.com/artistudioxyz/aspri/commit/82585564d596364f189fe296acbedb46de36ff66))
+
 ## [1.4.0](https://github.com/artistudioxyz/aspri/compare/v1.3.0...v1.4.0) (2023-01-07)
 
 
