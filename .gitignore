@@ -2,7 +2,7 @@
 /.idea/
 /.vscode/
 
-# Vendords
+# Vendors
 /node_modules
 
 # Dummy
@@ -15,3 +15,6 @@ app.env
 
 # Extras
 .env
+
+# Build
+/dist

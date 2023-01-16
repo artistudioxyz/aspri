@@ -146,10 +146,10 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"assets/js",
 		"assets/ts",
 		"assets/components",
-		"assets/build/css/tailwind.css",
-		"assets/build/css/tailwind.min.css",
-		"assets/build/ts",
-		"assets/build/*.map",
+		"assets/dist/css/tailwind.css",
+		"assets/dist/css/tailwind.min.css",
+		"assets/dist/ts",
+		"assets/dist/*.map",
 
 		/** Development Files */
 		"livereload.php",
@@ -190,7 +190,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 
 	/** Exclude File From .gitignore for BuildType (GitHub) */
 	if buildType == "github" {
-		library.SearchandReplace(path+"/.gitignore", "/assets/build/", "")
+		library.SearchandReplace(path+"/.gitignore", "/assets/dist/", "")
 		library.SearchandReplace(path+"/.gitignore", "/assets/vendor/**/*.js", "")
 		library.SearchandReplace(path+"/.gitignore", "/assets/vendor/**/*.css", "")
 		library.SearchandReplace(path+"/.gitignore", "!/assets/vendor/**/*.min.*", "")
