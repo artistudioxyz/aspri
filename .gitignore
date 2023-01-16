@@ -15,6 +15,3 @@ app.env
 
 # Extras
 .env
-
-# Build
-/dist
