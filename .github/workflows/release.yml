@@ -32,13 +32,13 @@ jobs:
 
           arr[0]="chore(bot): 😂 release"
           arr[1]="chore(bot): 😱 release"
-          arr[2]="chore(bot): 👿 release"
-          arr[3]="chore(bot): 💩 release"
+          arr[2]="chore(bot): 🎉 release"
+          arr[3]="chore(bot): 😍 release"
           arr[4]="chore(bot): 🙏 release"
           arr[5]="chore(bot): 🙈 release"
           arr[6]="chore(bot): 🐐 release"
           arr[7]="chore(bot): 🤖 release"
-          arr[8]="chore(bot): 🟩 release"
+          arr[8]="chore(bot): 🌟 release"
           arr[9]="chore(bot): 👻 release"
 
           rand=$[$RANDOM % ${#arr[@]}]
