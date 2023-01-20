@@ -48,7 +48,7 @@ func InitiatePHPFunction(flags Flag) {
 	if *flags.PHP && *flags.ListFunctionCall && len(*flags.FunctionName) > 0 {
 		functions := listFunctionCalls(*flags.Path, *flags.FunctionName)
 		for _, function := range functions {
-			fmt.Printf("📟 Function Call %s (%s)\n", function.FunctionCall, function.Path)
+			fmt.Printf("- 📟 %s (%s)\n", function.FunctionCall, function.Path)
 		}
 	}
 }
