@@ -16,6 +16,7 @@ type Flag struct {
 	DockerComposeRestart *bool
 	ListClass            *bool
 	ListFunction         *bool
+	Minify               *bool
 	Markdown             *bool
 	NoIP                 *bool
 	PHP                  *bool
@@ -71,6 +72,7 @@ func GetFlag() Flag {
 		ListClass:            flag.Bool("list-class", false, "List Class"),
 		ListFunction:         flag.Bool("list-function", false, "List Function"),
 		Markdown:             flag.Bool("md", false, "Markdown Mode"),
+		Minify:               flag.Bool("minify", false, "Minify Mode"),
 		NoIP:                 flag.Bool("noip", false, "No-IP Mode"),
 		PHP:                  flag.Bool("php", false, "PHP Mode"),
 		Remove:               flag.Bool("remove", false, "Remove Mode for Dir and File"),

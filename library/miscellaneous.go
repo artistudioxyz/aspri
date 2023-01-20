@@ -2,6 +2,9 @@ package library
 
 import (
 	"fmt"
+	"github.com/tdewolff/minify"
+	"github.com/tdewolff/minify/css"
+	"github.com/tdewolff/minify/js"
 	"io"
 	"io/ioutil"
 	"os"
@@ -11,6 +14,10 @@ import (
 
 /** Initiate Miscellaneous Function */
 func InitiateMiscellaneousFunction(flags Flag) {
+	/** Minify Files in Path .js and .css */
+	if *flags.Minify {
+		minifyFiles(*flags.Path)
+	}
 	/** removeFilesExceptExtensions */
 	if *flags.File && *flags.Remove && len(*flags.Ext) > 0 {
 		RemoveFilesExceptExtensions(*flags.Path, *flags.Ext, *flags.Except)
@@ -32,6 +39,61 @@ func InitiateMiscellaneousFunction(flags Flag) {
 		cmd := [...]string{"bash", "-c", "go get github.com/artistudioxyz/aspri"}
 		ExecCommand(cmd[:]...)
 	}
+}
+
+/** Minify Files in Path .js and .css */
+func minifyFiles(path string) {
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
+	m := minify.New()
+	m.AddFunc("text/javascript", js.Minify)
+	m.AddFunc("text/css", css.Minify)
+	filepath.Walk(path, func(filePath string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if info.IsDir() {
+			return nil
+		}
+		if filepath.Ext(filePath) == ".js" || filepath.Ext(filePath) == ".css" {
+			// Open the file
+			file, err := os.Open(filePath)
+			if err != nil {
+				panic(err)
+			}
+			defer file.Close()
+
+			// Minify the file
+			var contentType string
+			if filepath.Ext(filePath) == ".js" {
+				contentType = "text/javascript"
+			} else {
+				contentType = "text/css"
+			}
+
+			// read the file
+			bs, err := ioutil.ReadAll(file)
+			if err != nil {
+				panic(err)
+			}
+
+			// minify the content
+			minifiedContent, err := m.String(contentType, string(bs))
+			if err != nil {
+				panic(err)
+			}
+
+			// write the minified content to the file
+			err = ioutil.WriteFile(filePath, []byte(minifiedContent), 0644)
+			if err != nil {
+				panic(err)
+			}
+		}
+		return nil
+	})
 }
 
 /** Remove Files Except Specified Extensions */

@@ -72,6 +72,7 @@ You can install aspri by using one of these method
 
 [Miscellaneous](library/miscellaneous.go) :
 
+- Asset minifier (.js and .css) : `--minify --path {workdir}`
 - Remove Directories or Files Nested by Filenames :
 	- Remove Directories `--dir --remove --dirname {filename} --path {workdir}`
 	- Remove Files `--file --remove --f {filename} --path {workdir}`
