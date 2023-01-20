@@ -3,6 +3,7 @@ package library
 import (
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -21,6 +22,12 @@ type PHPFunction struct {
 	Path string
 }
 
+// FunctionObject struct to store path and function call
+type FunctionObject struct {
+	Path         string
+	FunctionCall string
+}
+
 /** Initiate PHP Function */
 func InitiatePHPFunction(flags Flag) {
 	/** List PHP Classes */
@@ -35,6 +42,13 @@ func InitiatePHPFunction(flags Flag) {
 		functions, _ := ListPHPFunctions(*flags.Path)
 		for _, function := range functions {
 			fmt.Printf("📟 Function Name %s (%s)\n", function.Name, function.Path)
+		}
+	}
+	/** List PHP Function Call */
+	if *flags.PHP && *flags.ListFunctionCall && len(*flags.FunctionName) > 0 {
+		functions := listFunctionCalls(*flags.Path, *flags.FunctionName)
+		for _, function := range functions {
+			fmt.Printf("📟 Function Call %s (%s)\n", function.FunctionCall, function.Path)
 		}
 	}
 }
@@ -125,4 +139,47 @@ func ListPHPFunctions(root string) ([]PHPFunction, error) {
 		return nil
 	})
 	return functions, err
+}
+
+/** Lists Function Call */
+func listFunctionCalls(path string, filters []string) []FunctionObject {
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
+	var functionCalls []FunctionObject
+
+	// Compile the regular expressions for matching function calls
+	functionRegexes := make([]*regexp.Regexp, len(filters))
+	for i, filter := range filters {
+		functionRegexes[i] = regexp.MustCompile(filter + `\(.+\)`)
+	}
+
+	filepath.Walk(path, func(filePath string, info os.FileInfo, err error) error {
+		if err != nil {
+			fmt.Println("❌ ", err)
+			return err
+		}
+		if info.IsDir() {
+			return nil
+		}
+		if filepath.Ext(filePath) == ".php" {
+			// Read the file
+			bs, err := ioutil.ReadFile(filePath)
+			if err != nil {
+				panic(err)
+			}
+
+			// Check for function calls
+			for _, functionRegex := range functionRegexes {
+				match := functionRegex.FindAll(bs, -1)
+				for _, m := range match {
+					functionCalls = append(functionCalls, FunctionObject{filePath, string(m)})
+				}
+			}
+		}
+		return nil
+	})
+	return functionCalls
 }

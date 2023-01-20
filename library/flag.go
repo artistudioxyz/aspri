@@ -16,6 +16,7 @@ type Flag struct {
 	DockerComposeRestart *bool
 	ListClass            *bool
 	ListFunction         *bool
+	ListFunctionCall     *bool
 	Minify               *bool
 	Markdown             *bool
 	NoIP                 *bool
@@ -71,6 +72,7 @@ func GetFlag() Flag {
 		GitResetCache:        flag.Bool("git-reset-cache", false, "Git Reset Cache"),
 		ListClass:            flag.Bool("list-class", false, "List Class"),
 		ListFunction:         flag.Bool("list-function", false, "List Function"),
+		ListFunctionCall:     flag.Bool("list-function-call", false, "List Function Call"),
 		Markdown:             flag.Bool("md", false, "Markdown Mode"),
 		Minify:               flag.Bool("minify", false, "Minify Mode"),
 		NoIP:                 flag.Bool("noip", false, "No-IP Mode"),

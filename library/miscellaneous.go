@@ -53,7 +53,7 @@ func minifyFiles(path string) {
 	m.AddFunc("text/css", css.Minify)
 	filepath.Walk(path, func(filePath string, info os.FileInfo, err error) error {
 		if err != nil {
-			return err
+			fmt.Println("❌", err)
 		}
 		if info.IsDir() {
 			return nil
@@ -94,6 +94,8 @@ func minifyFiles(path string) {
 		}
 		return nil
 	})
+
+	fmt.Println("✅ Successfully minify files in", path)
 }
 
 /** Remove Files Except Specified Extensions */
