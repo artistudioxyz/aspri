@@ -10,6 +10,7 @@ type Flag struct {
 	ChatGPT              *bool
 	Dir                  *bool
 	Docker               *bool
+	DryRun               *bool
 	File                 *bool
 	Git                  *bool
 	GitResetCache        *bool
@@ -20,6 +21,7 @@ type Flag struct {
 	Minify               *bool
 	Markdown             *bool
 	NoIP                 *bool
+	OlderThan            *bool
 	PHP                  *bool
 	QuoteofTheDay        *bool
 	Remove               *bool
@@ -43,6 +45,7 @@ type Flag struct {
 	/** String Parameters */
 	API_KEY      *string
 	ID           *string
+	Days         *int
 	Dirname      *[]string
 	Ext          *[]string
 	Except       *[]string
@@ -67,6 +70,7 @@ func GetFlag() Flag {
 		Dir:                  flag.Bool("dir", false, "Directory Mode"),
 		Docker:               flag.Bool("docker", false, "Docker Mode"),
 		DockerComposeRestart: flag.Bool("docker-compose-restart", false, "Docker Compose Restart"),
+		DryRun:               flag.Bool("dry-run", false, "Dry Run Mode"),
 		File:                 flag.Bool("file", false, "File Mode"),
 		Git:                  flag.Bool("git", false, "Git Mode"),
 		GitResetCache:        flag.Bool("git-reset-cache", false, "Git Reset Cache"),
@@ -76,6 +80,7 @@ func GetFlag() Flag {
 		Markdown:             flag.Bool("md", false, "Markdown Mode"),
 		Minify:               flag.Bool("minify", false, "Minify Mode"),
 		NoIP:                 flag.Bool("noip", false, "No-IP Mode"),
+		OlderThan:            flag.Bool("older-than", false, "Older Than Mode"),
 		PHP:                  flag.Bool("php", false, "PHP Mode"),
 		Remove:               flag.Bool("remove", false, "Remove Mode for Dir and File"),
 		RemoveLink:           flag.Bool("remove-link", false, "Remove Link from File"),
@@ -99,6 +104,7 @@ func GetFlag() Flag {
 		/** String Parameters */
 		API_KEY:      flag.String("api-key", "", "API Key"),
 		ID:           flag.String("id", "", "Identifier (Docker Mode): Container"),
+		Days:         flag.Int("days", 0, "Days (Older Than Mode): Days"),
 		Dirname:      flag.StringArray("dirname", []string{}, "Directory Name (Dir Mode): Directory Name"),
 		Ext:          flag.StringArray("ext", []string{}, "File extensions to include"),
 		Except:       flag.StringArray("except", []string{}, "File to exclude"),

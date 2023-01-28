@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 /** Initiate Miscellaneous Function */
@@ -21,6 +22,10 @@ func InitiateMiscellaneousFunction(flags Flag) {
 	/** removeFilesExceptExtensions */
 	if *flags.File && *flags.Remove && len(*flags.Ext) > 0 {
 		RemoveFilesExceptExtensions(*flags.Path, *flags.Ext, *flags.Except)
+	}
+	/** remove Files Older than days matching regex */
+	if *flags.File && *flags.Remove && *flags.OlderThan && *flags.Days > 0 && *flags.Regex != "" {
+		RemoveFilesOlderThan(*flags.Path, *flags.Regex, *flags.Days, *flags.DryRun)
 	}
 	/** Delete Directory or Files in Path Matching Filename */
 	if *flags.Dir && *flags.Remove && len(*flags.Dirname) > 0 {
@@ -117,6 +122,30 @@ func RemoveFilesExceptExtensions(root string, allowedExtensions []string, except
 					return err
 				}
 				fmt.Println("✅ Successfully remove files except extensions", allowedExtensions, "in", info.Name())
+			}
+		}
+		return nil
+	})
+}
+
+/** Remove Files Older Than */
+func RemoveFilesOlderThan(path string, pattern string, retentionDays int, dryrun bool) error {
+	currentTime := time.Now()
+	return filepath.Walk(path, func(filePath string, info os.FileInfo, err error) error {
+		if err != nil {
+			fmt.Println("❌ ", err)
+		}
+		if info.IsDir() {
+			return nil
+		}
+		if !info.ModTime().Add(time.Duration(retentionDays) * 24 * time.Hour).After(currentTime) {
+			if matched, _ := filepath.Match(pattern, info.Name()); matched {
+				if dryrun {
+					fmt.Println("✅ Dry run, will remove", filePath)
+				} else {
+					os.Remove(filePath)
+					fmt.Println("✅ Successfully remove files older than", retentionDays, "days in", filePath)
+				}
 			}
 		}
 		return nil
