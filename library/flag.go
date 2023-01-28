@@ -25,9 +25,11 @@ type Flag struct {
 	PHP                  *bool
 	QuoteofTheDay        *bool
 	Remove               *bool
+	RemoveConflicts      *bool
 	RemoveLink           *bool
 	RemoveFunction       *bool
 	SearchandReplace     *bool
+	Syncthing            *bool
 	WPClean              *bool
 	WPPluginBuild        *bool
 	WPPluginBuildCheck   *bool
@@ -83,8 +85,10 @@ func GetFlag() Flag {
 		OlderThan:            flag.Bool("older-than", false, "Older Than Mode"),
 		PHP:                  flag.Bool("php", false, "PHP Mode"),
 		Remove:               flag.Bool("remove", false, "Remove Mode for Dir and File"),
+		RemoveConflicts:      flag.Bool("remove-conflicts", false, "Remove Conflicts"),
 		RemoveLink:           flag.Bool("remove-link", false, "Remove Link from File"),
 		RemoveFunction:       flag.Bool("remove-function", false, "Remove Link from File"),
+		Syncthing:            flag.Bool("syncthing", false, "Syncthing Mode"),
 		QuoteofTheDay:        flag.Bool("quote-of-the-day", false, "show quote of the day"),
 		SearchandReplace:     flag.Bool("search-replace", false, "do search and replace"),
 		SelfUpdate:           flag.Bool("self-update", false, "self update"),

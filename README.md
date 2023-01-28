@@ -90,6 +90,10 @@ You can install aspri by using one of these method
 
 - Quote of the day : `--quote-of-the-day`
 
+[Syncthing](library/syncthing.go) :
+
+- Remove all conflicts files after certain days : `--syncthing --remove-conflicts --days {days} --dry-run`
+
 [WordPress](wordpress/wordpress.go) :
 
 - Refactor Dot Framework : `--wp-refactor --path {workdir} --from {namespace} --to {namespace} --type {plugin|theme}`
