@@ -17,6 +17,7 @@ func InitiateSyncthingFunction(flags Flag) {
 	}
 }
 
+/** remove Sync Conflict Files older Than x days */
 func removeSyncConflictFiles(path string, retentionDays int, dryRun bool) error {
 	if path == "" {
 		CurrentDirectory, _ := os.Getwd()
@@ -31,9 +32,6 @@ func removeSyncConflictFiles(path string, retentionDays int, dryRun bool) error 
 			return err
 		}
 		if info.IsDir() {
-			return nil
-		}
-		if filepath.Ext(filePath) != ".md" {
 			return nil
 		}
 		fileName := strings.TrimSuffix(info.Name(), filepath.Ext(filePath))
