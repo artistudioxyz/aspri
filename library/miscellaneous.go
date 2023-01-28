@@ -130,6 +130,11 @@ func RemoveFilesExceptExtensions(root string, allowedExtensions []string, except
 
 /** Remove Files Older Than */
 func RemoveFilesOlderThan(path string, pattern string, retentionDays int, dryrun bool) error {
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
 	currentTime := time.Now()
 	return filepath.Walk(path, func(filePath string, info os.FileInfo, err error) error {
 		if err != nil {
