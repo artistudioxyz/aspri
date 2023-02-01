@@ -7,41 +7,42 @@ import (
 /** Flag Struct */
 type Flag struct {
 	/** Mode */
-	ChatGPT              *bool
-	Dir                  *bool
-	Docker               *bool
-	DryRun               *bool
-	File                 *bool
-	Git                  *bool
-	GitResetCache        *bool
-	DockerComposeRestart *bool
-	ListClass            *bool
-	ListFunction         *bool
-	ListFunctionCall     *bool
-	Minify               *bool
-	Markdown             *bool
-	NoIP                 *bool
-	OlderThan            *bool
-	PHP                  *bool
-	QuoteofTheDay        *bool
-	Remove               *bool
-	RemoveConflicts      *bool
-	RemoveLink           *bool
-	RemoveFunction       *bool
-	SearchandReplace     *bool
-	Syncthing            *bool
-	WPClean              *bool
-	WPPluginBuild        *bool
-	WPPluginBuildCheck   *bool
-	WPThemeBuild         *bool
-	WPThemeBuildCheck    *bool
-	WPRefactor           *bool
-	SelfUpdate           *bool
-	Update               *bool
+	ChatGPT            *bool
+	Dir                *bool
+	Docker             *bool
+	DockerCompose      *bool
+	DryRun             *bool
+	File               *bool
+	Git                *bool
+	GitResetCache      *bool
+	ListClass          *bool
+	ListFunction       *bool
+	ListFunctionCall   *bool
+	Minify             *bool
+	Markdown           *bool
+	NoIP               *bool
+	OlderThan          *bool
+	PHP                *bool
+	QuoteofTheDay      *bool
+	Remove             *bool
+	RemoveConflicts    *bool
+	RemoveLink         *bool
+	RemoveFunction     *bool
+	SearchandReplace   *bool
+	Syncthing          *bool
+	WPClean            *bool
+	WPPluginBuild      *bool
+	WPPluginBuildCheck *bool
+	WPThemeBuild       *bool
+	WPThemeBuildCheck  *bool
+	WPRefactor         *bool
+	SelfUpdate         *bool
+	Update             *bool
 
 	/** Bool Parameters */
 	Production *bool
 	Prune      *bool
+	Restart    *bool
 	Version    *bool
 
 	/** String Parameters */
@@ -68,37 +69,38 @@ type Flag struct {
 func GetFlag() Flag {
 	flags := Flag{
 		/** Mode */
-		ChatGPT:              flag.Bool("chatgpt", false, "Chat with GPT-3"),
-		Dir:                  flag.Bool("dir", false, "Directory Mode"),
-		Docker:               flag.Bool("docker", false, "Docker Mode"),
-		DockerComposeRestart: flag.Bool("docker-compose-restart", false, "Docker Compose Restart"),
-		DryRun:               flag.Bool("dry-run", false, "Dry Run Mode"),
-		File:                 flag.Bool("file", false, "File Mode"),
-		Git:                  flag.Bool("git", false, "Git Mode"),
-		GitResetCache:        flag.Bool("git-reset-cache", false, "Git Reset Cache"),
-		ListClass:            flag.Bool("list-class", false, "List Class"),
-		ListFunction:         flag.Bool("list-function", false, "List Function"),
-		ListFunctionCall:     flag.Bool("list-function-call", false, "List Function Call"),
-		Markdown:             flag.Bool("md", false, "Markdown Mode"),
-		Minify:               flag.Bool("minify", false, "Minify Mode"),
-		NoIP:                 flag.Bool("noip", false, "No-IP Mode"),
-		OlderThan:            flag.Bool("older-than", false, "Older Than Mode"),
-		PHP:                  flag.Bool("php", false, "PHP Mode"),
-		Remove:               flag.Bool("remove", false, "Remove Mode for Dir and File"),
-		RemoveConflicts:      flag.Bool("remove-conflicts", false, "Remove Conflicts"),
-		RemoveLink:           flag.Bool("remove-link", false, "Remove Link from File"),
-		RemoveFunction:       flag.Bool("remove-function", false, "Remove Link from File"),
-		Syncthing:            flag.Bool("syncthing", false, "Syncthing Mode"),
-		QuoteofTheDay:        flag.Bool("quote-of-the-day", false, "show quote of the day"),
-		SearchandReplace:     flag.Bool("search-replace", false, "do search and replace"),
-		SelfUpdate:           flag.Bool("self-update", false, "self update"),
-		Update:               flag.Bool("update", false, "update"),
-		WPClean:              flag.Bool("wp-clean", false, "WP Clean Project Files for Production"),
-		WPPluginBuild:        flag.Bool("wp-plugin-dist", false, "WP Build Plugin Comply"),
-		WPPluginBuildCheck:   flag.Bool("wp-plugin-dist-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
-		WPThemeBuild:         flag.Bool("wp-theme-dist", false, "WP Theme Plugin Comply"),
-		WPThemeBuildCheck:    flag.Bool("wp-theme-dist-check", false, "WP Check Theme Comply with WordPress.org (Version Check)"),
-		WPRefactor:           flag.Bool("wp-refactor", false, "Refactor Library"),
+		ChatGPT:            flag.Bool("chatgpt", false, "Chat with GPT-3"),
+		Dir:                flag.Bool("dir", false, "Directory Mode"),
+		Docker:             flag.Bool("docker", false, "Docker Mode"),
+		DockerCompose:      flag.Bool("docker-compose", false, "Docker Compose Mode"),
+		DryRun:             flag.Bool("dry-run", false, "Dry Run Mode"),
+		File:               flag.Bool("file", false, "File Mode"),
+		Git:                flag.Bool("git", false, "Git Mode"),
+		GitResetCache:      flag.Bool("git-reset-cache", false, "Git Reset Cache"),
+		ListClass:          flag.Bool("list-class", false, "List Class"),
+		ListFunction:       flag.Bool("list-function", false, "List Function"),
+		ListFunctionCall:   flag.Bool("list-function-call", false, "List Function Call"),
+		Markdown:           flag.Bool("md", false, "Markdown Mode"),
+		Minify:             flag.Bool("minify", false, "Minify Mode"),
+		NoIP:               flag.Bool("noip", false, "No-IP Mode"),
+		OlderThan:          flag.Bool("older-than", false, "Older Than Mode"),
+		PHP:                flag.Bool("php", false, "PHP Mode"),
+		Remove:             flag.Bool("remove", false, "Remove Mode for Dir and File"),
+		RemoveConflicts:    flag.Bool("remove-conflicts", false, "Remove Conflicts"),
+		RemoveLink:         flag.Bool("remove-link", false, "Remove Link from File"),
+		RemoveFunction:     flag.Bool("remove-function", false, "Remove Link from File"),
+		Syncthing:          flag.Bool("syncthing", false, "Syncthing Mode"),
+		QuoteofTheDay:      flag.Bool("quote-of-the-day", false, "show quote of the day"),
+		Restart:            flag.Bool("restart", false, "Restart (Docker Mode): Container"),
+		SearchandReplace:   flag.Bool("search-replace", false, "do search and replace"),
+		SelfUpdate:         flag.Bool("self-update", false, "self update"),
+		Update:             flag.Bool("update", false, "update"),
+		WPClean:            flag.Bool("wp-clean", false, "WP Clean Project Files for Production"),
+		WPPluginBuild:      flag.Bool("wp-plugin-dist", false, "WP Build Plugin Comply"),
+		WPPluginBuildCheck: flag.Bool("wp-plugin-dist-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
+		WPThemeBuild:       flag.Bool("wp-theme-dist", false, "WP Theme Plugin Comply"),
+		WPThemeBuildCheck:  flag.Bool("wp-theme-dist-check", false, "WP Check Theme Comply with WordPress.org (Version Check)"),
+		WPRefactor:         flag.Bool("wp-refactor", false, "Refactor Library"),
 
 		/** Bool Parameters */
 		Production: flag.Bool("production", false, "Production (WP Mode): Production Environment"),

@@ -20,7 +20,7 @@ func InitiateDockerFunction(flags Flag) {
 	 * Compose restart (down & up)
 	 * - Equivalent to : `docker-compose down && docker-compose up -d`
 	 */
-	if *flags.DockerComposeRestart {
+	if *flags.DockerCompose && *flags.Restart {
 		fmt.Println("📟 Compose restart (down & up)")
 		filename := *flags.Filename
 		dockercmd := ""

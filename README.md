@@ -48,7 +48,7 @@ You can install aspri by using one of these method
 [Docker](library/docker.go) :
 
 - Stop and Remove Container : `--docker --prune -id {identifier}`
-- Compose restart (down & up) : `--docker-compose-restart -f {filename}`
+- Compose restart (down & up) : `--docker-compose --restart -f {filename}`
 
 [Git](library/git.go) :
 
