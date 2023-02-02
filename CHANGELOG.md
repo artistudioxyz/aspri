@@ -1,5 +1,24 @@
 # 📟 Changelog
 
+## [1.6.0](https://github.com/artistudioxyz/aspri/compare/v1.5.0...v1.6.0) (2023-02-02)
+
+
+### Features
+
+* add assets minifier for js and css ([49e50aa](https://github.com/artistudioxyz/aspri/commit/49e50aad970f6da22aad0fb8aa8786d7975756d5))
+* add directory stats function ([6aa643e](https://github.com/artistudioxyz/aspri/commit/6aa643eedcc150ada66d90f7f721762a0768a7d9))
+* add php list-function-call ([0262c75](https://github.com/artistudioxyz/aspri/commit/0262c754311baef90f769a421ddeb1490ac55aaf))
+* add remove files older than function ([3bb3322](https://github.com/artistudioxyz/aspri/commit/3bb3322c677896c1e425fd70b47ff6ec5b331946))
+
+
+### Bug Fixes
+
+* add default path for RemoveFilesOlderThan function ([aaee415](https://github.com/artistudioxyz/aspri/commit/aaee41512134fcf3d165ffbfeffc4108cd3a292f))
+* remove --dist from docker command ([9c6d09b](https://github.com/artistudioxyz/aspri/commit/9c6d09bf156bca6f5e5e5a2e420d77baeea6e642))
+* remove filter extension removeSyncConflictFiles ([c3d550d](https://github.com/artistudioxyz/aspri/commit/c3d550daf3dc3f40086d777946afcbf4fae0c064))
+* remove github action trigger from tags ([70d86dd](https://github.com/artistudioxyz/aspri/commit/70d86dd8b1d85f1467432064cced275e04821d36))
+* use alternative method removeSyncConflictFiles ([8b984ee](https://github.com/artistudioxyz/aspri/commit/8b984ee04ad83a2134df63473c701bbbde4d5ee7))
+
 ## [1.5.0](https://github.com/artistudioxyz/aspri/compare/v1.4.0...v1.5.0) (2023-01-16)
 
 
