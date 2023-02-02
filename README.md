@@ -74,6 +74,7 @@ You can install aspri by using one of these method
 [Miscellaneous](library/miscellaneous.go) :
 
 - Asset minifier (.js and .css) : `--minify --path {workdir}`
+- Count files containing text : `--file --count --path {workdir} --text {text}`
 - Directory Stats : `--dir --stats --path {workdir}`
 - Remove Directories or Files Nested by Filenames :
 	- Remove Directories `--dir --remove --dirname {filename} --path {workdir}`

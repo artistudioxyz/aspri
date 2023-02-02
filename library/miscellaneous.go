@@ -20,6 +20,11 @@ func InitiateMiscellaneousFunction(flags Flag) {
 	if *flags.Minify {
 		minifyFiles(*flags.Path)
 	}
+	/** Count Files Containing Text */
+	if *flags.File && *flags.Count && *flags.Text != "" {
+		count := CountFilesContainingText(*flags.Path, *flags.Text)
+		fmt.Println("🐙 There are", count, "files containing", *flags.Text)
+	}
 	/** Directory Stats */
 	if *flags.Dir && *flags.Stats {
 		DirectoryStats(*flags.Path, true)
@@ -106,6 +111,48 @@ func minifyFiles(path string) {
 	})
 
 	fmt.Println("✅ Successfully minify files in", path)
+}
+
+/** Count Files Containing Text */
+func CountFilesContainingText(path string, text string) int {
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
+	var count int
+
+	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			fmt.Println("❌ Error:", err)
+			return err
+		}
+
+		if !info.IsDir() {
+			file, err := os.Open(path)
+			if err != nil {
+				return err
+			}
+			defer file.Close()
+
+			scanner := bufio.NewScanner(file)
+			for scanner.Scan() {
+				if strings.Contains(scanner.Text(), text) {
+					count++
+					break
+				}
+			}
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		fmt.Println("❌ Error:", err)
+		return 0
+	}
+
+	return count
 }
 
 /** Directory Stats */

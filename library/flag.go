@@ -41,6 +41,7 @@ type Flag struct {
 	Update             *bool
 
 	/** Bool Parameters */
+	Count      *bool
 	Production *bool
 	Prune      *bool
 	Restart    *bool
@@ -60,6 +61,7 @@ type Flag struct {
 	Message      *string
 	Regex        *string
 	Path         *string
+	Text         *string
 	To           *string
 	Type         *string
 	Username     *string
@@ -105,6 +107,7 @@ func GetFlag() Flag {
 		WPRefactor:         flag.Bool("wp-refactor", false, "Refactor Library"),
 
 		/** Bool Parameters */
+		Count:      flag.Bool("count", false, "Count Mode"),
 		Production: flag.Bool("production", false, "Production (WP Mode): Production Environment"),
 		Prune:      flag.Bool("prune", false, "Prune (Docker Mode): Container"),
 		Version:    flag.Bool("version", false, "show current version"),
@@ -123,6 +126,7 @@ func GetFlag() Flag {
 		Message:      flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),
 		Path:         flag.String("path", "", "Refactor : Path to Directory"),
 		Regex:        flag.String("regex", "", "Regex"),
+		Text:         flag.String("text", "", "Text"),
 		To:           flag.String("to", "", "Refactor Text To"),
 		Type:         flag.String("type", "", "Build type (WordPress)"),
 		Username:     flag.StringP("username", "u", "", "Username"),
