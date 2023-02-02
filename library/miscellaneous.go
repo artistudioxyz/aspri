@@ -1,6 +1,7 @@
 package library
 
 import (
+	"bufio"
 	"fmt"
 	"github.com/tdewolff/minify"
 	"github.com/tdewolff/minify/css"
@@ -18,6 +19,10 @@ func InitiateMiscellaneousFunction(flags Flag) {
 	/** Minify Files in Path .js and .css */
 	if *flags.Minify {
 		minifyFiles(*flags.Path)
+	}
+	/** Directory Stats */
+	if *flags.Dir && *flags.Stats {
+		DirectoryStats(*flags.Path, true)
 	}
 	/** removeFilesExceptExtensions */
 	if *flags.File && *flags.Remove && len(*flags.Ext) > 0 {
@@ -101,6 +106,73 @@ func minifyFiles(path string) {
 	})
 
 	fmt.Println("✅ Successfully minify files in", path)
+}
+
+/** Directory Stats */
+func DirectoryStats(path string, print bool) (int, int64, int64, map[string]int, int, int) {
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
+	var count int
+	var totalSize int64
+	extCount := make(map[string]int)
+	var lineCount int
+	var wordCount int
+
+	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			fmt.Println("❌ Error:", err)
+			return err
+		}
+
+		if !info.IsDir() {
+			count++
+			totalSize += info.Size()
+
+			ext := filepath.Ext(path)
+			ext = strings.ToLower(ext)
+			extCount[ext]++
+
+			file, err := os.Open(path)
+			if err != nil {
+				return err
+			}
+			defer file.Close()
+
+			scanner := bufio.NewScanner(file)
+			for scanner.Scan() {
+				lineCount++
+				wordCount += len(strings.Fields(scanner.Text()))
+			}
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		fmt.Println("❌ Error:", err)
+		return 0, 0, 0, nil, 0, 0
+	}
+
+	var averageSize int64
+	if count > 0 {
+		averageSize = totalSize / int64(count)
+	}
+
+	if print {
+		fmt.Println("📈 Total Files:", count)
+		fmt.Println("📊 Total Size:", totalSize)
+		fmt.Println("💽 Average Size:", averageSize)
+		fmt.Println("📝 Total Lines:", lineCount)
+		fmt.Println("💬 Total Words:", wordCount)
+		for ext, count := range extCount {
+			fmt.Println(" 📟", ext, ":", count)
+		}
+	}
+
+	return count, totalSize, averageSize, extCount, lineCount, wordCount
 }
 
 /** Remove Files Except Specified Extensions */

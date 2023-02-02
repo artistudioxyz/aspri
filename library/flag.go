@@ -28,6 +28,7 @@ type Flag struct {
 	RemoveConflicts    *bool
 	RemoveLink         *bool
 	RemoveFunction     *bool
+	Stats              *bool
 	SearchandReplace   *bool
 	Syncthing          *bool
 	WPClean            *bool
@@ -94,6 +95,7 @@ func GetFlag() Flag {
 		Restart:            flag.Bool("restart", false, "Restart (Docker Mode): Container"),
 		SearchandReplace:   flag.Bool("search-replace", false, "do search and replace"),
 		SelfUpdate:         flag.Bool("self-update", false, "self update"),
+		Stats:              flag.Bool("stats", false, "show stats"),
 		Update:             flag.Bool("update", false, "update"),
 		WPClean:            flag.Bool("wp-clean", false, "WP Clean Project Files for Production"),
 		WPPluginBuild:      flag.Bool("wp-plugin-dist", false, "WP Build Plugin Comply"),
