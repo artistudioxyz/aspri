@@ -214,7 +214,7 @@ func DirectoryStats(path string, print bool) (int, int64, int64, map[string]int,
 		fmt.Println("💽 Average Size:", averageSize)
 		fmt.Println("📝 Total Lines:", lineCount)
 		fmt.Println("💬 Total Words:", wordCount)
-		fmt.Println("🏺 No of files by extensions :", wordCount)
+		fmt.Println("🏺 No of files by extensions :")
 		for ext, count := range extCount {
 			fmt.Println(" 📟", ext, ":", count)
 		}
