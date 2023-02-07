@@ -53,7 +53,8 @@ You can install aspri by using one of these method
 [Git](library/git.go) :
 
 - Commit and Push : `--git -m {message}`
-	- Reset Cache : `--git-reset-cache`
+- Gone : `--git --gone`
+- Reset Cache : `--git --reset-cache`
 
 [Markdown](library/markdown.go) :
 

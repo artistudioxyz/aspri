@@ -14,7 +14,7 @@ type Flag struct {
 	DryRun             *bool
 	File               *bool
 	Git                *bool
-	GitResetCache      *bool
+	Gone               *bool
 	ListClass          *bool
 	ListFunction       *bool
 	ListFunctionCall   *bool
@@ -28,6 +28,7 @@ type Flag struct {
 	RemoveConflicts    *bool
 	RemoveLink         *bool
 	RemoveFunction     *bool
+	ResetCache         *bool
 	Stats              *bool
 	SearchandReplace   *bool
 	Syncthing          *bool
@@ -79,7 +80,7 @@ func GetFlag() Flag {
 		DryRun:             flag.Bool("dry-run", false, "Dry Run Mode"),
 		File:               flag.Bool("file", false, "File Mode"),
 		Git:                flag.Bool("git", false, "Git Mode"),
-		GitResetCache:      flag.Bool("git-reset-cache", false, "Git Reset Cache"),
+		Gone:               flag.Bool("gone", false, "Gone Mode"),
 		ListClass:          flag.Bool("list-class", false, "List Class"),
 		ListFunction:       flag.Bool("list-function", false, "List Function"),
 		ListFunctionCall:   flag.Bool("list-function-call", false, "List Function Call"),
@@ -92,6 +93,7 @@ func GetFlag() Flag {
 		RemoveConflicts:    flag.Bool("remove-conflicts", false, "Remove Conflicts"),
 		RemoveLink:         flag.Bool("remove-link", false, "Remove Link from File"),
 		RemoveFunction:     flag.Bool("remove-function", false, "Remove Link from File"),
+		ResetCache:         flag.Bool("reset-cache", false, "Git Reset Cache"),
 		Syncthing:          flag.Bool("syncthing", false, "Syncthing Mode"),
 		QuoteofTheDay:      flag.Bool("quote-of-the-day", false, "show quote of the day"),
 		Restart:            flag.Bool("restart", false, "Restart (Docker Mode): Container"),
