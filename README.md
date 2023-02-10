@@ -72,6 +72,10 @@ You can install aspri by using one of these method
 - **Support Multiple Params**
 	- FunctionName : `--functionname {FunctionName}`
 
+[PHPCS](library/phpcs.go) :
+
+- PHPCS Install Ruleset : `--phpcs --install`
+
 [Miscellaneous](library/miscellaneous.go) :
 
 - Asset minifier (.js and .css) : `--minify --path {workdir}`

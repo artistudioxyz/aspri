@@ -15,6 +15,7 @@ type Flag struct {
 	File               *bool
 	Git                *bool
 	Gone               *bool
+	Install            *bool
 	ListClass          *bool
 	ListFunction       *bool
 	ListFunctionCall   *bool
@@ -23,6 +24,7 @@ type Flag struct {
 	NoIP               *bool
 	OlderThan          *bool
 	PHP                *bool
+	PHPCS              *bool
 	QuoteofTheDay      *bool
 	Remove             *bool
 	RemoveConflicts    *bool
@@ -81,6 +83,7 @@ func GetFlag() Flag {
 		File:               flag.Bool("file", false, "File Mode"),
 		Git:                flag.Bool("git", false, "Git Mode"),
 		Gone:               flag.Bool("gone", false, "Gone Mode"),
+		Install:            flag.Bool("install", false, "Install Mode"),
 		ListClass:          flag.Bool("list-class", false, "List Class"),
 		ListFunction:       flag.Bool("list-function", false, "List Function"),
 		ListFunctionCall:   flag.Bool("list-function-call", false, "List Function Call"),
@@ -89,6 +92,7 @@ func GetFlag() Flag {
 		NoIP:               flag.Bool("noip", false, "No-IP Mode"),
 		OlderThan:          flag.Bool("older-than", false, "Older Than Mode"),
 		PHP:                flag.Bool("php", false, "PHP Mode"),
+		PHPCS:              flag.Bool("phpcs", false, "PHP Code Sniffer Mode"),
 		Remove:             flag.Bool("remove", false, "Remove Mode for Dir and File"),
 		RemoveConflicts:    flag.Bool("remove-conflicts", false, "Remove Conflicts"),
 		RemoveLink:         flag.Bool("remove-link", false, "Remove Link from File"),

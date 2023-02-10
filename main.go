@@ -20,6 +20,7 @@ func main() {
 	library.InitiateMiscellaneousFunction(flags)
 	library.InitiateNoIPFunction(flags)
 	library.InitiatePHPFunction(flags)
+	library.InitiatePHPCSFunction(flags)
 	library.InitiateSyncthingFunction(flags)
 	library.InitiateQuoteFunction(flags)
 
