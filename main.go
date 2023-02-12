@@ -10,12 +10,12 @@ func main() {
 	flags := library.GetFlag()
 
 	/** Information Flag */
-	handleHelpFlag()
 
 	///** Initiate Library */
 	library.InitiateChatGPTFunction(flags)
 	library.InitiateDockerFunction(flags)
 	library.InitiateGitFunction(flags)
+	library.InitiateHelpFunction(flags)
 	library.InitiateMarkdownFunction(flags)
 	library.InitiateMiscellaneousFunction(flags)
 	library.InitiateNoIPFunction(flags)

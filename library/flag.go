@@ -15,6 +15,7 @@ type Flag struct {
 	File               *bool
 	Git                *bool
 	Gone               *bool
+	Help               *bool
 	Install            *bool
 	ListClass          *bool
 	ListFunction       *bool
@@ -83,6 +84,7 @@ func GetFlag() Flag {
 		File:               flag.Bool("file", false, "File Mode"),
 		Git:                flag.Bool("git", false, "Git Mode"),
 		Gone:               flag.Bool("gone", false, "Gone Mode"),
+		Help:               flag.Bool("help", false, "Help Mode"),
 		Install:            flag.Bool("install", false, "Install Mode"),
 		ListClass:          flag.Bool("list-class", false, "List Class"),
 		ListFunction:       flag.Bool("list-function", false, "List Function"),
