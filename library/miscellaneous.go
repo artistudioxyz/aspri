@@ -209,6 +209,8 @@ func DirectoryStats(path string, print bool) (int, int64, int64, map[string]int,
 	}
 
 	if print {
+		currentTime := time.Now()
+		fmt.Println("🗓️ Generated at : ", currentTime.String())
 		fmt.Println("📈 Total Files:", count)
 		fmt.Println("📊 Total Size:", totalSize)
 		fmt.Println("💽 Average Size:", averageSize)
