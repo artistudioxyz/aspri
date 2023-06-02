@@ -15,7 +15,7 @@ type NullWriter int
 
 func (NullWriter) Write([]byte) (int, error) { return 0, nil }
 
-/** Initiate Docker Function */
+// Initiate ChatGPT Function
 func InitiateChatGPTFunction(flags Flag) {
 	/** Start Chat with ChatGPT */
 	if *flags.ChatGPT {
@@ -62,7 +62,7 @@ func InitiateChatGPTFunction(flags Flag) {
 	}
 }
 
-/** Get Response from ChatGPT */
+// Get Response from ChatGPT
 func GetResponsefromChatGPT(client gpt3.Client, ctx context.Context, question string) {
 	err := client.CompletionStreamWithEngine(ctx, gpt3.TextDavinci003Engine, gpt3.CompletionRequest{
 		Prompt: []string{

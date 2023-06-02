@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-/** Read File */
+// Read File
 func ReadFile(path string) []byte {
 	content, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -20,7 +20,7 @@ func ReadFile(path string) []byte {
 	return content
 }
 
-/** Write File */
+// Write File
 func WriteFile(FilePath string, content string) {
 	f, err := os.Create(FilePath)
 	if err != nil {
@@ -34,7 +34,7 @@ func WriteFile(FilePath string, content string) {
 	}
 }
 
-/* Run custom bin command */
+// Run custom bin command
 func ExecCommand(args ...string) string {
 	cmd := exec.Command(args[0], args[1:]...)
 	b, err := cmd.CombinedOutput()
@@ -44,7 +44,7 @@ func ExecCommand(args ...string) string {
 	return string(b)
 }
 
-/** Slice Contains String */
+// Slice Contains String
 func SliceContainsString(elems []string, v string) bool {
 	for _, s := range elems {
 		if v == s {
@@ -54,7 +54,7 @@ func SliceContainsString(elems []string, v string) bool {
 	return false
 }
 
-/** Get Shell Remove Function */
+// Get Shell Remove Function
 func GetShellRemoveFunction(path string) string {
 	if strings.Contains(path, "*") {
 		PathArray := strings.Split(path, "/")
@@ -65,7 +65,7 @@ func GetShellRemoveFunction(path string) string {
 	}
 }
 
-/** Call an API endpoint with Method GET */
+// Call an API endpoint with Method GET
 func getDataFromAPI(url string) []byte {
 	response, err := http.Get(url)
 	if err != nil {

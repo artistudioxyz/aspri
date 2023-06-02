@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-/** Initiate Docker Function */
+// Initiate Docker Function
 func InitiateDockerFunction(flags Flag) {
 	/**
 	 * Stop and Remove Container

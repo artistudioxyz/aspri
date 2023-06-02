@@ -4,9 +4,9 @@ import (
 	flag "github.com/spf13/pflag"
 )
 
-/** Flag Struct */
+// Flag Structure
 type Flag struct {
-	/** Mode */
+	// Mode
 	ChatGPT            *bool
 	Dir                *bool
 	Docker             *bool
@@ -44,14 +44,14 @@ type Flag struct {
 	SelfUpdate         *bool
 	Update             *bool
 
-	/** Bool Parameters */
+	// Bool Parameters
 	Count      *bool
 	Production *bool
 	Prune      *bool
 	Restart    *bool
 	Version    *bool
 
-	/** String Parameters */
+	// String Parameters
 	API_KEY      *string
 	ID           *string
 	Days         *int
@@ -72,10 +72,10 @@ type Flag struct {
 	Password     *string
 }
 
-/** Get Flag */
+// Get Flag
 func GetFlag() Flag {
 	flags := Flag{
-		/** Mode */
+		// Mode
 		ChatGPT:            flag.Bool("chatgpt", false, "Chat with GPT-3"),
 		Dir:                flag.Bool("dir", false, "Directory Mode"),
 		Docker:             flag.Bool("docker", false, "Docker Mode"),
@@ -114,13 +114,13 @@ func GetFlag() Flag {
 		WPThemeBuildCheck:  flag.Bool("wp-theme-dist-check", false, "WP Check Theme Comply with WordPress.org (Version Check)"),
 		WPRefactor:         flag.Bool("wp-refactor", false, "Refactor Library"),
 
-		/** Bool Parameters */
+		// Bool Parameters
 		Count:      flag.Bool("count", false, "Count Mode"),
 		Production: flag.Bool("production", false, "Production (WP Mode): Production Environment"),
 		Prune:      flag.Bool("prune", false, "Prune (Docker Mode): Container"),
 		Version:    flag.Bool("version", false, "show current version"),
 
-		/** String Parameters */
+		// String Parameters
 		API_KEY:      flag.String("api-key", "", "API Key"),
 		ID:           flag.String("id", "", "Identifier (Docker Mode): Container"),
 		Days:         flag.Int("days", 0, "Days (Older Than Mode): Days"),

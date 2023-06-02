@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-/** Initiate Markdown Function */
+// Initiate Markdown Function
 func InitiateMarkdownFunction(flags Flag) {
 	/** Remove Link */
 	if *flags.Markdown && *flags.RemoveLink {
@@ -21,7 +21,7 @@ func InitiateMarkdownFunction(flags Flag) {
 	}
 }
 
-/** Remove Link from Markdown File */
+// Remove Link from Markdown File
 func MarkdownRemoveLink(markdown string) string {
 	// Use the regular expression to search for all links
 	pattern := regexp.MustCompile(`\[([^\]]+)\]\(([^)]+)\)`)

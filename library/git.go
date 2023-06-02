@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-/** Initiate Git Function */
+// Initiate Git Function
 func InitiateGitFunction(flags Flag) {
 	/**
 	 * Commit and Push
@@ -36,7 +36,7 @@ func InitiateGitFunction(flags Flag) {
 	}
 }
 
-/** Git Gone Implementation in Go */
+// Git Gone Implementation in Go
 func GitGone() {
 	// Run the "git fetch --all --prune" command
 	fetchOut, err := exec.Command("git", "fetch", "--all", "--prune").Output()

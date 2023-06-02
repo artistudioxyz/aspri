@@ -6,12 +6,10 @@ import (
 )
 
 func main() {
-	/** Grab The Flag */
+	// Grab the Flag
 	flags := library.GetFlag()
 
-	/** Information Flag */
-
-	///** Initiate Library */
+	// Initiate Library
 	library.InitiateChatGPTFunction(flags)
 	library.InitiateDockerFunction(flags)
 	library.InitiateGitFunction(flags)
@@ -24,6 +22,6 @@ func main() {
 	library.InitiateSyncthingFunction(flags)
 	library.InitiateQuoteFunction(flags)
 
-	///** Initiate WordPress */
+	// Initiate WordPress
 	wordpress.InitiateWordPressFunction(flags)
 }
