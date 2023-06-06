@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 )
 
 /** Initiate PHPCS Function */
@@ -62,7 +63,7 @@ func phpCSInstallRuleset() {
 	}
 
 	// Detected standards
-	fmt.Println("🔍 Detected standards:", standards)
+	fmt.Println("🔍 Detected standards:", strings.Join(standards, ","))
 
 	// Join standards slice into a single string
 	installedPaths := ""
