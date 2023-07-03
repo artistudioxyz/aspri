@@ -35,7 +35,8 @@ You can install aspri by using one of these method
 
 ### Note
 
-- Please add your go install to system PATH [Learn More](https://go.dev/doc/tutorial/compile-install)
+- Please add your Go install directory to your system's shell path. [Learn More](https://go.dev/doc/tutorial/compile-install)
+- Tutorial in bahasa can be found [here](https://www.youtube.com/watch?v=oe5a-2OVUco)
 
 ## 📟 Commands
 
