@@ -66,9 +66,9 @@ You can install aspri by using one of these method
 
 [PHP](library/php.go) :
 
-- Lists all class in directory nested : `--php --list-class --path {workdir}`
-- Lists all function in directory nested : `--php --list-function --path {workdir}`
-- Lists function call in directory nested : `--php --list-function-call --path {workdir} --functionname {functionname}`
+- List all class in directory nested : `--php --list-class --path {workdir}`
+- List all function in directory nested : `--php --list-function --path {workdir}`
+- List function call in directory nested : `--php --list-function-call --path {workdir} --functionname {functionname}`
 - **Support Multiple Params**
 	- FunctionName : `--functionname {FunctionName}`
 
