@@ -27,7 +27,7 @@ type WPProject struct {
 /** Initiate WordPress Function */
 func InitiateWordPressFunction(flags library.Flag) {
 	/** Refactor Plugin */
-	if *flags.WPRefactor && *flags.Path != "" && *flags.From != "" && *flags.To != "" && *flags.Type != "" {
+	if *flags.WPRefactor && *flags.From != "" && *flags.To != "" && *flags.Type != "" {
 		WPRefactor(*flags.Path, *flags.From, *flags.To, *flags.Type)
 	}
 	/** WP Clean Project Files for Production */
@@ -56,6 +56,13 @@ func InitiateWordPressFunction(flags library.Flag) {
 
 /* Refactor Dot Framework */
 func WPRefactor(path string, fromName string, toName string, BuildType string) {
+	// Use current path if not defined.
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
+	// Do refactor.
 	var shell bytes.Buffer
 	fmt.Print("Refactor Plugin: ", fromName, " to ", toName)
 	library.SearchandReplace(path, fromName, toName)
