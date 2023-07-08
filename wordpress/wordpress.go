@@ -56,27 +56,29 @@ func InitiateWordPressFunction(flags library.Flag) {
 
 /* Refactor Dot Framework */
 func WPRefactor(path string, fromName string, toName string, BuildType string) {
-	var remove bytes.Buffer
+	var shell bytes.Buffer
 	fmt.Print("Refactor Plugin: ", fromName, " to ", toName)
 	library.SearchandReplace(path, fromName, toName)
 	library.SearchandReplace(path, strings.ToUpper(fromName), strings.ToUpper(toName))
 	library.SearchandReplace(path, strings.ToLower(fromName), strings.ToLower(toName))
 	if BuildType == "plugin" {
-		remove.WriteString(library.GetShellRemoveFunction(path + "/src/Framework/Theme.php"))
+		shell.WriteString(library.GetShellRemoveFunction(path + "/src/Theme.php"))
+		shell.WriteString("mv " + path + "/dot.php " + path + "/" + strings.ToLower(toName) + ".php")
 	} else if BuildType == "theme" {
-		remove.WriteString(library.GetShellRemoveFunction(path + "/src/Framework/Plugin.php"))
+		shell.WriteString("mv " + path + "/dot.php " + path + "/functions.php")
+		shell.WriteString(library.GetShellRemoveFunction(path + "/src/Plugin.php"))
 		library.SearchandReplace(path, fmt.Sprintf("%s_PLUGIN", strings.ToUpper(toName)), fmt.Sprintf("%s_THEME", strings.ToUpper(toName)))
 		library.SearchandReplace(path, fmt.Sprintf("%s Plugins", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)))
 		library.SearchandReplace(path, fmt.Sprintf("%s Plugin", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)))
 		library.SearchandReplace(path, "use Helper\\Model;", "")
 
 		/** Remove Model */
-		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Model"))
-		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Helper/Model"))
-		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Page/MenuPage.php"))
-		remove.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Page/SubmenuPage.php"))
+		shell.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Model"))
+		shell.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Helper/Model"))
+		shell.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Page/MenuPage.php"))
+		shell.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Page/SubmenuPage.php"))
 	}
-	cmd := [...]string{"bash", "-c", remove.String()}
+	cmd := [...]string{"bash", "-c", shell.String()}
 	library.ExecCommand(cmd[:]...)
 }
 
