@@ -1,5 +1,28 @@
 # 📟 Changelog
 
+## [1.7.0](https://github.com/artistudioxyz/aspri/compare/v1.6.0...v1.7.0) (2023-07-08)
+
+
+### Features
+
+* add CountFilesContainingText function ([4049471](https://github.com/artistudioxyz/aspri/commit/4049471d0379d77ad3590266092892adfcbf63c2))
+* add git gone function ([b3aed18](https://github.com/artistudioxyz/aspri/commit/b3aed187b8e07ecac9d70619aecd28ccb0c839fe))
+* add phpcs install function ([6323c08](https://github.com/artistudioxyz/aspri/commit/6323c080302c18fc0af4aa43e49301850038e7c6))
+* update README add video tutorial link ([e8e0310](https://github.com/artistudioxyz/aspri/commit/e8e031050b8251996ae2abd54f2176e37f683ad9))
+
+
+### Bug Fixes
+
+* github security issue vm2 ([1291e61](https://github.com/artistudioxyz/aspri/commit/1291e616e9d6314d8fb2482754653ad308a49264))
+* help not showing helptext ([c0af0c1](https://github.com/artistudioxyz/aspri/commit/c0af0c184c800a3d4596f8ab42c326e4bfe2bacd))
+* miscellaneous remove regex as required parameter for remove older files ([733d567](https://github.com/artistudioxyz/aspri/commit/733d567054582157d8c3f564167dc448be79e84b))
+* output comma seperated for phpcs ruleset ([07df668](https://github.com/artistudioxyz/aspri/commit/07df668b90f62e8fa544c058e64d35be413ade50))
+* refactor dot framework ([69665db](https://github.com/artistudioxyz/aspri/commit/69665db2fd590e26a4198df844d8c48caaa06de5))
+* remove default path flag when refactor dot framework ([9f1ce73](https://github.com/artistudioxyz/aspri/commit/9f1ce734a5727b37916f99b0613d333fdf6062dc))
+* update package.lock.json ([bd686b3](https://github.com/artistudioxyz/aspri/commit/bd686b34708b5ca0c241919bf48f6cbb35dac7f1))
+* vulnerability problem cacheable-request 10.2.7 ([eb4b366](https://github.com/artistudioxyz/aspri/commit/eb4b36671fa92c995c7efe7136b07161ac2a2351))
+* wp refactor shell notification ([d2c1c6c](https://github.com/artistudioxyz/aspri/commit/d2c1c6cd4dce66f35d4be29cc4258df085f7e0f6))
+
 ## [1.6.0](https://github.com/artistudioxyz/aspri/compare/v1.5.0...v1.6.0) (2023-02-02)
 
 
