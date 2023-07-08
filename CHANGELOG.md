@@ -1,5 +1,12 @@
 # 📟 Changelog
 
+## [1.7.1](https://github.com/artistudioxyz/aspri/compare/v1.7.0...v1.7.1) (2023-07-08)
+
+
+### Bug Fixes
+
+* dot framework build rename entry point not working ([41ce774](https://github.com/artistudioxyz/aspri/commit/41ce7747d94a269446b226de8f7833f749b13ec5))
+
 ## [1.7.0](https://github.com/artistudioxyz/aspri/compare/v1.6.0...v1.7.0) (2023-07-08)
 
 
