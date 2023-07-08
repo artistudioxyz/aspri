@@ -20,6 +20,17 @@ func ReadFile(path string) []byte {
 	return content
 }
 
+// Rename File
+func RenameFile(oldPath string, newPath string) {
+	err := os.Rename(oldPath, newPath)
+	if err != nil {
+		fmt.Println("Error renaming file:", err)
+		return
+	}
+
+	fmt.Println("✅ Success rename file", oldPath, "to", newPath)
+}
+
 // Write File
 func WriteFile(FilePath string, content string) {
 	f, err := os.Create(FilePath)

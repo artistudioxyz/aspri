@@ -70,7 +70,7 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 	library.SearchandReplace(path, strings.ToLower(fromName), strings.ToLower(toName))
 	if BuildType == "plugin" {
 		shell.WriteString(library.GetShellRemoveFunction(path + "/src/Theme.php"))
-		shell.WriteString("mv " + path + "/dot.php " + path + "/" + strings.ToLower(toName) + ".php")
+		library.RenameFile(path+"/dot.php", path+"/"+strings.ToLower(toName)+".php")
 	} else if BuildType == "theme" {
 		shell.WriteString("mv " + path + "/dot.php " + path + "/functions.php")
 		shell.WriteString(library.GetShellRemoveFunction(path + "/src/Plugin.php"))
