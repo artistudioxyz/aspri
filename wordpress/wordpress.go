@@ -64,7 +64,7 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 
 	// Do refactor.
 	var shell bytes.Buffer
-	fmt.Print("Refactor Plugin: ", fromName, " to ", toName)
+	fmt.Println("Refactor Plugin: ", fromName, " to ", toName)
 	library.SearchandReplace(path, fromName, toName)
 	library.SearchandReplace(path, strings.ToUpper(fromName), strings.ToUpper(toName))
 	library.SearchandReplace(path, strings.ToLower(fromName), strings.ToLower(toName))
