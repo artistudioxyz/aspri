@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"time"
 )
@@ -269,7 +270,7 @@ func RemoveFilesOlderThan(path string, pattern string, retentionDays int, dryrun
 			// Match file name if pattern is not empty
 			matched := true
 			if pattern != "" {
-				matched, _ = filepath.Match(pattern, info.Name());
+				matched, _ = filepath.Match(pattern, info.Name())
 			}
 
 			// Remove file if matched
@@ -361,4 +362,32 @@ func SearchandReplace(path string, from string, to string) {
 	} else {
 		fmt.Println("✅ Success Search and Replace", from, "to", to, "in", path)
 	}
+}
+
+/** Slugify function */
+func Slugify(s string) string {
+	// Convert the string to lowercase
+	s = strings.ToLower(s)
+
+	// Replace non-alphanumeric characters with spaces, except for forward slashes and periods
+	re := regexp.MustCompile(`[^a-z0-9/.]+`)
+	s = re.ReplaceAllString(s, " ")
+
+	// Replace all " / " with "/"
+	s = strings.ReplaceAll(s, " /", "/")
+
+	// Trim leading and trailing spaces
+	s = strings.TrimSpace(s)
+
+	// Replace spaces with hyphens
+	s = strings.ReplaceAll(s, " ", "-")
+
+	// Remove leading and trailing hyphens
+	s = strings.Trim(s, "-")
+
+	// Replace consecutive forward slashes with single forward slashes
+	re = regexp.MustCompile(`/+`)
+	s = re.ReplaceAllString(s, "/")
+
+	return s
 }

@@ -72,7 +72,8 @@ func MarkdownGenerateFileTree(path string, ignore []string) string {
 			tree += subtree
 		} else {
 			link := filepath.Join(strings.Split(path, string(os.PathSeparator))...)
-			tree += fmt.Sprintf("%s- [%s](%s)\n", indent, file.Name(), link)
+			slugifyPath := Slugify(link + string(os.PathSeparator) + file.Name())
+			tree += fmt.Sprintf("%s- [%s](%s)\n", indent, file.Name(), slugifyPath)
 		}
 	}
 
