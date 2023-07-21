@@ -42,6 +42,7 @@ type Flag struct {
 	WPThemeBuildCheck  *bool
 	WPRefactor         *bool
 	SelfUpdate         *bool
+	Tree               *bool
 	Update             *bool
 
 	// Bool Parameters
@@ -106,6 +107,7 @@ func GetFlag() Flag {
 		SearchandReplace:   flag.Bool("search-replace", false, "do search and replace"),
 		SelfUpdate:         flag.Bool("self-update", false, "self update"),
 		Stats:              flag.Bool("stats", false, "show stats"),
+		Tree:               flag.Bool("tree", false, "Tree Mode"),
 		Update:             flag.Bool("update", false, "update"),
 		WPClean:            flag.Bool("wp-clean", false, "WP Clean Project Files for Production"),
 		WPPluginBuild:      flag.Bool("wp-plugin-dist", false, "WP Build Plugin Comply"),

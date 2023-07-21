@@ -2,7 +2,9 @@ package library
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 )
@@ -19,6 +21,11 @@ func InitiateMarkdownFunction(flags Flag) {
 		WriteFile(*flags.Path, MarkdownRemoveLink(string(content)))
 		fmt.Println("✅ Link removed")
 	}
+	/** Remove Link */
+	if *flags.Markdown && *flags.Tree {
+		fileTree := MarkdownGenerateFileTree(*flags.Path, *flags.Filename)
+		fmt.Println(fileTree)
+	}
 }
 
 // Remove Link from Markdown File
@@ -33,4 +40,41 @@ func MarkdownRemoveLink(markdown string) string {
 	}
 
 	return markdown
+}
+
+// Generate File Tree from Directory
+func MarkdownGenerateFileTree(path string, ignore []string) string {
+	if path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		path = CurrentDirectory
+	}
+
+	// Ignore the files and directories
+	ignore = append(ignore, ".git", ".github", ".vscode", ".idea", ".obsidian", ".gitignore", ".gitkeep", ".DS_Store")
+
+	// Read the directory
+	files, err := ioutil.ReadDir(path)
+	if err != nil {
+		return ""
+	}
+
+	tree := ""
+	indent := strings.Repeat("    ", strings.Count(path, string(os.PathSeparator)))
+
+	for _, file := range files {
+		if SliceContainsString(ignore, file.Name()) {
+			continue
+		}
+
+		if file.IsDir() {
+			subtree := MarkdownGenerateFileTree(filepath.Join(path, file.Name()), ignore)
+			tree += fmt.Sprintf("%s- %s\n", indent, file.Name())
+			tree += subtree
+		} else {
+			link := filepath.Join(strings.Split(path, string(os.PathSeparator))...)
+			tree += fmt.Sprintf("%s- [%s](%s)\n", indent, file.Name(), link)
+		}
+	}
+
+	return tree
 }
