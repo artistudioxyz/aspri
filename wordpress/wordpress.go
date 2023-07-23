@@ -27,7 +27,7 @@ type WPProject struct {
 /** Initiate WordPress Function */
 func InitiateWordPressFunction(flags library.Flag) {
 	/** Refactor Plugin */
-	if *flags.WPRefactor && *flags.From != "" && *flags.To != "" && *flags.Type != "" {
+	if *flags.WPRefactor && *flags.From != "" && *flags.To != "" {
 		WPRefactor(*flags.Path, *flags.From, *flags.To, *flags.Type)
 	}
 	/** WP Clean Project Files for Production */
@@ -60,6 +60,11 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 	if path == "" {
 		CurrentDirectory, _ := os.Getwd()
 		path = CurrentDirectory
+	}
+
+	// If build type is not defined, set it to plugin.
+	if BuildType == "" {
+		BuildType = "plugin"
 	}
 
 	// Do refactor.
