@@ -1,5 +1,18 @@
 # 📟 Changelog
 
+## [1.8.0](https://github.com/artistudioxyz/aspri/compare/v1.7.1...v1.8.0) (2023-07-23)
+
+
+### Features
+
+* add markdown tree file generator ([95e74f3](https://github.com/artistudioxyz/aspri/commit/95e74f3c05c88296b71630e893bd97983f31b609))
+* slugify markdown file path ([1575ab9](https://github.com/artistudioxyz/aspri/commit/1575ab96e688e64f4dc18c7b4db768bd64663c8b))
+
+
+### Bug Fixes
+
+* set default wordpress refactor to plugin if type is not set ([7756f48](https://github.com/artistudioxyz/aspri/commit/7756f48c352a208461a2b2786c5e7ddf7a6ee88f))
+
 ## [1.7.1](https://github.com/artistudioxyz/aspri/compare/v1.7.0...v1.7.1) (2023-07-08)
 
 
