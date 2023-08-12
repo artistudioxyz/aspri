@@ -1,5 +1,12 @@
 # 📟 Changelog
 
+## [1.8.1](https://github.com/artistudioxyz/aspri/compare/v1.8.0...v1.8.1) (2023-08-12)
+
+
+### Bug Fixes
+
+* security issue vm2 release-it ([0787e6a](https://github.com/artistudioxyz/aspri/commit/0787e6a6e811bf1b9453c8697e2f2b267eaf10df))
+
 ## [1.8.0](https://github.com/artistudioxyz/aspri/compare/v1.7.1...v1.8.0) (2023-07-23)
 
 
