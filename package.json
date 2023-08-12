@@ -22,6 +22,6 @@
     "@release-it/conventional-changelog": "^5.1.1",
     "dotenv-cli": "^6.0.0",
     "husky": "^8.0.2",
-    "release-it": "^15.5.1"
+    "release-it": "^16.1.4"
   }
 }
