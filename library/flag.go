@@ -12,6 +12,7 @@ type Flag struct {
 	Docker             *bool
 	DockerCompose      *bool
 	DryRun             *bool
+	Extract            *bool
 	File               *bool
 	Git                *bool
 	Gone               *bool
@@ -44,6 +45,7 @@ type Flag struct {
 	SelfUpdate         *bool
 	Tree               *bool
 	Update             *bool
+	YouTube            *bool
 
 	// Bool Parameters
 	Count      *bool
@@ -82,6 +84,7 @@ func GetFlag() Flag {
 		Docker:             flag.Bool("docker", false, "Docker Mode"),
 		DockerCompose:      flag.Bool("docker-compose", false, "Docker Compose Mode"),
 		DryRun:             flag.Bool("dry-run", false, "Dry Run Mode"),
+		Extract:            flag.Bool("extract", false, "Extract Mode"),
 		File:               flag.Bool("file", false, "File Mode"),
 		Git:                flag.Bool("git", false, "Git Mode"),
 		Gone:               flag.Bool("gone", false, "Gone Mode"),
@@ -115,6 +118,7 @@ func GetFlag() Flag {
 		WPThemeBuild:       flag.Bool("wp-theme-dist", false, "WP Theme Plugin Comply"),
 		WPThemeBuildCheck:  flag.Bool("wp-theme-dist-check", false, "WP Check Theme Comply with WordPress.org (Version Check)"),
 		WPRefactor:         flag.Bool("wp-refactor", false, "Refactor Library"),
+		YouTube:            flag.Bool("youtube", false, "YouTube Mode"),
 
 		// Bool Parameters
 		Count:      flag.Bool("count", false, "Count Mode"),

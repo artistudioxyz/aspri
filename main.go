@@ -21,6 +21,7 @@ func main() {
 	library.InitiatePHPCSFunction(flags)
 	library.InitiateSyncthingFunction(flags)
 	library.InitiateQuoteFunction(flags)
+	library.InitiateYouTubeFunction(flags)
 
 	// Initiate WordPress
 	wordpress.InitiateWordPressFunction(flags)
