@@ -111,6 +111,10 @@ You can install aspri by using one of these method
 - WP Theme Build Check : `--wp-theme-build-check --path {workdir}`
 	- Build WP Plugin (Require Path) : `--wp-theme-build --path {workdir} --type {wordpress|github}`
 
+[YouTube](library/youtube.go)
+
+- Extract YouTube Video Data : `--youtube --extract --path {filepath}`
+
 ## ⚒️ Built with
 
 - [Commitlint](https://commitlint.js.org)
