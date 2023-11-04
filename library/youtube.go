@@ -46,21 +46,24 @@ func ExtractYouTubeData(inputFilePath string) {
 	for scanner.Scan() {
 		line := scanner.Text()
 		line = strings.TrimLeft(line, " ")
-
-		// Get the title
-		re := regexp.MustCompile(`^(.*?)\d`)
-		match := re.FindStringSubmatch(line)
-		title := ""
-		if len(match) > 1 {
-			title = strings.Join(strings.Fields(match[1]), " ")
-		}
+		line = strings.Join(strings.Fields(line), " ")
 
 		// Get the view count
-		re = regexp.MustCompile(`\b([\d,]+) views\b`)
-		match = re.FindStringSubmatch(line)
+		re := regexp.MustCompile(`\b([\d,]+) views\b`)
+		match := re.FindStringSubmatch(line)
 		views := ""
+		viewsRaw := ""
 		if len(match) > 1 {
-			views = match[1]
+			views = strings.Replace(match[1], ",", "", -1)
+			viewsRaw = match[1]
+		}
+
+		// Get the title
+		re = regexp.MustCompile(`^(.*?) views`)
+		match = re.FindStringSubmatch(line)
+		title := ""
+		if len(match) > 1 {
+			title = strings.Replace(match[1], viewsRaw, "", -1)
 		}
 
 		// Get the release date
@@ -72,11 +75,11 @@ func ExtractYouTubeData(inputFilePath string) {
 		}
 
 		// Get the length
-		re = regexp.MustCompile(`(\d+ [a-zA-Z]+, \d+ [a-zA-Z]+)`)
+		re = regexp.MustCompile(`(\d+ [a-zA-Z]+ https)`)
 		match = re.FindStringSubmatch(line)
 		length := ""
 		if len(match) > 1 {
-			length = match[1]
+			length = strings.Replace(match[1], "https", "", -1)
 		}
 
 		// Get the link
@@ -86,6 +89,14 @@ func ExtractYouTubeData(inputFilePath string) {
 		if len(match) > 1 {
 			link = "https://www.youtube.com/watch?v=" + match[1]
 		}
+
+		// Debug
+		//fmt.Println(title)
+		//fmt.Println(views)
+		//fmt.Println(viewsRaw)
+		//fmt.Println(release)
+		//fmt.Println(length)
+		//fmt.Println(link)
 
 		// Transform the data into a CSV record
 		record := []string{
