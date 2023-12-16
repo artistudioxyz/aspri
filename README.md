@@ -80,10 +80,10 @@ You can install aspri by using one of these method
 [Miscellaneous](library/miscellaneous.go) :
 
 - Asset minifier (.js and .css) : `--minify --path {workdir}`
-- Count files containing text : `--file --count --path {workdir} --text {text}`
+- Count files containing text : `--file --count --path {workdir} --text {text} --ignoredirs {dirname}`
 - Directory Stats : `--dir --stats --path {workdir}`
 - Remove Directories or Files Nested by Filenames :
-	- Remove Directories `--dir --remove --dirname {filename} --path {workdir}`
+	- Remove Directories `--dir --remove --dirname {dirname} --path {workdir}`
 	- Remove Files `--file --remove --f {filename} --path {workdir}`
 - Remove Files Nested Except Extensions : `--file --remove --ext {.php} --except {composer.json} --path {workdir}`
 - Remove Files older than x days matching regex nested : `--file --remove --older-than --days {days} --regex {regex} --path {workdir} --dry-run`

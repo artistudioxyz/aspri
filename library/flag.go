@@ -65,6 +65,7 @@ type Flag struct {
 	FunctionName *[]string
 	From         *string
 	Hostname     *string
+	IgnoreDirs   *[]string
 	Message      *string
 	Regex        *string
 	Path         *string
@@ -137,6 +138,7 @@ func GetFlag() Flag {
 		FunctionName: flag.StringArray("functionname", []string{}, "Function Name"),
 		From:         flag.String("from", "", "Refactor Text From"),
 		Hostname:     flag.String("hostname", "", "Hostname"),
+		IgnoreDirs:   flag.StringArray("ignoredirs", []string{}, "Directory Name to Ignored"),
 		Message:      flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),
 		Path:         flag.String("path", "", "Refactor : Path to Directory"),
 		Regex:        flag.String("regex", "", "Regex"),

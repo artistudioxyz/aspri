@@ -23,7 +23,7 @@ func InitiateMiscellaneousFunction(flags Flag) {
 	}
 	/** Count Files Containing Text */
 	if *flags.File && *flags.Count && *flags.Text != "" {
-		count := CountFilesContainingText(*flags.Path, *flags.Text)
+		count := CountFilesContainingText(*flags.Path, *flags.Text, *flags.IgnoreDirs)
 		fmt.Println("🐙 There are", count, "files containing", *flags.Text)
 	}
 	/** Directory Stats */
@@ -115,7 +115,7 @@ func minifyFiles(path string) {
 }
 
 /** Count Files Containing Text */
-func CountFilesContainingText(path string, text string) int {
+func CountFilesContainingText(path string, text string, ignoreDirs []string) int {
 	if path == "" {
 		CurrentDirectory, _ := os.Getwd()
 		path = CurrentDirectory
@@ -127,6 +127,13 @@ func CountFilesContainingText(path string, text string) int {
 		if err != nil {
 			fmt.Println("❌ Error:", err)
 			return err
+		}
+
+		// Check if the directory should be ignored
+		for _, ignoreDir := range ignoreDirs {
+			if info.IsDir() && info.Name() == ignoreDir {
+				return filepath.SkipDir
+			}
 		}
 
 		if !info.IsDir() {
