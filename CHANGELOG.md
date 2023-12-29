@@ -1,5 +1,20 @@
 # 📟 Changelog
 
+## [1.9.0](https://github.com/artistudioxyz/aspri/compare/v1.8.1...v1.9.0) (2023-12-29)
+
+
+### Features
+
+* add extract url function ([42cd9db](https://github.com/artistudioxyz/aspri/commit/42cd9dbf87ba0a973cee635299bc9e0215cfc7c1))
+* add ignoredirs flag ([e286d63](https://github.com/artistudioxyz/aspri/commit/e286d6390b82cfdad525c85cbff33f1a81a15e14))
+* add youtube data extractor ([c781617](https://github.com/artistudioxyz/aspri/commit/c781617cbf28bbfd01e415885096a52b3017c939))
+* setup new file module ([a5eb64c](https://github.com/artistudioxyz/aspri/commit/a5eb64cf3c3334d6535d163b40d2ef120bbbfa07))
+
+
+### Bug Fixes
+
+* youtube extract data cleanup not still messy ([edb00cb](https://github.com/artistudioxyz/aspri/commit/edb00cb994a38c88cb5811b8a7366ae200a666e5))
+
 ## [1.8.1](https://github.com/artistudioxyz/aspri/compare/v1.8.0...v1.8.1) (2023-08-12)
 
 
