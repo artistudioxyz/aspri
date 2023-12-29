@@ -51,6 +51,24 @@ You can install aspri by using one of these method
 - Stop and Remove Container : `--docker --prune -id {identifier}`
 - Compose restart (down & up) : `--docker-compose --restart -f {filename}`
 
+[File](library/file.go) :
+
+- Asset minifier (.js and .css) : `--minify --path {workdir}`
+- Count files containing text : `--file --count --path {workdir} --text {text} --ignoredirs {dirname}`
+- Directory Stats : `--dir --stats --path {workdir}`
+- Extract Urls : `--extract-url --path {workdir} --url {url}`
+- Remove Directories or Files Nested by Filenames :
+	- Remove Directories `--dir --remove --dirname {dirname} --path {workdir}`
+	- Remove Files `--file --remove --f {filename} --path {workdir}`
+- Remove Files Nested Except Extensions : `--file --remove --ext {.php} --except {composer.json} --path {workdir}`
+- Remove Files older than x days matching regex nested : `--file --remove --older-than --days {days} --regex {regex} --path {workdir} --dry-run`
+- Search and Replace in Directory or File : `--search-replace --path {dir or file} --from {text} --to {text}`
+- **Support Multiple Params**
+	- Dirname : `--dirname {dirname}`
+	- Filename : `-f {filename}`
+	- Except : `--except {except}`
+	- Extension : `--ext {ext}`
+
 [Git](library/git.go) :
 
 - Commit and Push : `--git -m {message}`
@@ -79,20 +97,7 @@ You can install aspri by using one of these method
 
 [Miscellaneous](library/miscellaneous.go) :
 
-- Asset minifier (.js and .css) : `--minify --path {workdir}`
-- Count files containing text : `--file --count --path {workdir} --text {text} --ignoredirs {dirname}`
-- Directory Stats : `--dir --stats --path {workdir}`
-- Remove Directories or Files Nested by Filenames :
-	- Remove Directories `--dir --remove --dirname {dirname} --path {workdir}`
-	- Remove Files `--file --remove --f {filename} --path {workdir}`
-- Remove Files Nested Except Extensions : `--file --remove --ext {.php} --except {composer.json} --path {workdir}`
-- Remove Files older than x days matching regex nested : `--file --remove --older-than --days {days} --regex {regex} --path {workdir} --dry-run`
-- Search and Replace in Directory or File : `--search-replace --path {dir or file} --from {text} --to {text}`
-- **Support Multiple Params**
-  - Dirname : `--dirname {dirname}`
-  - Filename : `-f {filename}`
-  - Except : `--except {except}`
-  - Extension : `--ext {ext}`
+- Self Update : `--self-update`
 
 [Quotes](library/quotes.go) :
 
