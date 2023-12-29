@@ -13,6 +13,7 @@ type Flag struct {
 	DockerCompose      *bool
 	DryRun             *bool
 	Extract            *bool
+	ExtractLink        *bool
 	File               *bool
 	Git                *bool
 	Gone               *bool
@@ -67,13 +68,14 @@ type Flag struct {
 	Hostname     *string
 	IgnoreDirs   *[]string
 	Message      *string
-	Regex        *string
 	Path         *string
+	Password     *string
+	Regex        *string
 	Text         *string
 	To           *string
 	Type         *string
+	Url          *[]string
 	Username     *string
-	Password     *string
 }
 
 // Get Flag
@@ -86,6 +88,7 @@ func GetFlag() Flag {
 		DockerCompose:      flag.Bool("docker-compose", false, "Docker Compose Mode"),
 		DryRun:             flag.Bool("dry-run", false, "Dry Run Mode"),
 		Extract:            flag.Bool("extract", false, "Extract Mode"),
+		ExtractLink:        flag.Bool("extract-link", false, "Extract Link Mode"),
 		File:               flag.Bool("file", false, "File Mode"),
 		Git:                flag.Bool("git", false, "Git Mode"),
 		Gone:               flag.Bool("gone", false, "Gone Mode"),
