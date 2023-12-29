@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"time"
 )
@@ -44,10 +45,50 @@ func InitiateFileFunction(flags Flag) {
 	if *flags.File && *flags.Remove && len(*flags.Filename) > 0 {
 		DeleteDirectoriesorFilesinPath(*flags.Path, *flags.Dirname, *flags.Filename)
 	}
+	/** Exctract Links from Directory Path */
+	if *flags.ExtractUrl {
+		urls, err := ExtractURLsFromDirectoryPath(*flags.Path, *flags.Url)
+		if err != nil {
+			fmt.Println("❌ Error extracting links:", err)
+		}
+		for _, url := range urls {
+			fmt.Println(url)
+		}
+	}
 	/** Search and Replace */
 	if *flags.SearchandReplace && *flags.From != "" && *flags.To != "" {
 		SearchandReplace(*flags.Path, *flags.From, *flags.To)
 	}
+}
+
+/** Extract URLs from File */
+func extractURLsFromFile(filePath string, baseURL string) ([]string, error) {
+	fileContent, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		return nil, err
+	}
+
+	// Define a regular expression to match URLs
+	urlPattern := `https?://\S+`
+
+	var urls []string
+
+	// Find URLs in the file content
+	urlRegex := regexp.MustCompile(urlPattern)
+	urlMatches := urlRegex.FindAllString(string(fileContent), -1)
+
+	// Filter URLs based on the baseURL if provided
+	if baseURL != "" {
+		for _, url := range urlMatches {
+			if strings.Contains(url, baseURL) {
+				urls = append(urls, url)
+			}
+		}
+	} else {
+		urls = append(urls, urlMatches...)
+	}
+
+	return urls, nil
 }
 
 /** Minify Files in Path .js and .css */
@@ -330,6 +371,72 @@ func DeleteDirectoriesorFilesinPath(root string, dirnames []string, filenames []
 
 		return nil
 	})
+}
+
+/** Exctract URLs from Directory Path */
+func ExtractURLsFromDirectoryPath(path string, baseURL string) ([]string, error) {
+	if path == "" {
+		// Use the current directory path if path is not provided
+		dir, err := os.Getwd()
+		if err != nil {
+			return nil, err
+		}
+		path = dir
+	}
+
+	uniqueURLs := make(map[string]struct{}) // Map to store unique URLs
+
+	// Check if the path is a directory
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		return nil, err
+	}
+	if !fileInfo.IsDir() {
+		return nil, fmt.Errorf("Path is not a directory: %s", path)
+	}
+
+	files, err := ioutil.ReadDir(path)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, file := range files {
+		if file.IsDir() {
+			// If it's a subdirectory, recursively extract URLs
+			subpath := filepath.Join(path, file.Name())
+			subURLs, err := ExtractURLsFromDirectoryPath(subpath, baseURL)
+			if err != nil {
+				return nil, err
+			}
+			for _, url := range subURLs {
+				uniqueURLs[url] = struct{}{}
+			}
+		} else {
+			// If it's a file, extract URLs based on the file content
+			filePath := filepath.Join(path, file.Name())
+			fileURLs, err := extractURLsFromFile(filePath, baseURL)
+			if err != nil {
+				return nil, err
+			}
+			for _, url := range fileURLs {
+				uniqueURLs[url] = struct{}{}
+			}
+		}
+	}
+
+	// Convert unique URLs from the map to a slice
+	var urls []string
+	for url := range uniqueURLs {
+		// Cleaned unwanted symbols from the URL
+		symbolPattern := `[^\w://.]`
+		regex := regexp.MustCompile(symbolPattern)
+		cleaned := regex.ReplaceAllString(url, "")
+
+		// Add the URL to the slice
+		urls = append(urls, cleaned)
+	}
+
+	return urls, nil
 }
 
 /** Search and Replace in Directory or File */

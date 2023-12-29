@@ -13,7 +13,7 @@ type Flag struct {
 	DockerCompose      *bool
 	DryRun             *bool
 	Extract            *bool
-	ExtractLink        *bool
+	ExtractUrl         *bool
 	File               *bool
 	Git                *bool
 	Gone               *bool
@@ -74,7 +74,7 @@ type Flag struct {
 	Text         *string
 	To           *string
 	Type         *string
-	Url          *[]string
+	Url          *string
 	Username     *string
 }
 
@@ -88,7 +88,7 @@ func GetFlag() Flag {
 		DockerCompose:      flag.Bool("docker-compose", false, "Docker Compose Mode"),
 		DryRun:             flag.Bool("dry-run", false, "Dry Run Mode"),
 		Extract:            flag.Bool("extract", false, "Extract Mode"),
-		ExtractLink:        flag.Bool("extract-link", false, "Extract Link Mode"),
+		ExtractUrl:         flag.Bool("extract-url", false, "Extract URL Mode"),
 		File:               flag.Bool("file", false, "File Mode"),
 		Git:                flag.Bool("git", false, "Git Mode"),
 		Gone:               flag.Bool("gone", false, "Gone Mode"),
@@ -144,12 +144,13 @@ func GetFlag() Flag {
 		IgnoreDirs:   flag.StringArray("ignoredirs", []string{}, "Directory Name to Ignored"),
 		Message:      flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),
 		Path:         flag.String("path", "", "Refactor : Path to Directory"),
+		Password:     flag.StringP("password", "p", "", "Password"),
 		Regex:        flag.String("regex", "", "Regex"),
 		Text:         flag.String("text", "", "Text"),
 		To:           flag.String("to", "", "Refactor Text To"),
 		Type:         flag.String("type", "", "Build type (WordPress)"),
 		Username:     flag.StringP("username", "u", "", "Username"),
-		Password:     flag.StringP("password", "p", "", "Password"),
+		Url:          flag.String("url", "", "Url"),
 	}
 	flag.Parse()
 
