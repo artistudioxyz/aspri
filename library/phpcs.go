@@ -10,6 +10,11 @@ import (
 	"strings"
 )
 
+// PHPCS Config
+type PHPCSConfig struct {
+	Phpcs string `json:"phpcs"`
+}
+
 /** Initiate PHPCS Function */
 func InitiatePHPCSFunction(flags Flag) {
 	/** PHPCS Install Ruleset */
@@ -18,13 +23,44 @@ func InitiatePHPCSFunction(flags Flag) {
 	}
 }
 
-/** PHPCS Install Ruleset */
-func phpCSInstallRuleset() {
+// Get PHPCSConfig
+func phpCSGetConfig() (PHPCSConfig, error) {
 	// Get current directory
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		fmt.Println("❌", err)
 		os.Exit(1)
+	}
+
+	// Define the path to the config file.
+	configPath := dir + "/config.json"
+
+	// Read the contents of the config file.
+	configData, err := ioutil.ReadFile(configPath)
+	if err != nil {
+		fmt.Println("❌", err)
+		return PHPCSConfig{}, err
+	}
+
+	// Parse the JSON data into a Config struct.
+	var config PHPCSConfig
+	err = json.Unmarshal(configData, &config)
+	if err != nil {
+		fmt.Println("❌", err)
+		return PHPCSConfig{}, err
+	}
+
+	return config, nil
+}
+
+// Detect Standard
+func phpCSDetectStandard() ([]string, error) {
+	var standards []string
+
+	// Get current directory
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		return standards, err
 	}
 
 	// Set standards.json file path
@@ -36,23 +72,19 @@ func phpCSInstallRuleset() {
 	// Read standards.json file
 	bytes, err := ioutil.ReadFile(standardsJSON)
 	if err != nil {
-		fmt.Println("❌", err)
-		os.Exit(1)
+		return standards, err
 	}
 
 	// Unmarshal standards.json data into slice of strings
-	var standards []string
 	err = json.Unmarshal(bytes, &standards)
 	if err != nil {
-		fmt.Println("❌", err)
-		os.Exit(1)
+		return standards, err
 	}
 
 	// List all subdirectories in standards directory
 	subdirectories, err := ioutil.ReadDir(standardsDirectory)
 	if err != nil {
-		fmt.Println("❌", err)
-		os.Exit(1)
+		return standards, err
 	}
 
 	// Add subdirectories to standards slice
@@ -60,6 +92,27 @@ func phpCSInstallRuleset() {
 		if subdirectory.IsDir() {
 			standards = append(standards, standardsDirectory+"/"+subdirectory.Name())
 		}
+	}
+
+	return standards, nil
+}
+
+/** PHPCS Install Ruleset */
+func phpCSInstallRuleset() {
+	// Set PHPCS path
+	phpcsConfig, err := phpCSGetConfig()
+	phpcsPath := "phpcs"
+	if err == nil {
+		phpcsPath = phpcsConfig.Phpcs
+	}
+
+	fmt.Println("🔍 PHPCS path:", phpcsPath)
+
+	// Detect standards
+	standards, err := phpCSDetectStandard()
+	if err != nil {
+		fmt.Println("❌", err)
+		os.Exit(1)
 	}
 
 	// Detected standards
@@ -75,7 +128,8 @@ func phpCSInstallRuleset() {
 	}
 
 	// Execute PHPCS command to set installed paths
-	cmd := exec.Command("phpcs", "--config-set", "installed_paths", installedPaths)
+	cmd := exec.Command(phpcsPath, "--config-set", "installed_paths", installedPaths)
+	fmt.Println(cmd)
 	err = cmd.Run()
 	if err != nil {
 		fmt.Println("❌", err)
