@@ -13,6 +13,7 @@ func main() {
 	library.InitiateChatGPTFunction(flags)
 	library.InitiateDockerFunction(flags)
 	library.InitiateFileFunction(flags)
+	library.InitiateDirectoryFunction(flags)
 	library.InitiateGitFunction(flags)
 	library.InitiateHelpFunction(flags)
 	library.InitiateMarkdownFunction(flags)
