@@ -38,6 +38,10 @@ func InitiateFileFunction(flags Flag) {
 	if *flags.File && *flags.Remove && *flags.OlderThan && *flags.Days > 0 {
 		RemoveFilesOlderThan(*flags.Path, *flags.Regex, *flags.Days, *flags.DryRun)
 	}
+	/** remove Directories Older than days matching regex */
+	if *flags.Dir && *flags.Remove && *flags.OlderThan && *flags.Days > 0 {
+		RemoveDirectoriesOlderThan(*flags.Path, *flags.Days, *flags.DryRun)
+	}
 	/** Delete Directory or Files in Path Matching Filename */
 	if *flags.Dir && *flags.Remove && len(*flags.Dirname) > 0 {
 		DeleteDirectoriesorFilesinPath(*flags.Path, *flags.Dirname, *flags.Filename)
@@ -326,6 +330,51 @@ func RemoveFilesOlderThan(path string, pattern string, retentionDays int, dryrun
 		}
 		return nil
 	})
+}
+
+// Remove directory older than.
+func RemoveDirectoriesOlderThan(path string, retentionDays int, dryrun bool) error {
+	if path == "" {
+		// If path is empty, use the current working directory.
+		currentDir, err := os.Getwd()
+		if err != nil {
+			return err
+		}
+		path = currentDir
+	}
+
+	// Get the current time.
+	currentTime := time.Now()
+
+	// Calculate the cutoff date for retention.
+	cutoffDate := currentTime.AddDate(0, 0, -retentionDays)
+
+	// Walk through the directories in the provided path.
+	err := filepath.Walk(path, func(dirPath string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		// Check if the directory is older than the retention cutoff date.
+		if info.IsDir() && info.ModTime().Before(cutoffDate) {
+			if !dryrun {
+				fmt.Println("✅ Successfully remove directory older than", retentionDays, "days in", dirPath)
+				err := os.RemoveAll(dirPath)
+				if err != nil {
+					return err
+				}
+			} else {
+				fmt.Println("✅ Dry run, will remove", dirPath)
+			}
+		}
+		return nil
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 /** Delete Directory or Files in Path Matching Filename */
