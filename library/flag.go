@@ -67,6 +67,7 @@ type Flag struct {
 	From         *string
 	Hostname     *string
 	IgnoreDirs   *[]string
+	Level        *int
 	Message      *string
 	Path         *string
 	Password     *string
@@ -142,6 +143,7 @@ func GetFlag() Flag {
 		From:         flag.String("from", "", "Refactor Text From"),
 		Hostname:     flag.String("hostname", "", "Hostname"),
 		IgnoreDirs:   flag.StringArray("ignoredirs", []string{}, "Directory Name to Ignored"),
+		Level:        flag.Int("level", 0, "Directory Level (Dir Mode): Directory Level"),
 		Message:      flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),
 		Path:         flag.String("path", "", "Refactor : Path to Directory"),
 		Password:     flag.StringP("password", "p", "", "Password"),

@@ -40,7 +40,7 @@ func InitiateFileFunction(flags Flag) {
 	}
 	/** remove Directories Older than days matching regex */
 	if *flags.Dir && *flags.Remove && *flags.OlderThan && *flags.Days > 0 {
-		RemoveDirectoriesOlderThan(*flags.Path, *flags.Days, *flags.DryRun)
+		RemoveDirectoriesOlderThan(*flags.Path, *flags.Days, *flags.Level, *flags.DryRun)
 	}
 	/** Delete Directory or Files in Path Matching Filename */
 	if *flags.Dir && *flags.Remove && len(*flags.Dirname) > 0 {
@@ -333,7 +333,7 @@ func RemoveFilesOlderThan(path string, pattern string, retentionDays int, dryrun
 }
 
 // Remove directory older than.
-func RemoveDirectoriesOlderThan(path string, retentionDays int, dryrun bool) error {
+func RemoveDirectoriesOlderThan(path string, retentionDays int, level int, dryrun bool) error {
 	if path == "" {
 		// If path is empty, use the current working directory.
 		currentDir, err := os.Getwd()
@@ -349,22 +349,34 @@ func RemoveDirectoriesOlderThan(path string, retentionDays int, dryrun bool) err
 	// Calculate the cutoff date for retention.
 	cutoffDate := currentTime.AddDate(0, 0, -retentionDays)
 
+	// Create a helper function to determine the depth of a directory.
+	getDepth := func(dirPath string) int {
+		rel, err := filepath.Rel(path, dirPath)
+		if err != nil {
+			return -1 // Error in determining depth.
+		}
+		return len(filepath.SplitList(rel))
+	}
+
 	// Walk through the directories in the provided path.
 	err := filepath.Walk(path, func(dirPath string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
 
-		// Check if the directory is older than the retention cutoff date.
-		if info.IsDir() && info.ModTime().Before(cutoffDate) {
-			if !dryrun {
-				fmt.Println("✅ Successfully remove directory older than", retentionDays, "days in", dirPath)
-				err := os.RemoveAll(dirPath)
-				if err != nil {
-					return err
+		// Check if the directory is within the specified depth.
+		if getDepth(dirPath) <= level {
+			// Check if the directory is older than the retention cutoff date.
+			if info.IsDir() && info.ModTime().Before(cutoffDate) {
+				fmt.Printf("Removing directory: %s\n", dirPath)
+				if !dryrun {
+					err := os.RemoveAll(dirPath)
+					if err != nil {
+						return err
+					}
+				} else {
+					fmt.Println("(Dry Run: No removal performed)")
 				}
-			} else {
-				fmt.Println("✅ Dry run, will remove", dirPath)
 			}
 		}
 		return nil
