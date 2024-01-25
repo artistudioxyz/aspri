@@ -83,6 +83,8 @@ func phpCSDetectStandard() ([]string, error) {
 	standardsDirectory = append(standardsDirectory, dir+"/standards")
 
 	for _, standardDirectory := range standardsDirectory {
+		standards = append(standards, standardDirectory)
+
 		// List all subdirectories in standards directory
 		subdirectories, err := ioutil.ReadDir(standardDirectory)
 		if err != nil {
@@ -92,8 +94,9 @@ func phpCSDetectStandard() ([]string, error) {
 		// Add subdirectories to standards slice
 		for _, subdirectory := range subdirectories {
 			// Check ruleset.xml file exists in subdirectory
-			FileExist, _ := FileExistsInPath("ruleset.xml", standardDirectory+"/"+subdirectory.Name())
-			if subdirectory.IsDir() && FileExist {
+			RuleExist, _ := FileExistsInPath("ruleset.xml", standardDirectory+"/"+subdirectory.Name())
+			ComposerExist, _ := FileExistsInPath("composer.json", standardDirectory+"/"+subdirectory.Name())
+			if subdirectory.IsDir() && (RuleExist || ComposerExist) {
 				standards = append(standards, standardDirectory+"/"+subdirectory.Name())
 			}
 		}
