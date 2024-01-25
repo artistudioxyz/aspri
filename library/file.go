@@ -57,6 +57,25 @@ func InitiateFileFunction(flags Flag) {
 	}
 }
 
+// File Exist in Path.
+func FileExistsInPath(filePath, directoryPath string) (bool, error) {
+	// Construct the full path to the file.
+	fullPath := filepath.Join(directoryPath, filePath)
+
+	// Check if the file exists.
+	_, err := os.Stat(fullPath)
+	if err == nil {
+		// File exists.
+		return true, nil
+	} else if os.IsNotExist(err) {
+		// File does not exist.
+		return false, nil
+	} else {
+		// An error occurred while accessing the file.
+		return false, err
+	}
+}
+
 /** Extract URLs from File */
 func extractURLsFromFile(filePath string, baseURL string) ([]string, error) {
 	fileContent, err := ioutil.ReadFile(filePath)
