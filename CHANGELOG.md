@@ -1,5 +1,22 @@
 # 📟 Changelog
 
+## [1.10.0](https://github.com/artistudioxyz/aspri/compare/v1.9.0...v1.10.0) (2024-02-03)
+
+
+### Features
+
+* add level parameter for directory removal ([923409a](https://github.com/artistudioxyz/aspri/commit/923409a1fa159b3ad0cb720fa1dd0a63609a7404))
+* add phpcs path config check ([2a33c2b](https://github.com/artistudioxyz/aspri/commit/2a33c2bceeb11ec4c4f19f6ad0bc6ff5fecb25e2))
+* add remove directory older than function ([48708af](https://github.com/artistudioxyz/aspri/commit/48708af1e8cc8603d2b6ed42c6fc21ef3da7b6c4))
+* add rsync command generator ([3a82754](https://github.com/artistudioxyz/aspri/commit/3a82754f8adad1ecf565e1d904ac549aa3b094cb))
+
+
+### Bug Fixes
+
+* getdepth function not returning depth correctly ([06e4a07](https://github.com/artistudioxyz/aspri/commit/06e4a0701eba0809e78f52843b0d9bc06f95d8c4))
+* phpcs error PHPCSUtil not found missing installated_path package ([3387753](https://github.com/artistudioxyz/aspri/commit/3387753586c0e937b6c5d5a8fcd498f25b5cdd8e))
+* phpcs with space not working ([10b1aa1](https://github.com/artistudioxyz/aspri/commit/10b1aa16c42984b6e5ae18927ae606b3500576bb))
+
 ## [1.9.0](https://github.com/artistudioxyz/aspri/compare/v1.8.1...v1.9.0) (2023-12-29)
 
 
