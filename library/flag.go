@@ -34,6 +34,7 @@ type Flag struct {
 	RemoveLink         *bool
 	RemoveFunction     *bool
 	ResetCache         *bool
+	Rsync              *bool
 	Stats              *bool
 	SearchandReplace   *bool
 	Syncthing          *bool
@@ -109,6 +110,7 @@ func GetFlag() Flag {
 		RemoveLink:         flag.Bool("remove-link", false, "Remove Link from File"),
 		RemoveFunction:     flag.Bool("remove-function", false, "Remove Link from File"),
 		ResetCache:         flag.Bool("reset-cache", false, "Git Reset Cache"),
+		Rsync:              flag.Bool("rsync", false, "Rsync Mode"),
 		Syncthing:          flag.Bool("syncthing", false, "Syncthing Mode"),
 		QuoteofTheDay:      flag.Bool("quote-of-the-day", false, "show quote of the day"),
 		Restart:            flag.Bool("restart", false, "Restart (Docker Mode): Container"),

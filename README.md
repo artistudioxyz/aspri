@@ -96,6 +96,10 @@ You can install aspri by using one of these method
 
 - PHPCS Install Ruleset : `--phpcs --install`
 
+[Rsync](library/rsync.go)
+
+- Generate Rsync command based on [rsync.json](docs/rsync.json) : `--rsync`
+
 [Miscellaneous](library/miscellaneous.go) :
 
 - Self Update : `--self-update`

@@ -21,6 +21,7 @@ func main() {
 	library.InitiateNoIPFunction(flags)
 	library.InitiatePHPFunction(flags)
 	library.InitiatePHPCSFunction(flags)
+	library.InitiateRsyncFunction(flags)
 	library.InitiateSyncthingFunction(flags)
 	library.InitiateQuoteFunction(flags)
 	library.InitiateYouTubeFunction(flags)

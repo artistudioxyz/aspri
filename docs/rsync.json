@@ -1,0 +1,18 @@
+{
+  "flags": "-av",
+  "source": {
+    "remote": "root-remote",
+    "path": "/path/to/source/"
+  },
+  "destination": {
+    "remote": "root-remote",
+    "path": "/path/to/destination/"
+  },
+  "excludes": [
+    ".git",
+    ".github",
+    ".vscode",
+    "dist",
+    "node_modules"
+  ]
+}
