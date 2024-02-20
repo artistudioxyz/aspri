@@ -10,43 +10,42 @@ import (
 
 // Initiate Git Function
 func InitiateGitFunction(flags Flag) {
-	/**
-	 * Commit and Push
-	 * - Equivalent to : `git commit -am "{message}" && git push origin HEAD`
-	 */
+	// Commit and Push
+	// - Equivalent to : `git commit -am "{message}" && git push origin HEAD`
 	if *flags.Git && *flags.Message != "" {
 		fmt.Println("📟 Commit and Push")
 		cnp := fmt.Sprintf("git commit -am '%s'; git push origin HEAD", *flags.Message)
 		cmd := [...]string{"bash", "-c", cnp}
 		fmt.Println(ExecCommand(cmd[:]...))
 	}
-	/**
-	* Reset
-	* - Equivalent to : `git reset --hard && git clean -df`
-	 */
-	if *flags.Git && *flags.ResetCache {
+
+	// Reset all changes (both staged and unstaged) in your working directory
+	// Remove all untracked files and directories
+	// - Equivalent to : `git reset --hard && git clean -df`
+	if *flags.Git && *flags.Reset {
 		fmt.Println("🔥 Reset")
 		cmd := [...]string{"bash", "-c", "git reset --hard && git clean -df"}
 		fmt.Println(ExecCommand(cmd[:]...))
 	}
-	/**
-	* Reset Cache
-	* - Equivalent to : `git rm -rf cached . && git add .`
-	 */
+
+	// Reset Cache
+	// - Equivalent to : `git rm -rf cached . && git add .`
 	if *flags.Git && *flags.ResetCache {
 		fmt.Println("🏓 Re-staged")
 		cmd := [...]string{"bash", "-c", "git rm -rf --cached . && git add ."}
 		fmt.Println(ExecCommand(cmd[:]...))
 	}
-	/** Git Gone */
+
+	// Git Gone
 	if *flags.Git && *flags.Gone {
-		fmt.Println("🧽 Git Gone")
 		GitGone()
 	}
 }
 
 // Git Gone Implementation in Go
 func GitGone() {
+	fmt.Println("🧽 Git Gone")
+
 	// Run the "git fetch --all --prune" command
 	fetchOut, err := exec.Command("git", "fetch", "--all", "--prune").Output()
 	fmt.Println(string(fetchOut))
@@ -68,7 +67,7 @@ func GitGone() {
 	var branchesToDelete []string
 	for scanner.Scan() {
 		line := scanner.Text()
-		if strings.Contains(line, ": gone]") {
+		if strings.Contains(line, ": gone") {
 			branchesToDelete = append(branchesToDelete, strings.Fields(line)[0])
 		}
 	}
@@ -84,6 +83,6 @@ func GitGone() {
 			}
 		}
 	} else {
-		fmt.Println("🙏 No branches with upstream tracking information 'gone]' found.")
+		fmt.Println("🙏 No branches with upstream tracking information 'gone' found.")
 	}
 }
