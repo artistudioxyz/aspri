@@ -21,6 +21,15 @@ func InitiateGitFunction(flags Flag) {
 		fmt.Println(ExecCommand(cmd[:]...))
 	}
 	/**
+	* Reset
+	* - Equivalent to : `git reset --hard && git clean -df`
+	 */
+	if *flags.Git && *flags.ResetCache {
+		fmt.Println("🔥 Reset")
+		cmd := [...]string{"bash", "-c", "git reset --hard && git clean -df"}
+		fmt.Println(ExecCommand(cmd[:]...))
+	}
+	/**
 	* Reset Cache
 	* - Equivalent to : `git rm -rf cached . && git add .`
 	 */

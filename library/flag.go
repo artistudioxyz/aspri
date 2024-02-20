@@ -53,6 +53,7 @@ type Flag struct {
 	Count      *bool
 	Production *bool
 	Prune      *bool
+	Reset      *bool
 	Restart    *bool
 	Version    *bool
 
@@ -113,6 +114,7 @@ func GetFlag() Flag {
 		Rsync:              flag.Bool("rsync", false, "Rsync Mode"),
 		Syncthing:          flag.Bool("syncthing", false, "Syncthing Mode"),
 		QuoteofTheDay:      flag.Bool("quote-of-the-day", false, "show quote of the day"),
+		Reset:              flag.Bool("reset", false, "Reset Mode"),
 		Restart:            flag.Bool("restart", false, "Restart (Docker Mode): Container"),
 		SearchandReplace:   flag.Bool("search-replace", false, "do search and replace"),
 		SelfUpdate:         flag.Bool("self-update", false, "self update"),
