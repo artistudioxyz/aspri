@@ -17,7 +17,7 @@ func InitiateDirectoryFunction(flags Flag) {
 	}
 	/** remove Directories Older than days matching regex */
 	if *flags.Dir && *flags.Remove && *flags.OlderThan && *flags.Days > 0 {
-		RemoveDirectoriesOlderThan(*flags.Path, *flags.Days, *flags.Level, *flags.DryRun)
+		RemoveDirectoriesOlderThan(*flags.Path, *flags.Days, *flags.Level, *flags.Exclude, *flags.DryRun)
 	}
 }
 
@@ -101,7 +101,7 @@ func DirectoryStats(path string, print bool) (int, int64, int64, map[string]int,
 }
 
 // Remove directory older than.
-func RemoveDirectoriesOlderThan(path string, retentionDays int, level int, dryrun bool) error {
+func RemoveDirectoriesOlderThan(path string, retentionDays int, level int, exclude []string, dryrun bool) error {
 	if path == "" {
 		// If path is empty, use the current working directory.
 		currentDir, err := os.Getwd()
@@ -121,6 +121,13 @@ func RemoveDirectoriesOlderThan(path string, retentionDays int, level int, dryru
 	err := filepath.Walk(path, func(dirPath string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
+		}
+
+		// Check if the directory should be ignored
+		for _, excludeDir := range exclude {
+			if strings.Contains(dirPath, excludeDir) {
+				return nil
+			}
 		}
 
 		// Check if the directory is within the specified depth.

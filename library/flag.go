@@ -64,11 +64,11 @@ type Flag struct {
 	Dirname      *[]string
 	Ext          *[]string
 	Except       *[]string
+	Exclude      *[]string
 	Filename     *[]string
 	FunctionName *[]string
 	From         *string
 	Hostname     *string
-	IgnoreDirs   *[]string
 	Level        *int
 	Message      *string
 	Path         *string
@@ -142,11 +142,11 @@ func GetFlag() Flag {
 		Dirname:      flag.StringArray("dirname", []string{}, "Directory Name (Dir Mode): Directory Name"),
 		Ext:          flag.StringArray("ext", []string{}, "File extensions to include"),
 		Except:       flag.StringArray("except", []string{}, "File to exclude"),
+		Exclude:      flag.StringArray("exclude", []string{}, "Path to exclude"),
 		Filename:     flag.StringArrayP("filename", "f", []string{}, "Filenames"),
 		FunctionName: flag.StringArray("functionname", []string{}, "Function Name"),
 		From:         flag.String("from", "", "Refactor Text From"),
 		Hostname:     flag.String("hostname", "", "Hostname"),
-		IgnoreDirs:   flag.StringArray("ignoredirs", []string{}, "Directory Name to Ignored"),
 		Level:        flag.Int("level", 0, "Directory Level (Dir Mode): Directory Level"),
 		Message:      flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),
 		Path:         flag.String("path", "", "Refactor : Path to Directory"),
