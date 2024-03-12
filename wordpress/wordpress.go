@@ -137,6 +137,9 @@ func CleanVendorDirandFilesforProduction(path string, BuildType string) {
 func CleanProjectFilesforProduction(path string, buildType string) {
 	var remove bytes.Buffer
 	var Files = []string{
+		// Operating System
+		".DS_Store",
+
 		/** Git */
 		".gitignore",
 
@@ -180,7 +183,6 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"tailwindcsssupport.js",
 		"tsconfig.json",
 		"webpack.config.js",
-		"DOCS.md",
 		"README.md",
 		"sniffer.txt",
 	}
