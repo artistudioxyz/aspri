@@ -1,5 +1,24 @@
 # 📟 Changelog
 
+## [1.11.0](https://github.com/artistudioxyz/aspri/compare/v1.10.0...v1.11.0) (2024-03-12)
+
+
+### Features
+
+* add exclude parameters for files and directories functions ([23cced1](https://github.com/artistudioxyz/aspri/commit/23cced140077b068b1f2038cb231b814b42f354a))
+* add git reset flag ([865bbf9](https://github.com/artistudioxyz/aspri/commit/865bbf99b2fd754d5aa72f9ddfadacc103729eff))
+* add wp plugin release script ([b27791b](https://github.com/artistudioxyz/aspri/commit/b27791b62e26b74f92d99a86cde5fdbe7e62bb4f))
+* migrate package systme to pnpm ([e316748](https://github.com/artistudioxyz/aspri/commit/e31674849b5516e2bc9ea31fa33088076188ceeb))
+
+
+### Bug Fixes
+
+* git reset has wrong flag ([a52d239](https://github.com/artistudioxyz/aspri/commit/a52d239057b6492a24f83f7b80bc849e9bba12f3))
+* merge function into ReadCommentBlock for wordpress ([683d9e1](https://github.com/artistudioxyz/aspri/commit/683d9e1907af772458cd704f7c98da2634465189))
+* wordpress build check output project name and version ([f9745ce](https://github.com/artistudioxyz/aspri/commit/f9745cec67b00d978aaa90f86f3c32eed68d3e32))
+* wordpress clean projef files for production function github ([196f1d8](https://github.com/artistudioxyz/aspri/commit/196f1d8c4682bce842a4accc28f46c958f44ac09))
+* wordpress flag change ([379cf36](https://github.com/artistudioxyz/aspri/commit/379cf369154eed3219cc0d848e2d7a176ffa639c))
+
 ## [1.10.0](https://github.com/artistudioxyz/aspri/compare/v1.9.0...v1.10.0) (2024-02-03)
 
 
