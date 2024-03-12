@@ -45,6 +45,7 @@ type Flag struct {
 	WPPluginRelease    *bool
 	WPThemeBuild       *bool
 	WPThemeBuildCheck  *bool
+	WPTagTrunk         *bool
 	WPRefactor         *bool
 	SelfUpdate         *bool
 	Tree               *bool
@@ -130,6 +131,7 @@ func GetFlag() Flag {
 		WPPluginRelease:    flag.Bool("wp-plugin-release", false, "WP Build Plugin Release"),
 		WPThemeBuild:       flag.Bool("wp-theme-build", false, "WP Theme Plugin Comply"),
 		WPThemeBuildCheck:  flag.Bool("wp-theme-build-check", false, "WP Check Theme Comply with WordPress.org (Version Check)"),
+		WPTagTrunk:         flag.Bool("wp-tag-trunk", false, "WP Tag Trunk"),
 		WPRefactor:         flag.Bool("wp-refactor", false, "Refactor Library"),
 		YouTube:            flag.Bool("youtube", false, "YouTube Mode"),
 

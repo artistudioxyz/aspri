@@ -122,6 +122,7 @@ You can install aspri by using one of these method
 	- Release WP Plugin : `--wp-plugin-release --path {workdir} --to {version}`
 - WP Theme Build Check : `--wp-theme-build-check --path {workdir}`
 	- Build WP Plugin : `--wp-theme-build --path {workdir} --type {wordpress|github}`
+- WP Tag Trunk for Subversion (SVN) : `--wp-tag-trunk --path {workdir}`
 
 [YouTube](library/youtube.go)
 

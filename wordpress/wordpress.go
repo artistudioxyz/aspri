@@ -69,6 +69,14 @@ func InitiateWordPressFunction(flags library.Flag) {
 		library.SearchandReplace(*flags.Path+"/config.json", plugin.Version, *flags.To, -1)
 		library.SearchandReplace(*flags.Path+"/package.json", plugin.Version, *flags.To, -1)
 	}
+	/** WP Tag Trunk */
+	if *flags.WPTagTrunk {
+		plugin := GetPluginInformation(*flags.Path + "/trunk")
+		fmt.Println("📦 Project Name:", plugin.Name)
+		fmt.Println("📦 Project Version:", plugin.Version)
+		library.ExecCommand("mkdir", "-p", *flags.Path+"/tags/"+plugin.Version)
+		library.ExecCommand("cp", "-r", *flags.Path+"/trunk/*", *flags.Path+"/tags/"+plugin.Version)
+	}
 }
 
 /* Refactor Dot Framework */
