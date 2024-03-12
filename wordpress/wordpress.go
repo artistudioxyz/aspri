@@ -171,8 +171,9 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"composer.json",
 		"composer.lock",
 		"originalassets.js",
-		"package-lock.json",
 		"package.json",
+		"package-lock.json",
+		"pnpm-lock.yaml",
 		"tailwind-default.config.js",
 		"tailwind.config.js",
 		"tailwindcsssupport.js",
@@ -183,8 +184,6 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"sniffer.txt",
 	}
 	var FilesforGithub = []string{ // Lists of files that is required for GitHub
-		".git",
-		".gitignore",
 		"README.md",
 	}
 
@@ -201,15 +200,6 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 	}
 	cmd := [...]string{"bash", "-c", remove.String()}
 	library.ExecCommand(cmd[:]...)
-
-	/** Exclude File From .gitignore for BuildType (GitHub) */
-	if buildType == "github" {
-		library.SearchandReplace(path+"/.gitignore", "/assets/dist/", "")
-		library.SearchandReplace(path+"/.gitignore", "/assets/vendor/**/*.js", "")
-		library.SearchandReplace(path+"/.gitignore", "/assets/vendor/**/*.css", "")
-		library.SearchandReplace(path+"/.gitignore", "!/assets/vendor/**/*.min.*", "")
-		library.SearchandReplace(path+"/.gitignore", "/vendor/", "")
-	}
 
 	fmt.Println("✅ Success Cleanup Project Files")
 }
