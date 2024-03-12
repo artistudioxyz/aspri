@@ -42,6 +42,7 @@ type Flag struct {
 	WPClean            *bool
 	WPPluginBuild      *bool
 	WPPluginBuildCheck *bool
+	WPPluginRelease    *bool
 	WPThemeBuild       *bool
 	WPThemeBuildCheck  *bool
 	WPRefactor         *bool
@@ -71,6 +72,7 @@ type Flag struct {
 	From         *string
 	Hostname     *string
 	Level        *int
+	Limit        *int
 	Message      *string
 	Path         *string
 	Password     *string
@@ -125,6 +127,7 @@ func GetFlag() Flag {
 		WPClean:            flag.Bool("wp-clean", false, "WP Clean Project Files for Production"),
 		WPPluginBuild:      flag.Bool("wp-plugin-build", false, "WP Build Plugin Comply"),
 		WPPluginBuildCheck: flag.Bool("wp-plugin-build-check", false, "WP Check Plugin Comply with WordPress.org (Version Check)"),
+		WPPluginRelease:    flag.Bool("wp-plugin-release", false, "WP Build Plugin Release"),
 		WPThemeBuild:       flag.Bool("wp-theme-build", false, "WP Theme Plugin Comply"),
 		WPThemeBuildCheck:  flag.Bool("wp-theme-build-check", false, "WP Check Theme Comply with WordPress.org (Version Check)"),
 		WPRefactor:         flag.Bool("wp-refactor", false, "Refactor Library"),
@@ -149,6 +152,7 @@ func GetFlag() Flag {
 		From:         flag.String("from", "", "Refactor Text From"),
 		Hostname:     flag.String("hostname", "", "Hostname"),
 		Level:        flag.Int("level", 0, "Directory Level (Dir Mode): Directory Level"),
+		Limit:        flag.Int("limit", 0, "Number of limit"),
 		Message:      flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),
 		Path:         flag.String("path", "", "Refactor : Path to Directory"),
 		Password:     flag.StringP("password", "p", "", "Password"),

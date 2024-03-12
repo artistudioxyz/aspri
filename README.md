@@ -118,9 +118,10 @@ You can install aspri by using one of these method
 - Refactor Dot Framework : `--wp-refactor --path {workdir} --from {namespace} --to {namespace} --type {plugin|theme}`
 - WP Clean Project Files for Production : `--wp-clean --path {workdir} --type {wordpress|github}`
 - WP Plugin Build Check : `--wp-plugin-build-check --path {workdir}`
-	- Build WP Plugin (Require Path) : `--wp-plugin-build --path {workdir} --type {wordpress|github}`
+	- Build WP Plugin : `--wp-plugin-build --path {workdir} --type {wordpress|github}`
+	- Release WP Plugin : `--wp-plugin-release --path {workdir} --to {version}`
 - WP Theme Build Check : `--wp-theme-build-check --path {workdir}`
-	- Build WP Plugin (Require Path) : `--wp-theme-build --path {workdir} --type {wordpress|github}`
+	- Build WP Plugin : `--wp-theme-build --path {workdir} --type {wordpress|github}`
 
 [YouTube](library/youtube.go)
 
