@@ -36,22 +36,26 @@ func InitiateWordPressFunction(flags library.Flag) {
 	}
 	/** WP Plugin Build Check */
 	if *flags.WPPluginBuildCheck {
-		WPPluginBuildCheck(*flags.Path)
+		plugin := GetPluginInformation(*flags.Path)
+		CheckProjectVersion(plugin)
 	}
 	/** WP Theme Build Check */
 	if *flags.WPThemeBuildCheck {
-		WPThemeBuildCheck(*flags.Path)
+		theme := GetThemeInformation(*flags.Path)
+		CheckProjectVersion(theme)
 	}
 	/** WP Plugin Build */
 	if *flags.WPPluginBuild && *flags.Type != "" {
-		WPPluginBuildCheck(*flags.Path)
+		plugin := GetPluginInformation(*flags.Path)
+		CheckProjectVersion(plugin)
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
 		CleanVendorDirandFilesforProduction(*flags.Path, "plugin")
 		SetConfigProduction(*flags.Path, true)
 	}
 	/** WP Theme Build */
 	if *flags.WPThemeBuild && *flags.Type != "" {
-		WPThemeBuildCheck(*flags.Path)
+		theme := GetThemeInformation(*flags.Path)
+		CheckProjectVersion(theme)
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
 		CleanVendorDirandFilesforProduction(*flags.Path, "theme")
 		SetConfigProduction(*flags.Path, true)
@@ -60,12 +64,6 @@ func InitiateWordPressFunction(flags library.Flag) {
 
 /* Refactor Dot Framework */
 func WPRefactor(path string, fromName string, toName string, BuildType string) {
-	// Use current path if not defined.
-	if path == "" {
-		CurrentDirectory, _ := os.Getwd()
-		path = CurrentDirectory
-	}
-
 	// If build type is not defined, set it to plugin.
 	if BuildType == "" {
 		BuildType = "plugin"
@@ -100,11 +98,6 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 
 /** CleanVendorDirandFilesforProduction */
 func CleanVendorDirandFilesforProduction(path string, BuildType string) {
-	if path == "" {
-		CurrentDirectory, _ := os.Getwd()
-		path = CurrentDirectory
-	}
-
 	/** Delete Directories and Files */
 	library.RemoveFilesExceptExtensions(path+"/vendor/", []string{".php"}, []string{})
 	library.DeleteDirectoriesorFilesinPath(path+"/vendor/",
@@ -133,11 +126,6 @@ func CleanVendorDirandFilesforProduction(path string, BuildType string) {
 
 /** CleanProjectFilesforProduction */
 func CleanProjectFilesforProduction(path string, buildType string) {
-	if path == "" {
-		CurrentDirectory, _ := os.Getwd()
-		path = CurrentDirectory
-	}
-
 	var remove bytes.Buffer
 	var Files = []string{
 		/** Git */
@@ -210,11 +198,6 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 
 /** SetConfigProduction */
 func SetConfigProduction(path string, production bool) {
-	if path == "" {
-		CurrentDirectory, _ := os.Getwd()
-		path = CurrentDirectory
-	}
-
 	plugin := GetPluginInformation(path)
 	FileName := "config.json"
 	content := library.ReadFile(plugin.Path.Directory + "/" + FileName)
@@ -231,9 +214,8 @@ func SetConfigProduction(path string, production bool) {
 	fmt.Println("✅ Success set production config to", production)
 }
 
-/** Check Version */
-func CheckProjectVersion(project WPProject) {
-	/** Read Comment Block */
+// Read comment block
+func ReadCommentBlock(project WPProject) WPProject {
 	content := library.ReadFile(project.Path.File)
 	regexcommentblock := regexp.MustCompile("(?s)//.*?\n|/\\*.*?\\*/")
 	comments := strings.Split(regexcommentblock.FindString(string(content)), "\n")
@@ -249,13 +231,18 @@ func CheckProjectVersion(project WPProject) {
 		}
 	}
 
+	return project
+}
+
+/** Check Version */
+func CheckProjectVersion(project WPProject) {
 	// Ouput project name and version
 	fmt.Println("📦 Project Name:", project.Name)
 	fmt.Println("📦 Project Version:", project.Version)
 
 	/** Check occurrence (readme.txt) */
 	FileName := "readme.txt"
-	content = library.ReadFile(project.Path.Directory + "/" + FileName)
+	content := library.ReadFile(project.Path.Directory + "/" + FileName)
 	regexversion := regexp.MustCompile(project.Version)
 	matches := regexversion.FindAllStringIndex(string(content), 2)
 	if len(matches) >= 1 {
@@ -266,6 +253,19 @@ func CheckProjectVersion(project WPProject) {
 
 	/** Check occurrence (config.json) */
 	FileName = "config.json"
+	if _, err := os.Stat(project.Path.Directory + "/" + FileName); err == nil {
+		content = library.ReadFile(project.Path.Directory + "/" + FileName)
+		res, err := regexp.Match(project.Version, content)
+		if res {
+			fmt.Println("✅ Plugin Version Match", FileName)
+		} else {
+			fmt.Println("❌ Plugin Version Do Not Match " + FileName)
+			panic(err)
+		}
+	}
+
+	/** Check occurrence (config.json) */
+	FileName = "package.json"
 	if _, err := os.Stat(project.Path.Directory + "/" + FileName); err == nil {
 		content = library.ReadFile(project.Path.Directory + "/" + FileName)
 		res, err := regexp.Match(project.Version, content)

@@ -1,7 +1,6 @@
 package wordpress
 
 import (
-	"os"
 	"strings"
 )
 
@@ -15,15 +14,5 @@ func GetThemeInformation(path string) WPProject {
 	PathArray = append(PathArray, "style.css")
 	theme.Path.File = strings.Join(PathArray, "/")
 
-	return theme
-}
-
-/* WP Theme Check */
-func WPThemeBuildCheck(path string) {
-	if path == "" {
-		CurrentDirectory, _ := os.Getwd()
-		path = CurrentDirectory
-	}
-	theme := GetThemeInformation(path)
-	CheckProjectVersion(theme)
+	return ReadCommentBlock(theme)
 }

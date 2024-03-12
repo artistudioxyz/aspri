@@ -2,7 +2,6 @@ package wordpress
 
 import (
 	"fmt"
-	"os"
 	"strings"
 )
 
@@ -17,15 +16,5 @@ func GetPluginInformation(path string) WPProject {
 	PathArray = append(PathArray, FileName)
 	plugin.Path.File = strings.Join(PathArray, "/")
 
-	return plugin
-}
-
-/* WP Plugin Check */
-func WPPluginBuildCheck(path string) {
-	if path == "" {
-		CurrentDirectory, _ := os.Getwd()
-		path = CurrentDirectory
-	}
-	plugin := GetPluginInformation(path)
-	CheckProjectVersion(plugin)
+	return ReadCommentBlock(plugin)
 }

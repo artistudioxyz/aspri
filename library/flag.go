@@ -2,6 +2,7 @@ package library
 
 import (
 	flag "github.com/spf13/pflag"
+	"os"
 )
 
 // Flag Structure
@@ -159,6 +160,12 @@ func GetFlag() Flag {
 		Url:          flag.String("url", "", "Url"),
 	}
 	flag.Parse()
+
+	// Check if path is not defined, set it to current directory.
+	if *flags.Path == "" {
+		CurrentDirectory, _ := os.Getwd()
+		*flags.Path = CurrentDirectory
+	}
 
 	return flags
 }
