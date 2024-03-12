@@ -75,7 +75,7 @@ func InitiateWordPressFunction(flags library.Flag) {
 		fmt.Println("📦 Project Name:", plugin.Name)
 		fmt.Println("📦 Project Version:", plugin.Version)
 		library.ExecCommand("mkdir", "-p", *flags.Path+"/tags/"+plugin.Version)
-		library.ExecCommand("cp", "-r", *flags.Path+"/trunk/*", *flags.Path+"/tags/"+plugin.Version)
+		library.ExecCommand("rsync", "--delete", "-av", *flags.Path+"/trunk/", *flags.Path+"/tags/"+plugin.Version)
 	}
 }
 
