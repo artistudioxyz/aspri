@@ -22,7 +22,6 @@ func GetPluginInformation(path string) WPProject {
 
 /* WP Plugin Check */
 func WPPluginBuildCheck(path string) {
-	fmt.Println("🔍 Check Theme")
 	if path == "" {
 		CurrentDirectory, _ := os.Getwd()
 		path = CurrentDirectory

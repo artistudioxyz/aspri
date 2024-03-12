@@ -34,9 +34,13 @@ func InitiateWordPressFunction(flags library.Flag) {
 	if *flags.WPClean && *flags.Type != "" {
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
 	}
-	/** WP Plugin or Theme Build Check */
-	if *flags.WPPluginBuildCheck || *flags.WPThemeBuildCheck {
+	/** WP Plugin Build Check */
+	if *flags.WPPluginBuildCheck {
 		WPPluginBuildCheck(*flags.Path)
+	}
+	/** WP Theme Build Check */
+	if *flags.WPThemeBuildCheck {
+		WPThemeBuildCheck(*flags.Path)
 	}
 	/** WP Plugin Build */
 	if *flags.WPPluginBuild && *flags.Type != "" {
@@ -244,6 +248,10 @@ func CheckProjectVersion(project WPProject) {
 			project.Version = strings.Replace(s, "Version:", "", -1)
 		}
 	}
+
+	// Ouput project name and version
+	fmt.Println("📦 Project Name:", project.Name)
+	fmt.Println("📦 Project Version:", project.Version)
 
 	/** Check occurrence (readme.txt) */
 	FileName := "readme.txt"

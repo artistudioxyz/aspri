@@ -1,7 +1,6 @@
 package wordpress
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )
@@ -21,7 +20,6 @@ func GetThemeInformation(path string) WPProject {
 
 /* WP Theme Check */
 func WPThemeBuildCheck(path string) {
-	fmt.Println("🔍 Check Theme")
 	if path == "" {
 		CurrentDirectory, _ := os.Getwd()
 		path = CurrentDirectory
