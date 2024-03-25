@@ -63,7 +63,9 @@ You can install aspri by using one of these method
 - Remove Files Nested Except Extensions : `--file --remove --ext {.php} --except {composer.json} --path {workdir}`
 - Remove Files older than x days matching regex nested : `--file --remove --older-than --days {days} --regex {regex} --path {workdir} --dry-run`
 - Remove Directory older than x days : `--dir --remove --older-than --days {days} --level {0} --path {workdir} --dry-run`
-- Search and Replace in Directory or File : `--search-replace --path {dir or file} --from {text} --to {text}`
+- Search and Replace :
+  - in Directory : `--search-replace --path {dir} --from {text} --to {text}`
+  - in File : `--search-replace -f {filename} --from {text} --to {text}`
 - **Support Multiple Params**
 	- Dirname : `--dirname {dirname}`
 	- Filename : `-f {filename}`

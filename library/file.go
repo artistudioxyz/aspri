@@ -51,9 +51,11 @@ func InitiateFileFunction(flags Flag) {
 			fmt.Println(url)
 		}
 	}
-	/** Search and Replace */
-	if *flags.SearchandReplace && *flags.From != "" && *flags.To != "" {
-		SearchandReplace(*flags.Path, *flags.From, *flags.To, -1)
+	/** Search and Replace in File or Directory */
+	if *flags.SearchandReplace && *flags.From != "" && len(*flags.Filename) > 0 {
+		SearchandReplaceFiles(*flags.Filename, *flags.From, *flags.To)
+	} else if *flags.SearchandReplace && *flags.From != "" && len(*flags.Filename) == 0 {
+		SearchandReplaceDirectory(*flags.Path, *flags.From, *flags.To, -1)
 	}
 }
 
@@ -393,8 +395,70 @@ func ExtractURLsFromDirectoryPath(path string, baseURL string) ([]string, error)
 	return urls, nil
 }
 
-/** Search and Replace in Directory or File */
-func SearchandReplace(path string, from string, to string, limit int) {
+/** Search and Replace in File */
+func SearchandReplaceFiles(files []string, from string, to string) error {
+	for _, filePath := range files {
+		// Open the file for reading and writing
+		file, err := os.OpenFile(filePath, os.O_RDWR, 0644)
+		if err != nil {
+			return err
+		}
+		defer file.Close()
+
+		// Create a scanner to read the file line by line
+		scanner := bufio.NewScanner(file)
+
+		// Create a temporary file to store the modified content
+		tmpFile, err := os.CreateTemp("", "tmp")
+		if err != nil {
+			return err
+		}
+		defer tmpFile.Close()
+
+		// Create a writer to write to the temporary file
+		writer := bufio.NewWriter(tmpFile)
+
+		// Iterate over each line in the file
+		for scanner.Scan() {
+			// Read the line
+			line := scanner.Text()
+
+			// Search and replace the string
+			modifiedLine := strings.ReplaceAll(line, from, to)
+
+			// Write the modified line to the temporary file
+			_, err := writer.WriteString(modifiedLine + "\n")
+			if err != nil {
+				return err
+			}
+		}
+
+		// Flush the writer to ensure all buffered data is written to the file
+		if err := writer.Flush(); err != nil {
+			return err
+		}
+
+		// Close the temporary file
+		if err := tmpFile.Close(); err != nil {
+			return err
+		}
+
+		// Remove the original file
+		if err := os.Remove(filePath); err != nil {
+			return err
+		}
+
+		// Rename the temporary file to the original file name
+		if err := os.Rename(tmpFile.Name(), filePath); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+/** Search and Replace in Directory */
+func SearchandReplaceDirectory(path string, from string, to string, limit int) {
 	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err

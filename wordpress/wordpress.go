@@ -65,9 +65,9 @@ func InitiateWordPressFunction(flags library.Flag) {
 		plugin := GetPluginInformation(*flags.Path)
 		fmt.Println("📦 Project Name:", plugin.Name)
 		fmt.Println("📦 Project Version:", plugin.Version)
-		library.SearchandReplace(*flags.Path+"/readme.txt", plugin.Version, *flags.To, 1)
-		library.SearchandReplace(*flags.Path+"/config.json", plugin.Version, *flags.To, -1)
-		library.SearchandReplace(*flags.Path+"/package.json", plugin.Version, *flags.To, -1)
+		library.SearchandReplaceDirectory(*flags.Path+"/readme.txt", plugin.Version, *flags.To, 1)
+		library.SearchandReplaceDirectory(*flags.Path+"/config.json", plugin.Version, *flags.To, -1)
+		library.SearchandReplaceDirectory(*flags.Path+"/package.json", plugin.Version, *flags.To, -1)
 	}
 	/** WP Tag Trunk */
 	if *flags.WPTagTrunk {
@@ -89,19 +89,19 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 	// Do refactor.
 	var shell bytes.Buffer
 	fmt.Println("Refactor Plugin: ", fromName, " to ", toName)
-	library.SearchandReplace(path, fromName, toName, -1)
-	library.SearchandReplace(path, strings.ToUpper(fromName), strings.ToUpper(toName), -1)
-	library.SearchandReplace(path, strings.ToLower(fromName), strings.ToLower(toName), -1)
+	library.SearchandReplaceDirectory(path, fromName, toName, -1)
+	library.SearchandReplaceDirectory(path, strings.ToUpper(fromName), strings.ToUpper(toName), -1)
+	library.SearchandReplaceDirectory(path, strings.ToLower(fromName), strings.ToLower(toName), -1)
 	if BuildType == "plugin" {
 		shell.WriteString(library.GetShellRemoveFunction(path + "/src/Theme.php"))
 		library.RenameFile(path+"/dot.php", path+"/"+strings.ToLower(toName)+".php")
 	} else if BuildType == "theme" {
 		shell.WriteString("mv " + path + "/dot.php " + path + "/functions.php")
 		shell.WriteString(library.GetShellRemoveFunction(path + "/src/Plugin.php"))
-		library.SearchandReplace(path, fmt.Sprintf("%s_PLUGIN", strings.ToUpper(toName)), fmt.Sprintf("%s_THEME", strings.ToUpper(toName)), -1)
-		library.SearchandReplace(path, fmt.Sprintf("%s Plugins", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)), -1)
-		library.SearchandReplace(path, fmt.Sprintf("%s Plugin", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)), -1)
-		library.SearchandReplace(path, "use Helper\\Model;", "", -1)
+		library.SearchandReplaceDirectory(path, fmt.Sprintf("%s_PLUGIN", strings.ToUpper(toName)), fmt.Sprintf("%s_THEME", strings.ToUpper(toName)), -1)
+		library.SearchandReplaceDirectory(path, fmt.Sprintf("%s Plugins", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)), -1)
+		library.SearchandReplaceDirectory(path, fmt.Sprintf("%s Plugin", strings.ToUpper(toName)), fmt.Sprintf("%s Theme", strings.ToUpper(toName)), -1)
+		library.SearchandReplaceDirectory(path, "use Helper\\Model;", "", -1)
 
 		/** Remove Model */
 		shell.WriteString(library.GetShellRemoveFunction(path + "/src/WordPress/Model"))
