@@ -49,7 +49,6 @@ func InitiateWordPressFunction(flags library.Flag) {
 		plugin := GetPluginInformation(*flags.Path)
 		CheckProjectVersion(plugin)
 		CleanProjectFilesforProduction(*flags.Path, *flags.Type)
-		CleanVendorDirandFilesforProduction(*flags.Path, "plugin")
 		SetConfigProduction(*flags.Path, true)
 	}
 	/** WP Theme Build */
@@ -178,7 +177,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"assets/dist/*.map",
 
 		/** Development Files */
-		"livereload.php",
+		"helper.php",
 		"Gruntfile.js",
 		"composer.json",
 		"composer.lock",
