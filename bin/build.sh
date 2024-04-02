@@ -1,7 +1,7 @@
 #!/bin/bash
 
+# Build for all platforms
 platforms=("windows/amd64" "windows/386" "darwin/amd64" "linux/amd64" "linux/386" "linux/arm" "linux/arm64")
-
 for platform in "${platforms[@]}"
 do
     platform_split=(${platform//\// })
