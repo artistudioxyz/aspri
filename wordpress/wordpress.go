@@ -8,6 +8,7 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"path/filepath"
 )
 
 /** Path Type */
@@ -93,7 +94,7 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 	library.SearchandReplaceDirectory(path, strings.ToLower(fromName), strings.ToLower(toName), -1)
 	if BuildType == "plugin" {
 		shell.WriteString(library.GetShellRemoveFunction(path + "/src/Theme.php"))
-		library.RenameFile(path+"/dot.php", path+"/"+strings.ToLower(toName)+".php")
+		library.RenameFile(path+"/dot.php", path+ string(filepath.Separator) +strings.ToLower(toName)+".php")
 	} else if BuildType == "theme" {
 		shell.WriteString("mv " + path + "/dot.php " + path + "/functions.php")
 		shell.WriteString(library.GetShellRemoveFunction(path + "/src/Plugin.php"))
@@ -202,10 +203,10 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		if buildType == "github" {
 			ForGithub := library.SliceContainsString(FilesforGithub, f)
 			if !ForGithub {
-				remove.WriteString(library.GetShellRemoveFunction(path + "/" + f))
+				remove.WriteString(library.GetShellRemoveFunction(path + string(filepath.Separator) + f))
 			}
 		} else {
-			remove.WriteString(library.GetShellRemoveFunction(path + "/" + f))
+			remove.WriteString(library.GetShellRemoveFunction(path + string(filepath.Separator) + f))
 		}
 	}
 	cmd := [...]string{"bash", "-c", remove.String()}
@@ -218,7 +219,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 func SetConfigProduction(path string, production bool) {
 	plugin := GetPluginInformation(path)
 	FileName := "config.json"
-	content := library.ReadFile(plugin.Path.Directory + "/" + FileName)
+	content := library.ReadFile(plugin.Path.Directory + string(filepath.Separator) + FileName)
 
 	/** Read and Change Value */
 	var objmap map[string]interface{}
@@ -227,7 +228,7 @@ func SetConfigProduction(path string, production bool) {
 	}
 	objmap["production"] = production
 	jsonStr, _ := json.Marshal(objmap)
-	library.WriteFile(plugin.Path.Directory+"/"+FileName, string(jsonStr))
+	library.WriteFile(plugin.Path.Directory+ string(filepath.Separator) +FileName, string(jsonStr))
 
 	fmt.Println("✅ Success set production config to", production)
 }
@@ -260,7 +261,7 @@ func CheckProjectVersion(project WPProject) {
 
 	/** Check occurrence (readme.txt) */
 	FileName := "readme.txt"
-	content := library.ReadFile(project.Path.Directory + "/" + FileName)
+	content := library.ReadFile(project.Path.Directory + string(filepath.Separator) + FileName)
 	regexversion := regexp.MustCompile(project.Version)
 	matches := regexversion.FindAllStringIndex(string(content), 2)
 	if len(matches) >= 1 {
@@ -271,8 +272,8 @@ func CheckProjectVersion(project WPProject) {
 
 	/** Check occurrence (config.json) */
 	FileName = "config.json"
-	if _, err := os.Stat(project.Path.Directory + "/" + FileName); err == nil {
-		content = library.ReadFile(project.Path.Directory + "/" + FileName)
+	if _, err := os.Stat(project.Path.Directory + string(filepath.Separator) + FileName); err == nil {
+		content = library.ReadFile(project.Path.Directory + string(filepath.Separator) + FileName)
 		res, err := regexp.Match(project.Version, content)
 		if res {
 			fmt.Println("✅ Plugin Version Match", FileName)
@@ -284,8 +285,8 @@ func CheckProjectVersion(project WPProject) {
 
 	/** Check occurrence (config.json) */
 	FileName = "package.json"
-	if _, err := os.Stat(project.Path.Directory + "/" + FileName); err == nil {
-		content = library.ReadFile(project.Path.Directory + "/" + FileName)
+	if _, err := os.Stat(project.Path.Directory + string(filepath.Separator) + FileName); err == nil {
+		content = library.ReadFile(project.Path.Directory + string(filepath.Separator) + FileName)
 		res, err := regexp.Match(project.Version, content)
 		if res {
 			fmt.Println("✅ Plugin Version Match", FileName)
