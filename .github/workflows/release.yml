@@ -22,7 +22,7 @@ jobs:
         run: git checkout -b release
 
       - name: 📟 Build
-        run: chmod +x build.sh && ./build.sh
+        run: chmod +x bin/build.sh && ./bin/build.sh
 
       - name: ✅ Commit changes
         run: |
