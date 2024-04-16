@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"time"
 )
@@ -18,6 +19,11 @@ func InitiateDirectoryFunction(flags Flag) {
 	/** remove Directories Older than days matching regex */
 	if *flags.Dir && *flags.Remove && *flags.OlderThan && *flags.Days > 0 {
 		RemoveDirectoriesOlderThan(*flags.Path, *flags.Days, *flags.Level, *flags.Exclude, *flags.DryRun)
+	}
+	/** Normalize Directories Name */
+	if *flags.Dir && *flags.Standardize {
+		fmt.Println("📁 Standardize Directory Name:", *flags.Path)
+		StandardizeDirectoryNameLoop(*flags.Path)
 	}
 }
 
@@ -153,4 +159,64 @@ func RemoveDirectoriesOlderThan(path string, retentionDays int, level int, exclu
 	}
 
 	return nil
+}
+
+// Standardize Directory Name
+func StandardizeDirectoryName(rootPath string) error {
+	// Define a regular expression to match emojis
+	emojiRegex := regexp.MustCompile(`[\p{So}\p{Sk}]`)
+
+	// Walk through the directory tree
+	err := filepath.Walk(rootPath, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		// Check if the path is a directory
+		if info.IsDir() {
+			// Get the directory name
+			dirName := filepath.Base(path)
+
+			// Check if the directory name contains an emoji
+			if emojiRegex.MatchString(dirName) {
+				// Remove emojis from the directory name
+				dirName = emojiRegex.ReplaceAllString(dirName, "")
+				fmt.Printf("Renaming directory: %s -> %s\n", filepath.Join(filepath.Dir(path), filepath.FromSlash(dirName)), filepath.Join(filepath.Dir(path), dirName))
+				// Rename the directory
+				if err := os.Rename(path, filepath.Join(filepath.Dir(path), dirName)); err != nil {
+					return err
+				}
+				return &CustomError{message: "Directory name contains an space"}
+			}
+
+			// Replace spaces with underscores in the directory name
+			dirName = strings.ReplaceAll(dirName, " ", "_")
+			if dirName != filepath.Base(path) {
+				fmt.Printf("Renaming directory: %s -> %s\n", filepath.Join(filepath.Dir(path), filepath.FromSlash(dirName)), filepath.Join(filepath.Dir(path), dirName))
+				// Rename the directory
+				if err := os.Rename(path, filepath.Join(filepath.Dir(path), dirName)); err != nil {
+					return err
+				}
+				return &CustomError{message: "Directory name contains an space"}
+			}
+		}
+		return nil
+	})
+
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// Loop through the directory tree and standardize directory names
+func StandardizeDirectoryNameLoop(rootPath string) {
+	err := StandardizeDirectoryName(rootPath)
+
+	// Check if the error is an instance of CustomError
+	if _, ok := err.(*CustomError); ok {
+		StandardizeDirectoryNameLoop(rootPath)
+	} else {
+		fmt.Println("Regular Error:", err)
+	}
 }

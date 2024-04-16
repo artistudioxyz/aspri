@@ -38,6 +38,7 @@ type Flag struct {
 	Rsync              *bool
 	Stats              *bool
 	SearchandReplace   *bool
+	Standardize        *bool
 	Syncthing          *bool
 	WPClean            *bool
 	WPPluginBuild      *bool
@@ -122,6 +123,7 @@ func GetFlag() Flag {
 		Restart:            flag.Bool("restart", false, "Restart (Docker Mode): Container"),
 		SearchandReplace:   flag.Bool("search-replace", false, "do search and replace"),
 		SelfUpdate:         flag.Bool("self-update", false, "self update"),
+		Standardize:        flag.Bool("standardize", false, "Standardize"),
 		Stats:              flag.Bool("stats", false, "show stats"),
 		Tree:               flag.Bool("tree", false, "Tree Mode"),
 		Update:             flag.Bool("update", false, "update"),

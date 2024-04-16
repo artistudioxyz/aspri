@@ -66,6 +66,7 @@ You can install aspri by using one of these method
 - Search and Replace :
   - in Directory : `--search-replace --path {dir} --from {text} --to {text}`
   - in File : `--search-replace -f {filename} --from {text} --to {text}`
+- Standardize directory name : `--dir --standardize --path {workdir}`
 - **Support Multiple Params**
 	- Dirname : `--dirname {dirname}`
 	- Filename : `-f {filename}`
