@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"github.com/artistudioxyz/aspri/library"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
-	"path/filepath"
 )
 
 /** Path Type */
@@ -94,7 +94,7 @@ func WPRefactor(path string, fromName string, toName string, BuildType string) {
 	library.SearchandReplaceDirectory(path, strings.ToLower(fromName), strings.ToLower(toName), -1)
 	if BuildType == "plugin" {
 		shell.WriteString(library.GetShellRemoveFunction(path + "/src/Theme.php"))
-		library.RenameFile(path+"/dot.php", path+ string(filepath.Separator) +strings.ToLower(toName)+".php")
+		library.RenameFile(path+"/dot.php", path+string(filepath.Separator)+strings.ToLower(toName)+".php")
 	} else if BuildType == "theme" {
 		shell.WriteString("mv " + path + "/dot.php " + path + "/functions.php")
 		shell.WriteString(library.GetShellRemoveFunction(path + "/src/Plugin.php"))
@@ -165,6 +165,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"node_modules",
 
 		/** Tests */
+		"tests",
 		"tests-selenium",
 
 		/** Assets */
@@ -228,7 +229,7 @@ func SetConfigProduction(path string, production bool) {
 	}
 	objmap["production"] = production
 	jsonStr, _ := json.Marshal(objmap)
-	library.WriteFile(plugin.Path.Directory+ string(filepath.Separator) +FileName, string(jsonStr))
+	library.WriteFile(plugin.Path.Directory+string(filepath.Separator)+FileName, string(jsonStr))
 
 	fmt.Println("✅ Success set production config to", production)
 }
