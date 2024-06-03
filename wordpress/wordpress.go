@@ -65,6 +65,7 @@ func InitiateWordPressFunction(flags library.Flag) {
 		plugin := GetPluginInformation(*flags.Path)
 		fmt.Println("📦 Project Name:", plugin.Name)
 		fmt.Println("📦 Project Version:", plugin.Version)
+		library.SearchandReplaceDirectory(plugin.Path.File, plugin.Version, *flags.To, 1)
 		library.SearchandReplaceDirectory(*flags.Path+"/readme.txt", plugin.Version, *flags.To, 1)
 		library.SearchandReplaceDirectory(*flags.Path+"/config.json", plugin.Version, *flags.To, -1)
 		library.SearchandReplaceDirectory(*flags.Path+"/package.json", plugin.Version, *flags.To, -1)
