@@ -7,7 +7,6 @@ import (
 	"github.com/tdewolff/minify/css"
 	"github.com/tdewolff/minify/js"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -80,7 +79,7 @@ func FileExistsInPath(filePath, directoryPath string) (bool, error) {
 
 /** Extract URLs from File */
 func extractURLsFromFile(filePath string, baseURL string) ([]string, error) {
-	fileContent, err := ioutil.ReadFile(filePath)
+	fileContent, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +141,7 @@ func minifyFiles(path string) {
 			}
 
 			// read the file
-			bs, err := ioutil.ReadAll(file)
+			bs, err := io.ReadAll(file)
 			if err != nil {
 				panic(err)
 			}
@@ -154,7 +153,7 @@ func minifyFiles(path string) {
 			}
 
 			// write the minified content to the file
-			err = ioutil.WriteFile(filePath, []byte(minifiedContent), 0644)
+			err = os.WriteFile(filePath, []byte(minifiedContent), 0644)
 			if err != nil {
 				panic(err)
 			}
@@ -351,7 +350,7 @@ func ExtractURLsFromDirectoryPath(path string, baseURL string) ([]string, error)
 		return nil, fmt.Errorf("Path is not a directory: %s", path)
 	}
 
-	files, err := ioutil.ReadDir(path)
+	files, err := os.ReadDir(path)
 	if err != nil {
 		return nil, err
 	}
@@ -464,12 +463,12 @@ func SearchandReplaceDirectory(path string, from string, to string, limit int) {
 			return err
 		}
 		if !info.IsDir() {
-			data, err := ioutil.ReadFile(path)
+			data, err := os.ReadFile(path)
 			if err != nil {
 				return err
 			}
 			newData := strings.Replace(string(data), from, to, limit)
-			err = ioutil.WriteFile(path, []byte(newData), 0644)
+			err = os.WriteFile(path, []byte(newData), 0644)
 			if err != nil {
 				return err
 			}
