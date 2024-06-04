@@ -77,7 +77,7 @@ You can install aspri by using one of these method
 
 - Commit and Push : `--git -m {message}`
 - Gone : `--git --gone`
-- Reset to previous state (Ignore changes and Remove untracked files) : `--git -reset`
+- Reset to previous state (Ignore changes and Remove untracked files) : `--git --reset`
 - Reset Cache : `--git --reset-cache`
 
 [Markdown](library/markdown.go) :
