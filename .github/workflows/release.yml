@@ -19,31 +19,36 @@ jobs:
           go-version: '^1.14.0'
 
       - name: 🙏 Create Release Branch
-        run: git checkout -b release
+        run: |
+          git checkout -b release || git checkout release
 
       - name: 📟 Build
         run: chmod +x bin/build.sh && ./bin/build.sh
+
+      - name: Check Git status
+        run: git status
 
       - name: ✅ Commit changes
         run: |
           git config --local user.email "muhagung2001@gmail.com"
           git config --local user.name "agung2001"
           git add -A
-
-          arr[0]="chore(bot): 😂 release"
-          arr[1]="chore(bot): 😱 release"
-          arr[2]="chore(bot): 🎉 release"
-          arr[3]="chore(bot): 😍 release"
-          arr[4]="chore(bot): 🙏 release"
-          arr[5]="chore(bot): 🙈 release"
-          arr[6]="chore(bot): 🐐 release"
-          arr[7]="chore(bot): 🤖 release"
-          arr[8]="chore(bot): 🌟 release"
-          arr[9]="chore(bot): 👻 release"
-
-          rand=$[$RANDOM % ${#arr[@]}]
-
-          git commit -m "${arr[$rand]}"
+          if git diff-index --quiet HEAD; then
+            echo "No changes to commit"
+          else
+            arr[0]="chore(bot): 😂 release"
+            arr[1]="chore(bot): 😱 release"
+            arr[2]="chore(bot): 🎉 release"
+            arr[3]="chore(bot): 😍 release"
+            arr[4]="chore(bot): 🙏 release"
+            arr[5]="chore(bot): 🙈 release"
+            arr[6]="chore(bot): 🐐 release"
+            arr[7]="chore(bot): 🤖 release"
+            arr[8]="chore(bot): 🌟 release"
+            arr[9]="chore(bot): 👻 release"
+            rand=$[$RANDOM % ${#arr[@]}]
+            git commit -m "${arr[$rand]}"
+          fi
 
       - name: 🚀 Push to release branch
         uses: ad-m/github-push-action@v0.8.0
