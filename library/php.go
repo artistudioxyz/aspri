@@ -3,7 +3,6 @@ package library
 import (
 	"bufio"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -166,7 +165,7 @@ func listFunctionCalls(path string, filters []string) []FunctionObject {
 		}
 		if filepath.Ext(filePath) == ".php" {
 			// Read the file
-			bs, err := ioutil.ReadFile(filePath)
+			bs, err := os.ReadFile(filePath)
 			if err != nil {
 				panic(err)
 			}

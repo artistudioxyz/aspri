@@ -3,7 +3,6 @@ package library
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -13,7 +12,7 @@ import (
 
 // Read File
 func ReadFile(path string) []byte {
-	content, err := ioutil.ReadFile(path)
+	content, err := os.ReadFile(path)
 	if err != nil {
 		log.Fatal(err)
 	}

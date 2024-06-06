@@ -3,7 +3,6 @@ package library
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -36,7 +35,7 @@ func phpCSGetConfig() (PHPCSConfig, error) {
 	configPath := dir + "/config.json"
 
 	// Read the contents of the config file.
-	configData, err := ioutil.ReadFile(configPath)
+	configData, err := os.ReadFile(configPath)
 	if err != nil {
 		fmt.Println("❌", err)
 		return PHPCSConfig{}, err
@@ -68,7 +67,7 @@ func phpCSDetectStandard() ([]string, error) {
 	standardsJSON := dir + "/standards.json"
 
 	// Read standards.json file
-	bytes, err := ioutil.ReadFile(standardsJSON)
+	bytes, err := os.ReadFile(standardsJSON)
 	if err != nil {
 		return standards, err
 	}
@@ -86,7 +85,7 @@ func phpCSDetectStandard() ([]string, error) {
 		standards = append(standards, standardDirectory)
 
 		// List all subdirectories in standards directory
-		subdirectories, err := ioutil.ReadDir(standardDirectory)
+		subdirectories, err := os.ReadDir(standardDirectory)
 		if err != nil {
 			return standards, err
 		}
