@@ -2,7 +2,6 @@ package library
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -53,7 +52,7 @@ func MarkdownGenerateFileTree(path string, ignore []string) string {
 	ignore = append(ignore, ".git", ".github", ".vscode", ".idea", ".obsidian", ".gitignore", ".gitkeep", ".DS_Store")
 
 	// Read the directory
-	files, err := ioutil.ReadDir(path)
+	files, err := os.ReadDir(path)
 	if err != nil {
 		return ""
 	}
