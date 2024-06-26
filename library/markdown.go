@@ -29,7 +29,9 @@ func InitiateMarkdownFunction(flags Flag) {
 	// Extract Heading Number
 	if *flags.Markdown && *flags.Heading != "" && strings.HasPrefix(*flags.Heading, "#") {
 		headings, _ := ExtractHeadings(*flags.Path, *flags.Heading)
-		fmt.Println(headings)
+		for _, heading := range headings {
+			fmt.Println(heading)
+		}
 	}
 	// Extract Markdown content
 	if *flags.Markdown && *flags.Heading != "" {
