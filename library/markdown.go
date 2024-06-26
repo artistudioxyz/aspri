@@ -26,6 +26,11 @@ func InitiateMarkdownFunction(flags Flag) {
 		fileTree := MarkdownGenerateFileTree(*flags.Path, *flags.Filename)
 		fmt.Println(fileTree)
 	}
+	// Extract Heading Number
+	if *flags.Markdown && *flags.Heading != "" && strings.HasPrefix(*flags.Heading, "#") {
+		headings, _ := ExtractHeadings(*flags.Path, *flags.Heading)
+		fmt.Println(headings)
+	}
 	// Extract Markdown content
 	if *flags.Markdown && *flags.Heading != "" {
 		content, _ := ExtractContentByHeading(*flags.Path, *flags.Heading)
@@ -83,6 +88,33 @@ func MarkdownGenerateFileTree(path string, ignore []string) string {
 	}
 
 	return tree
+}
+
+// Extract heading
+func ExtractHeadings(filePath, heading string) ([]string, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	var headings []string
+	scanner := bufio.NewScanner(file)
+	re := regexp.MustCompile(fmt.Sprintf(`^%s\s+(.*)$`, regexp.QuoteMeta(heading)))
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		match := re.FindStringSubmatch(line)
+		if len(match) > 1 {
+			headings = append(headings, match[1])
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
+
+	return headings, nil
 }
 
 // Extract markdown content by heading
