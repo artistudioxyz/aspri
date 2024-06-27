@@ -82,6 +82,8 @@ You can install aspri by using one of these method
 
 [Markdown](library/markdown.go) :
 
+- Extract markdown content by heading  : `--md --path {workdir} --heading {heading}`
+- Extract markdown headings  : `--md --path {workdir} --heading {heading}`
 - Remove Link from Markdown File : `--md --remove-link --path {workdir}`
 
 [NoIP](library/noip.go) :

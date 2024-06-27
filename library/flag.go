@@ -72,6 +72,7 @@ type Flag struct {
 	Filename     *[]string
 	FunctionName *[]string
 	From         *string
+	Heading      *string
 	Hostname     *string
 	Level        *int
 	Limit        *int
@@ -154,6 +155,7 @@ func GetFlag() Flag {
 		Filename:     flag.StringArrayP("filename", "f", []string{}, "Filenames"),
 		FunctionName: flag.StringArray("functionname", []string{}, "Function Name"),
 		From:         flag.String("from", "", "Refactor Text From"),
+		Heading:      flag.String("heading", "", "Heading"),
 		Hostname:     flag.String("hostname", "", "Hostname"),
 		Level:        flag.Int("level", 0, "Directory Level (Dir Mode): Directory Level"),
 		Limit:        flag.Int("limit", 0, "Number of limit"),
