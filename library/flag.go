@@ -16,6 +16,7 @@ type Flag struct {
 	Extract            *bool
 	ExtractUrl         *bool
 	File               *bool
+	Find               *bool
 	Git                *bool
 	Gone               *bool
 	Help               *bool
@@ -99,6 +100,7 @@ func GetFlag() Flag {
 		Extract:            flag.Bool("extract", false, "Extract Mode"),
 		ExtractUrl:         flag.Bool("extract-url", false, "Extract URL Mode"),
 		File:               flag.Bool("file", false, "File Mode"),
+		Find:               flag.Bool("find", false, "Find Mode"),
 		Git:                flag.Bool("git", false, "Git Mode"),
 		Gone:               flag.Bool("gone", false, "Gone Mode"),
 		Help:               flag.Bool("help", false, "Help Mode"),

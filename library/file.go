@@ -25,13 +25,32 @@ func InitiateFileFunction(flags Flag) {
 		count := CountFilesContainingText(*flags.Path, *flags.Text, *flags.Exclude)
 		fmt.Println("🐙 There are", count, "files containing", *flags.Text)
 	}
+	// Find files older than days matching regex
+	if *flags.File && *flags.Find && *flags.OlderThan && *flags.Days > 0 {
+		files, err := FindFilesOlderThan(*flags.Path, *flags.Regex, *flags.Days, *flags.Exclude)
+		if err != nil {
+			fmt.Println("❌ ", err)
+		} else {
+			for _, file := range files {
+				fmt.Println(file)
+			}
+		}
+	}
 	/** removeFilesExceptExtensions */
 	if *flags.File && *flags.Remove && len(*flags.Ext) > 0 {
 		RemoveFilesExceptExtensions(*flags.Path, *flags.Ext, *flags.Except)
 	}
 	/** remove Files Older than days matching regex */
 	if *flags.File && *flags.Remove && *flags.OlderThan && *flags.Days > 0 {
-		RemoveFilesOlderThan(*flags.Path, *flags.Regex, *flags.Days, *flags.Exclude, *flags.DryRun)
+		files, err := FindFilesOlderThan(*flags.Path, *flags.Regex, *flags.Days, *flags.Exclude)
+		if err != nil {
+			panic(err)
+		}
+
+		err = RemoveFilesOlderThan(files, *flags.DryRun)
+		if err != nil {
+			panic(err)
+		}
 	}
 	/** Delete Directory or Files in Path Matching Filename */
 	if *flags.Dir && *flags.Remove && len(*flags.Dirname) > 0 {
@@ -213,6 +232,46 @@ func CountFilesContainingText(path string, text string, exclude []string) int {
 	return count
 }
 
+// Find files older than
+func FindFilesOlderThan(path string, pattern string, retentionDays int, exclude []string) ([]string, error) {
+	var files []string
+
+	// Calculate the cutoff time
+	cutoff := time.Now().AddDate(0, 0, -retentionDays)
+
+	// Walk through the directory
+	err := filepath.Walk(path, func(filePath string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		// Check if the file matches the pattern and is older than the retention period
+		if !info.IsDir() && strings.Contains(info.Name(), pattern) && info.ModTime().Before(cutoff) {
+			// Check if the file is in the exclude list
+			excluded := false
+			for _, excludeFile := range exclude {
+				if strings.Contains(filePath, excludeFile) {
+					excluded = true
+					break
+				}
+			}
+
+			// If not excluded, add to the list of files
+			if !excluded {
+				files = append(files, filePath)
+			}
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return files, nil
+}
+
 /** Remove Files Except Specified Extensions */
 func RemoveFilesExceptExtensions(root string, allowedExtensions []string, exception []string) error {
 	if root == "" {
@@ -238,49 +297,20 @@ func RemoveFilesExceptExtensions(root string, allowedExtensions []string, except
 	})
 }
 
-/** Remove Files Older Than */
-func RemoveFilesOlderThan(path string, pattern string, retentionDays int, exclude []string, dryrun bool) error {
-	if path == "" {
-		CurrentDirectory, _ := os.Getwd()
-		path = CurrentDirectory
+// Remove Files Older Than
+func RemoveFilesOlderThan(files []string, dryrun bool) error {
+	for _, file := range files {
+		if dryrun {
+			fmt.Println("Would remove:", file)
+		} else {
+			err := os.Remove(file)
+			if err != nil {
+				return fmt.Errorf("failed to remove file %s: %w", file, err)
+			}
+			fmt.Println("Removed:", file)
+		}
 	}
-
-	currentTime := time.Now()
-	return filepath.Walk(path, func(filePath string, info os.FileInfo, err error) error {
-		// Check if the file exists
-		if err != nil {
-			fmt.Println("❌ ", err)
-		}
-		// Skip directories
-		if info.IsDir() {
-			return nil
-		}
-		// Check if the directory should be ignored
-		for _, excludeDir := range exclude {
-			if strings.Contains(filePath, excludeDir) {
-				return nil
-			}
-		}
-
-		if !info.ModTime().Add(time.Duration(retentionDays) * 24 * time.Hour).After(currentTime) {
-			// Match file name if pattern is not empty
-			matched := true
-			if pattern != "" {
-				matched, _ = filepath.Match(pattern, info.Name())
-			}
-
-			// Remove file if matched
-			if matched {
-				if dryrun {
-					fmt.Println("✅ Dry run, will remove", filePath)
-				} else {
-					os.Remove(filePath)
-					fmt.Println("✅ Successfully remove files older than", retentionDays, "days in", filePath)
-				}
-			}
-		}
-		return nil
-	})
+	return nil
 }
 
 /** Delete Directory or Files in Path Matching Filename */
