@@ -25,9 +25,20 @@ func InitiateFileFunction(flags Flag) {
 		count := CountFilesContainingText(*flags.Path, *flags.Text, *flags.Exclude)
 		fmt.Println("🐙 There are", count, "files containing", *flags.Text)
 	}
+	// Find files younger than days matching regex
+	if *flags.File && *flags.Find && *flags.YoungerThan && *flags.Days > 0 {
+		files, err := FindFilesByAge(*flags.Path, *flags.Regex, *flags.Days, *flags.Exclude, false)
+		if err != nil {
+			fmt.Println("❌ ", err)
+		} else {
+			for _, file := range files {
+				fmt.Println(file)
+			}
+		}
+	}
 	// Find files older than days matching regex
 	if *flags.File && *flags.Find && *flags.OlderThan && *flags.Days > 0 {
-		files, err := FindFilesOlderThan(*flags.Path, *flags.Regex, *flags.Days, *flags.Exclude)
+		files, err := FindFilesByAge(*flags.Path, *flags.Regex, *flags.Days, *flags.Exclude, true)
 		if err != nil {
 			fmt.Println("❌ ", err)
 		} else {
@@ -42,7 +53,7 @@ func InitiateFileFunction(flags Flag) {
 	}
 	/** remove Files Older than days matching regex */
 	if *flags.File && *flags.Remove && *flags.OlderThan && *flags.Days > 0 {
-		files, err := FindFilesOlderThan(*flags.Path, *flags.Regex, *flags.Days, *flags.Exclude)
+		files, err := FindFilesByAge(*flags.Path, *flags.Regex, *flags.Days, *flags.Exclude, true)
 		if err != nil {
 			panic(err)
 		}
@@ -232,8 +243,8 @@ func CountFilesContainingText(path string, text string, exclude []string) int {
 	return count
 }
 
-// Find files older than
-func FindFilesOlderThan(path string, pattern string, retentionDays int, exclude []string) ([]string, error) {
+// Find files by age
+func FindFilesByAge(path string, pattern string, retentionDays int, exclude []string, older bool) ([]string, error) {
 	var files []string
 
 	// Calculate the cutoff time
@@ -245,20 +256,25 @@ func FindFilesOlderThan(path string, pattern string, retentionDays int, exclude 
 			return err
 		}
 
-		// Check if the file matches the pattern and is older than the retention period
-		if !info.IsDir() && strings.Contains(info.Name(), pattern) && info.ModTime().Before(cutoff) {
-			// Check if the file is in the exclude list
-			excluded := false
-			for _, excludeFile := range exclude {
-				if strings.Contains(filePath, excludeFile) {
-					excluded = true
-					break
-				}
-			}
+		// Check if the file matches the pattern
+		if !info.IsDir() && strings.Contains(info.Name(), pattern) {
+			// Check if the file meets the age criteria
+			fileMatchesAgeCriteria := (older && info.ModTime().Before(cutoff)) || (!older && info.ModTime().After(cutoff))
 
-			// If not excluded, add to the list of files
-			if !excluded {
-				files = append(files, filePath)
+			if fileMatchesAgeCriteria {
+				// Check if the file is in the exclude list
+				excluded := false
+				for _, excludeFile := range exclude {
+					if strings.Contains(filePath, excludeFile) {
+						excluded = true
+						break
+					}
+				}
+
+				// If not excluded, add to the list of files
+				if !excluded {
+					files = append(files, filePath)
+				}
 			}
 		}
 
