@@ -49,10 +49,19 @@ func DirectoryStats(path string, print bool) (int, int64, int64, map[string]int,
 	var lineCount int
 	var wordCount int
 
+	excludedDirs := []string{".stversions", ".obsidian"}
+
 	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			fmt.Println("❌ Error:", err)
 			return err
+		}
+
+		// Skip the excluded directories
+		for _, excludedDir := range excludedDirs {
+			if info.IsDir() && strings.Contains(path, excludedDir) {
+				return filepath.SkipDir
+			}
 		}
 
 		if !info.IsDir() {
