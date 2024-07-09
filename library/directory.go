@@ -14,7 +14,7 @@ import (
 func InitiateDirectoryFunction(flags Flag) {
 	/** Directory Stats */
 	if *flags.Dir && *flags.Stats {
-		DirectoryStats(*flags.Path, true)
+		DirectoryStats(*flags.Path, true, *flags.Exclude)
 	}
 	/** remove Directories Older than days matching regex */
 	if *flags.Dir && *flags.Remove && *flags.OlderThan && *flags.Days > 0 {
@@ -37,7 +37,7 @@ func GetDepth(path string, dirPath string) int {
 }
 
 /** Directory Stats */
-func DirectoryStats(path string, print bool) (int, int64, int64, map[string]int, int, int) {
+func DirectoryStats(path string, print bool, exclude []string) (int, int64, int64, map[string]int, int, int) {
 	if path == "" {
 		CurrentDirectory, _ := os.Getwd()
 		path = CurrentDirectory
@@ -49,18 +49,16 @@ func DirectoryStats(path string, print bool) (int, int64, int64, map[string]int,
 	var lineCount int
 	var wordCount int
 
-	excludedDirs := []string{".stversions", ".obsidian"}
-
 	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			fmt.Println("❌ Error:", err)
 			return err
 		}
 
-		// Skip the excluded directories
-		for _, excludedDir := range excludedDirs {
-			if info.IsDir() && strings.Contains(path, excludedDir) {
-				return filepath.SkipDir
+		// Check if the directory should be ignored
+		for _, excludeDir := range exclude {
+			if strings.Contains(path, excludeDir) {
+				return nil
 			}
 		}
 
