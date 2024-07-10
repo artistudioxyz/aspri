@@ -14,7 +14,7 @@ import (
 func InitiateDirectoryFunction(flags Flag) {
 	/** Directory Stats */
 	if *flags.Dir && *flags.Stats {
-		DirectoryStats(*flags.Path, true)
+		DirectoryStats(*flags.Path, true, *flags.Exclude)
 	}
 	/** remove Directories Older than days matching regex */
 	if *flags.Dir && *flags.Remove && *flags.OlderThan && *flags.Days > 0 {
@@ -37,7 +37,7 @@ func GetDepth(path string, dirPath string) int {
 }
 
 /** Directory Stats */
-func DirectoryStats(path string, print bool) (int, int64, int64, map[string]int, int, int) {
+func DirectoryStats(path string, print bool, exclude []string) (int, int64, int64, map[string]int, int, int) {
 	if path == "" {
 		CurrentDirectory, _ := os.Getwd()
 		path = CurrentDirectory
@@ -53,6 +53,13 @@ func DirectoryStats(path string, print bool) (int, int64, int64, map[string]int,
 		if err != nil {
 			fmt.Println("❌ Error:", err)
 			return err
+		}
+
+		// Check if the directory should be ignored
+		for _, excludeDir := range exclude {
+			if strings.Contains(path, excludeDir) {
+				return nil
+			}
 		}
 
 		if !info.IsDir() {
