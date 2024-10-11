@@ -11,6 +11,7 @@ func main() {
 
 	// Initiate Library
 	library.InitiateChatGPTFunction(flags)
+	library.InitiateContribution(flags)
 	library.InitiateDockerFunction(flags)
 	library.InitiateFileFunction(flags)
 	library.InitiateDirectoryFunction(flags)

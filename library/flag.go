@@ -9,6 +9,7 @@ import (
 type Flag struct {
 	// Mode
 	ChatGPT            *bool
+	Contribution       *bool
 	Dir                *bool
 	Docker             *bool
 	DockerCompose      *bool
@@ -67,6 +68,8 @@ type Flag struct {
 	API_KEY      *string
 	ID           *string
 	Days         *int
+	DateEnd      *string
+	DateStart    *string
 	Dirname      *[]string
 	Ext          *[]string
 	Except       *[]string
@@ -95,6 +98,7 @@ func GetFlag() Flag {
 		// Mode
 		ChatGPT:            flag.Bool("chatgpt", false, "Chat with GPT-3"),
 		Dir:                flag.Bool("dir", false, "Directory Mode"),
+		Contribution:       flag.Bool("contribution", false, "Contribution Mode"),
 		Docker:             flag.Bool("docker", false, "Docker Mode"),
 		DockerCompose:      flag.Bool("docker-compose", false, "Docker Compose Mode"),
 		DryRun:             flag.Bool("dry-run", false, "Dry Run Mode"),
@@ -151,6 +155,8 @@ func GetFlag() Flag {
 		// String Parameters
 		API_KEY:      flag.String("api-key", "", "API Key"),
 		ID:           flag.String("id", "", "Identifier (Docker Mode): Container"),
+		DateEnd:      flag.String("date-end", "", "Date End"),
+		DateStart:    flag.String("date-start", "", "Date Start"),
 		Days:         flag.Int("days", 0, "Days (Older Than Mode): Days"),
 		Dirname:      flag.StringArray("dirname", []string{}, "Directory Name (Dir Mode): Directory Name"),
 		Ext:          flag.StringArray("ext", []string{}, "File extensions to include"),
