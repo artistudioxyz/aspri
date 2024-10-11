@@ -40,6 +40,10 @@ You can install aspri by using one of these method
 
 ## 📟 Commands
 
+[Contribution](library/contribution.go) :
+
+- Calculate Contribution : `--contribution --date-start {date} --date-end {date} --path {workdir}`
+
 [ChatGPT](library/chatgpt.go) :
 
 - Start Chat : `--chatgpt --api-key {API_KEY}`

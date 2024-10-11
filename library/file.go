@@ -196,11 +196,6 @@ func minifyFiles(path string) {
 
 /** Count Files Containing Text */
 func CountFilesContainingText(path string, text string, exclude []string) int {
-	if path == "" {
-		CurrentDirectory, _ := os.Getwd()
-		path = CurrentDirectory
-	}
-
 	var count int
 
 	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
