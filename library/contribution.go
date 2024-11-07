@@ -96,7 +96,7 @@ func calculateContributions(dirPath string, text string, start string, end strin
 						}
 
 						// Only include contributions within the Monday-Sunday of last week
-						if contributionDate.After(startDate) && contributionDate.Before(endDate.AddDate(0, 0, 1)) {
+						if contributionDate.After(startDate.AddDate(0, 0, -1)) && contributionDate.Before(endDate.AddDate(0, 0, 1)) {
 							count++
 							break
 						}
