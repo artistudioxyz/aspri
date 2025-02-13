@@ -8,6 +8,7 @@ import (
 // Flag Structure
 type Flag struct {
 	// Mode
+	Between            *bool
 	ChatGPT            *bool
 	Contribution       *bool
 	Dir                *bool
@@ -71,6 +72,7 @@ type Flag struct {
 	DateEnd      *string
 	DateStart    *string
 	Dirname      *[]string
+	End          *string
 	Ext          *[]string
 	Except       *[]string
 	Exclude      *[]string
@@ -85,6 +87,7 @@ type Flag struct {
 	Path         *string
 	Password     *string
 	Regex        *string
+	Start        *string
 	Text         *string
 	To           *string
 	Type         *string
@@ -96,6 +99,7 @@ type Flag struct {
 func GetFlag() Flag {
 	flags := Flag{
 		// Mode
+		Between:            flag.Bool("between", false, "Between Mode"),
 		ChatGPT:            flag.Bool("chatgpt", false, "Chat with GPT-3"),
 		Dir:                flag.Bool("dir", false, "Directory Mode"),
 		Contribution:       flag.Bool("contribution", false, "Contribution Mode"),
@@ -159,6 +163,7 @@ func GetFlag() Flag {
 		DateStart:    flag.String("date-start", "", "Date Start"),
 		Days:         flag.Int("days", 0, "Days (Older Than Mode): Days"),
 		Dirname:      flag.StringArray("dirname", []string{}, "Directory Name (Dir Mode): Directory Name"),
+		End:          flag.String("end", "", "End Date"),
 		Ext:          flag.StringArray("ext", []string{}, "File extensions to include"),
 		Except:       flag.StringArray("except", []string{}, "File to exclude"),
 		Exclude:      flag.StringArray("exclude", []string{}, "Path to exclude"),
@@ -173,6 +178,7 @@ func GetFlag() Flag {
 		Path:         flag.String("path", "", "Refactor : Path to Directory"),
 		Password:     flag.StringP("password", "p", "", "Password"),
 		Regex:        flag.String("regex", "", "Regex"),
+		Start:        flag.String("start", "", "Start Date"),
 		Text:         flag.String("text", "", "Text"),
 		To:           flag.String("to", "", "Refactor Text To"),
 		Type:         flag.String("type", "", "Build type (WordPress)"),

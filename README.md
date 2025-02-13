@@ -63,9 +63,10 @@ You can install aspri by using one of these method
 - Extract Urls : `--extract-url --path {workdir} --url {url}`
 - Find files older than : `--file --find --older-than --days {days} --regex {regex} --path {workdir} --dry-run`
 - Find files younger than : `--file --find --younger-than --days {days} --regex {regex} --path {workdir} --dry-run`
+- Find files between dates : `--file --find --between --start {start} --end {end} --regex {regex} --path {workdir} --dry-run`
 - Remove Directories or Files Nested by Filenames :
-	- Remove Directories `--dir --remove --dirname {dirname} --path {workdir}`
-	- Remove Files `--file --remove --f {filename} --path {workdir}`
+  - Remove Directories `--dir --remove --dirname {dirname} --path {workdir}`
+  - Remove Files `--file --remove --f {filename} --path {workdir}`
 - Remove Files Nested Except Extensions : `--file --remove --ext {.php} --except {composer.json} --path {workdir}`
 - Remove Files older than x days matching regex nested : `--file --remove --older-than --days {days} --regex {regex} --path {workdir} --dry-run`
 - Remove Directory older than x days : `--dir --remove --older-than --days {days} --level {0} --path {workdir} --dry-run`
@@ -74,10 +75,10 @@ You can install aspri by using one of these method
   - in File : `--search-replace -f {filename} --from {text} --to {text}`
 - Standardize directory name : `--dir --standardize --path {workdir}`
 - **Support Multiple Params**
-	- Dirname : `--dirname {dirname}`
-	- Filename : `-f {filename}`
-	- Except : `--except {except}`
-	- Extension : `--ext {ext}`
+  - Dirname : `--dirname {dirname}`
+  - Filename : `-f {filename}`
+  - Except : `--except {except}`
+  - Extension : `--ext {ext}`
 
 [Git](library/git.go) :
 
@@ -88,8 +89,8 @@ You can install aspri by using one of these method
 
 [Markdown](library/markdown.go) :
 
-- Extract markdown content by heading  : `--md --path {workdir} --heading {heading}`
-- Extract markdown headings  : `--md --path {workdir} --heading {heading}`
+- Extract markdown content by heading : `--md --path {workdir} --heading {heading}`
+- Extract markdown headings : `--md --path {workdir} --heading {heading}`
 - Remove Link from Markdown File : `--md --remove-link --path {workdir}`
 
 [NoIP](library/noip.go) :
@@ -102,7 +103,7 @@ You can install aspri by using one of these method
 - List all function in directory nested : `--php --list-function --path {workdir}`
 - List function call in directory nested : `--php --list-function-call --path {workdir} --functionname {functionname}`
 - **Support Multiple Params**
-	- FunctionName : `--functionname {FunctionName}`
+  - FunctionName : `--functionname {FunctionName}`
 
 [PHPCS](library/phpcs.go) :
 
@@ -129,10 +130,10 @@ You can install aspri by using one of these method
 - Refactor Dot Framework : `--wp-refactor --path {workdir} --from {namespace} --to {namespace} --type {plugin|theme}`
 - WP Clean Project Files for Production : `--wp-clean --path {workdir} --type {wordpress|github}`
 - WP Plugin Build Check : `--wp-plugin-build-check --path {workdir}`
-	- Build WP Plugin : `--wp-plugin-build --path {workdir} --type {wordpress|github}`
-	- Release WP Plugin : `--wp-plugin-release --path {workdir} --to {version}`
+  - Build WP Plugin : `--wp-plugin-build --path {workdir} --type {wordpress|github}`
+  - Release WP Plugin : `--wp-plugin-release --path {workdir} --to {version}`
 - WP Theme Build Check : `--wp-theme-build-check --path {workdir}`
-	- Build WP Plugin : `--wp-theme-build --path {workdir} --type {wordpress|github}`
+  - Build WP Plugin : `--wp-theme-build --path {workdir} --type {wordpress|github}`
 - WP Tag Trunk for Subversion (SVN) : `--wp-tag-trunk --path {workdir}`
 
 [YouTube](library/youtube.go)
@@ -145,9 +146,10 @@ You can install aspri by using one of these method
 - [Golang pflag](https://pkg.go.dev/github.com/spf13/pflag)
 - [Husky](https://typicode.github.io/husky)
 - [Release-It](https://www.npmjs.com/package/release-it)
-	- [Conventional Changelog](https://github.com/release-it/conventional-changelog)
+  - [Conventional Changelog](https://github.com/release-it/conventional-changelog)
 
 ## ⭐️ Support & Contribution
+
 - Help support me by giving a 🌟 or [donate][website]
 
 [website]: https://agung2001.github.io

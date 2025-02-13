@@ -47,6 +47,17 @@ func InitiateFileFunction(flags Flag) {
 			}
 		}
 	}
+	// Find files between dates matching regex
+	if *flags.File && *flags.Find && *flags.Between && *flags.Start != "" && *flags.End != "" {
+		files, err := FindFilesBetweenDates(*flags.Path, *flags.Regex, *flags.Start, *flags.End, *flags.Exclude)
+		if err != nil {
+			fmt.Println("❌ ", err)
+		} else {
+			for _, file := range files {
+				fmt.Println(file)
+			}
+		}
+	}
 	/** removeFilesExceptExtensions */
 	if *flags.File && *flags.Remove && len(*flags.Ext) > 0 {
 		RemoveFilesExceptExtensions(*flags.Path, *flags.Ext, *flags.Except)
@@ -257,6 +268,57 @@ func FindFilesByAge(path string, pattern string, retentionDays int, exclude []st
 			fileMatchesAgeCriteria := (older && info.ModTime().Before(cutoff)) || (!older && info.ModTime().After(cutoff))
 
 			if fileMatchesAgeCriteria {
+				// Check if the file is in the exclude list
+				excluded := false
+				for _, excludeFile := range exclude {
+					if strings.Contains(filePath, excludeFile) {
+						excluded = true
+						break
+					}
+				}
+
+				// If not excluded, add to the list of files
+				if !excluded {
+					files = append(files, filePath)
+				}
+			}
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return files, nil
+}
+
+// Find files between dates matching regex
+func FindFilesBetweenDates(path string, pattern string, start string, end string, exclude []string) ([]string, error) {
+	var files []string
+
+	// Parse the start and end dates
+	startDate, err := time.Parse("2006-01-02", start)
+	if err != nil {
+		return nil, fmt.Errorf("invalid start date: %w", err)
+	}
+	endDate, err := time.Parse("2006-01-02", end)
+	if err != nil {
+		return nil, fmt.Errorf("invalid end date: %w", err)
+	}
+
+	// Walk through the directory
+	err = filepath.Walk(path, func(filePath string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		// Check if the file matches the pattern
+		if !info.IsDir() && strings.Contains(info.Name(), pattern) {
+			// Check if the file was modified between the start and end dates
+			fileDate := info.ModTime()
+			if fileDate.After(startDate) && fileDate.Before(endDate) {
 				// Check if the file is in the exclude list
 				excluded := false
 				for _, excludeFile := range exclude {
