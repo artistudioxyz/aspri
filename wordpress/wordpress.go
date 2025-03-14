@@ -195,6 +195,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"webpack.config.js",
 		"README.md",
 		"sniffer.txt",
+		"vite.config.js",
 	}
 	var FilesforGithub = []string{ // Lists of files that is required for GitHub
 		"README.md",
