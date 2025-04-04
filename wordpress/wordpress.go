@@ -182,6 +182,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		/** Development Files */
 		"helper.php",
 		"Gruntfile.js",
+		"components.json",
 		"composer.json",
 		"composer.lock",
 		"originalassets.js",
