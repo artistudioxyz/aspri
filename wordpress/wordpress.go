@@ -158,6 +158,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		".eslintignore",
 		".eslintrc.json",
 		".prettierignore",
+		".prettierrc",
 		".prettierrc.json",
 		".release-it.json",
 		"commitlint.config.js",
