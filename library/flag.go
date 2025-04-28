@@ -40,6 +40,7 @@ type Flag struct {
 	ResetCache         *bool
 	Rsync              *bool
 	Stats              *bool
+	SearchTemplate     *bool
 	SearchandReplace   *bool
 	Standardize        *bool
 	Syncthing          *bool
@@ -81,6 +82,7 @@ type Flag struct {
 	From         *string
 	Heading      *string
 	Hostname     *string
+	Keyword     *string
 	Level        *int
 	Limit        *int
 	Message      *string
@@ -133,7 +135,8 @@ func GetFlag() Flag {
 		QuoteofTheDay:      flag.Bool("quote-of-the-day", false, "show quote of the day"),
 		Reset:              flag.Bool("reset", false, "Reset Mode"),
 		Restart:            flag.Bool("restart", false, "Restart (Docker Mode): Container"),
-		SearchandReplace:   flag.Bool("search-replace", false, "do search and replace"),
+		SearchTemplate:     flag.Bool("search-template", false, "Search Template"),
+		SearchandReplace:   flag.Bool("search-replace", false, "Search and Replace"),
 		SelfUpdate:         flag.Bool("self-update", false, "self update"),
 		Standardize:        flag.Bool("standardize", false, "Standardize"),
 		Stats:              flag.Bool("stats", false, "show stats"),
@@ -172,6 +175,7 @@ func GetFlag() Flag {
 		From:         flag.String("from", "", "Refactor Text From"),
 		Heading:      flag.String("heading", "", "Heading"),
 		Hostname:     flag.String("hostname", "", "Hostname"),
+		Keyword:      flag.String("keyword", "", "Keyword"),
 		Level:        flag.Int("level", 0, "Directory Level (Dir Mode): Directory Level"),
 		Limit:        flag.Int("limit", 0, "Number of limit"),
 		Message:      flag.StringP("message", "m", "", "Message (Git Mode): Commit Message"),

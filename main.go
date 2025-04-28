@@ -20,6 +20,7 @@ func main() {
 	library.InitiateMarkdownFunction(flags)
 	library.InitiateMiscellaneousFunction(flags)
 	library.InitiateNoIPFunction(flags)
+	library.InitiateJsonFunction(flags)
 	library.InitiatePHPFunction(flags)
 	library.InitiatePHPCSFunction(flags)
 	library.InitiateRsyncFunction(flags)
