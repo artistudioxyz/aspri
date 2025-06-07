@@ -174,6 +174,7 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 		"assets/css",
 		"assets/js",
 		"assets/ts",
+		"assets/blocks",
 		"assets/components",
 		"assets/dist/css/tailwind.css",
 		"assets/dist/css/tailwind.min.css",
