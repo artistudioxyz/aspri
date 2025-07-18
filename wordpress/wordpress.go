@@ -276,20 +276,22 @@ func CheckProjectVersion(project WPProject) {
 		panic("❌ Plugin Version Do Not Match " + FileName)
 	}
 
-	/** Check occurrence (config.json) */
+	// Check occurrence (config.json)
 	FileName = "config.json"
-	if _, err := os.Stat(project.Path.Directory + string(filepath.Separator) + FileName); err == nil {
-		content = library.ReadFile(project.Path.Directory + string(filepath.Separator) + FileName)
-		res, err := regexp.Match(project.Version, content)
-		if res {
+	configPath := project.Path.Directory + string(filepath.Separator) + FileName
+	if _, err := os.Stat(configPath); err == nil {
+		content = library.ReadFile(configPath)
+		if res, err := regexp.Match(project.Version, content); res {
 			fmt.Println("✅ Plugin Version Match", FileName)
+		} else if err != nil {
+			panic(err)
 		} else {
 			fmt.Println("❌ Plugin Version Do Not Match " + FileName)
-			panic(err)
+			panic("Version mismatch in " + FileName)
 		}
 	}
 
-	/** Check occurrence (config.json) */
+	// Check occurrence (package.json)
 	FileName = "package.json"
 	if _, err := os.Stat(project.Path.Directory + string(filepath.Separator) + FileName); err == nil {
 		content = library.ReadFile(project.Path.Directory + string(filepath.Separator) + FileName)
