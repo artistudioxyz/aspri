@@ -225,9 +225,17 @@ func CleanProjectFilesforProduction(path string, buildType string) {
 func SetConfigProduction(path string, production bool) {
 	plugin := GetPluginInformation(path)
 	FileName := "config.json"
-	content := library.ReadFile(plugin.Path.Directory + string(filepath.Separator) + FileName)
 
-	/** Read and Change Value */
+	// Check if file exists
+	configPath := plugin.Path.Directory + string(filepath.Separator) + FileName
+	if _, err := os.Stat(configPath); err != nil {
+		return
+	}
+
+	// Get Content
+	content := library.ReadFile(configPath)
+
+	// Read and Change Value
 	var objmap map[string]interface{}
 	if err := json.Unmarshal(content, &objmap); err != nil {
 		panic(err)
